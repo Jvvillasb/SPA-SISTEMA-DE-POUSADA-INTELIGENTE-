@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "@chakra-ui/react"
+import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
 import './loginForm.styles.css';
 
 const LoginForm = () => {
@@ -12,19 +12,17 @@ const LoginForm = () => {
   }
 
   return (
-    <div className='login-container'>
+    <FormControl className='login-container'>
       <form onSubmit={handleSubmit} className='form-login'>
-        <label>
-          Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
+        <Stack spacing={3}>  
+          <FormLabel>Email</FormLabel>
+          <Input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <FormLabel>Senha</FormLabel>
+          <Input placeholder= "Senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <Button color="brand.500" type="submit">Login</Button>
+        </Stack>
       </form>
-    </div>
+    </FormControl>
   );
 }
 
