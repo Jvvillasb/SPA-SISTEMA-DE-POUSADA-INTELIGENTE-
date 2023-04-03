@@ -22,6 +22,7 @@ const LoginForm = () => {
         <Button color="brand.500" type="submit">Login</Button>
         </Stack>
       </form>
+      <img src="src\assets\spa.png"/>
     </FormControl>
   );
 }
