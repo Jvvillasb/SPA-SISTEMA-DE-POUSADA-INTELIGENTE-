@@ -1,14 +1,37 @@
 import React from 'react';
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
 import './loginForm.styles.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const username = import.meta.env.VITE_USERNAME_BASIC_AUTH;
+  const senha = import.meta.env.VITE_PASSWORD_BASIC_AUTH;
+  const basicAuth = 'Basic ' + btoa(username + ':' + senha);
+
+  const params = new URLSearchParams({
+    username: email,
+    password: password,
+    grant_type: 'password'
+    
+  });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Aqui você pode adicionar a lógica para fazer a requisição de autenticação
+    axios.post('http://localhost:8080/oauth/token', params, {
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      }).then((response: any) => {
+        localStorage.setItem('access_token', response.data.access_token);
+        navigate('/dashboard');
+      }).catch((error: any) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -16,9 +39,9 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit} className='form-login'>
         <Stack spacing={3}>  
           <FormLabel>Email</FormLabel>
-          <Input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input placeholder="Insira seu email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <FormLabel>Senha</FormLabel>
-          <Input placeholder= "Senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input placeholder= "Insira sua senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <Button color="brand.500" type="submit">Login</Button>
         </Stack>
       </form>

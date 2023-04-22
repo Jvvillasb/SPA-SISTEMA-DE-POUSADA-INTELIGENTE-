@@ -3,7 +3,8 @@
   width: 100%;
   display: flex;
   align-items: center;
-  margin-left: 10rem;
+  justify-content: space-evenly;
+  flex-direction: column-reverse;
 }
 
 .form-login {
@@ -21,4 +22,14 @@ input {
   border: 1px solid #535151;
   border-radius: 0.5rem;
   padding: 0.5rem;
+}
+
+img {
+  width: 20%;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column-reverse;
+  }	
 }
