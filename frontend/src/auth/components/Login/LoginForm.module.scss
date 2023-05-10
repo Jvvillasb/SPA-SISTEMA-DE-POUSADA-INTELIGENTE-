@@ -1,0 +1,32 @@
+.loginContainer {
+  max-height: 40rem;
+  max-width: 32rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column-reverse;
+  margin: 0 auto;
+  padding: 24px;
+
+
+  .formLogin {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+    justify-content: space-between;
+    border: 2px solid #ccc6c6;
+    border-radius: 0.5rem;
+  }
+
+  input {
+    border: 1px solid #535151;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  img {
+    width: 50%;
+  }
+}

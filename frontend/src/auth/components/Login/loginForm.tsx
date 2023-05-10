@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
-import './loginForm.styles.css';
+import styles from './LoginForm.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,8 +35,8 @@ const LoginForm = () => {
   }
 
   return (
-    <FormControl className='login-container'>
-      <form onSubmit={handleSubmit} className='form-login'>
+    <FormControl className={styles.loginContainer}>
+      <form onSubmit={handleSubmit} className={styles.formLogin}>
         <Stack spacing={3}>  
           <FormLabel>Email</FormLabel>
           <Input placeholder="Insira seu email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
