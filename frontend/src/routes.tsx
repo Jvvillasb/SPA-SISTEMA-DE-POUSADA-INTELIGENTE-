@@ -1,28 +1,20 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import Login from './auth/pages/login';
+import AuthChecker from './auth/components/AuthChecker/authChecker';
 
 const Routers = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    setIsAuthenticated(!!token);
-  }, []);
 
   return (
-    <BrowserRouter>
-{isAuthenticated ? (
-        <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      )}
-    </BrowserRouter>
+    <>
+    <AuthChecker />
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<h1>asdasdsa </h1>} />
+    </Routes>
+    </>
   );
 }
 

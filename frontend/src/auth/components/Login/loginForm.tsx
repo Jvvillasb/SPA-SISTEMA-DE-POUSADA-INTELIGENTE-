@@ -3,8 +3,13 @@ import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react"
 import styles from './LoginForm.module.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-const LoginForm = () => {
+interface props {
+  setCookie: (name: "access_token", value: string, options?: any) => void;
+}
+
+const LoginForm = ({ setCookie } : props) => {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -27,7 +32,7 @@ const LoginForm = () => {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
       }).then((response: any) => {
-        localStorage.setItem('access_token', response.data.access_token);
+        setCookie('access_token', response.data.access_token, { path: '/', maxAge: response.data.expires_in });
         navigate('/dashboard');
       }).catch((error: any) => {
         console.log(error);
