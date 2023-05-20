@@ -26,7 +26,7 @@ const LoginForm = ({ setCookie } : props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post('http://localhost:8080/oauth/token', params, {
+    axios.post('https://spi-prod.herokuapp.com/oauth/token', params, {
         headers: {
           'Authorization': basicAuth,
           'Content-Type': 'application/x-www-form-urlencoded'
