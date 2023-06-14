@@ -1,5 +1,5 @@
 .loginContainer {
-  max-height: 40rem;
+  max-height: 100rem;
   max-width: 32rem;
   display: flex;
   align-items: center;
@@ -12,21 +12,35 @@
   .formLogin {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    max-height: 780px;
+    max-width: 550px;
     padding: 2rem;
     justify-content: space-between;
     border: 2px solid #ccc6c6;
     border-radius: 0.5rem;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+    border-color: none;
   }
 
+  .formTitle {
+    font-weight: 400;
+    font-size: 48px;
+    align-self: center;
+  }
+
+
   input {
-    border: 1px solid #535151;
+    border: 1px solid #d8d8d8;
     border-radius: 0.5rem;
     padding: 0.5rem;
   }
 
   img {
     width: 50%;
+  }
+
+  a {
+    width: 140px;
+    color: #0232b6;
   }
 }

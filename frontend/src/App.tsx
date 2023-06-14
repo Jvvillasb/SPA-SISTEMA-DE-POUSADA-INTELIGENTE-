@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 import Routers from "./routes";
 import { ChakraProvider } from '@chakra-ui/react'

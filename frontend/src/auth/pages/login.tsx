@@ -15,7 +15,7 @@ const Login = () => {
   }, [cookies, navigate]);
 
   return (
-      <LoginForm setCookie={setCookie} />
+      <LoginForm setCookie={setCookie as (name: string, value: string, options?: any) => void} />
   );
 }
 
