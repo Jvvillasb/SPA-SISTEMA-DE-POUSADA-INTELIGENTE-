@@ -14,14 +14,14 @@ public class Guest implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
 	private String nome;
 	private String documento;
-	private String dataNascimento;
+	private String dataNascimento; 
 	private String telefone;
 	private String genero;
 	private String email;
@@ -29,8 +29,8 @@ public class Guest implements Serializable{
 	private String estado;
 	private String nacionalidade;
 	private Boolean caravana;
-	private String dataEntrada;
-	private String dataSaida;
+	private String dataEntrada; 
+	private String dataSaida; 
 	
 	
 	public Guest() {

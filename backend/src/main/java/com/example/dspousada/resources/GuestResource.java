@@ -1,6 +1,7 @@
 package com.example.dspousada.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.dspousada.dto.GuestDTO;
 import com.example.dspousada.services.GuestService;
 
+
 @RestController
 @RequestMapping(value = "/guest")
 public class GuestResource {
@@ -30,8 +32,14 @@ public class GuestResource {
 	private GuestService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<GuestDTO>> findAll(Pageable pageable) {
-		Page<GuestDTO> list = service.findAllPaged(pageable);		
+	public ResponseEntity<Page<GuestDTO>> findAll(@RequestParam(value = "name", defaultValue = "") String name,
+			@RequestParam(value = "documento", defaultValue = "") String documento,
+			@RequestParam(value = "dataEntrada1", defaultValue = "") String dataEntrada1,
+			@RequestParam(value = "dataEntrada2", defaultValue = "") String dataEntrada2,
+			@RequestParam(value = "dataSaida1", defaultValue = "") String dataSaida1,
+			@RequestParam(value = "dataSaida2", defaultValue = "") String dataSaida2,
+			@RequestParam(value = "ativo", defaultValue = "") String ativo, Pageable pageable) {
+		Page<GuestDTO> list = service.findAllPaged(name, documento, dataEntrada1, dataEntrada2, dataSaida1, dataSaida2, ativo, pageable);		
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -41,10 +49,10 @@ public class GuestResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@GetMapping(value = "/nome")
-	public ResponseEntity<GuestDTO> findByName(@RequestParam(name = "nome") String id) {
-		GuestDTO dto = service.findByName(id);
-		return ResponseEntity.ok().body(dto);
+	@PostMapping(value = "/checkout")
+	public ResponseEntity<Void> checkout(@RequestBody List<Integer> lista) {
+		service.checkout(lista);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@PostMapping
