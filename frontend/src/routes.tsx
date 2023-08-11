@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import Login from './auth/pages/login';
-import AuthChecker from './auth/components/AuthChecker/authChecker';
+import Login from './pages/login';
+import AuthChecker from './components/AuthChecker/authChecker';
 import { useCookies } from 'react-cookie';
-import NavBar from './auth/components/Nav/NavBar';
-import Listing from './auth/pages/Listing';
+import NavBar from './components/Nav/NavBar';
+import Listing from './pages/Listing';
 
 const Routers = () => {
   const [cookies] = useCookies(['access_token']);

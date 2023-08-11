@@ -1,6 +1,7 @@
 
 import { useCookies } from 'react-cookie';
 import styles from './NavBar.module.scss';
+import LogoutButton from '../LogoutButton/LogoutButton';
 
 const NavBar = () => {
   const [cookies] = useCookies(['access_token']);
@@ -17,7 +18,7 @@ const NavBar = () => {
         </div>
       ) : (
         <div className={styles.navBarForms}>
-          <a href="/logout">Logout</a>
+          <LogoutButton/>
           <a href="/list">Lista de Usuários</a>
         </div>
       )}

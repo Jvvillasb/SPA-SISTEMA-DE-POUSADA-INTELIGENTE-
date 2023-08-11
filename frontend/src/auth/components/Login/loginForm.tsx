@@ -4,7 +4,6 @@ import styles from './LoginForm.module.scss';
 import axios from 'axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 
 interface Props {
   setCookie: (name: string, value: string, options?: any) => void;
@@ -34,6 +33,7 @@ const LoginForm = ({ setCookie }: Props) => {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
     }).then((response: AxiosResponse) => {
+      console.log(response.data);
       setCookie('access_token', response.data.access_token, { path: '/', maxAge: response.data.expires_in });
       navigate('/dashboard');
     }).catch((error: AxiosError) => {
