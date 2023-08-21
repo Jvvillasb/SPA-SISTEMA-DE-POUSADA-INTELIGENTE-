@@ -1,53 +1,39 @@
-import { Box } from '@chakra-ui/react';
 import Styles from './ListClients.module.scss';
+import { useEffect } from 'react';
+import useStore from './../../store/index';
+import Actions from './components/Actions/Actions';
+import { ClientListItem } from './components/ClientListItem/ClientListItem';
 
 const ListClients = () => {
-  const listClients = [{
-    id: 1,
-    name: 'João',
-    cpf: '000.000.000-00',
-    phone: '(00) 00000-0000',
-  },
-  {
-    id: 2,
-    name: 'Maria',
-    cpf: '000.000.000-00',
-    phone: '(00) 00000-0000',
-  },
-  {
-    id: 3,
-    name: 'José',
-    cpf: '000.000.000-00',
-    phone: '(00) 00000-0000',
-  },
-  {
-    id: 4,
-    name: 'Pedro',
-    cpf: '000.000.000-00',
-    phone: '(00) 00000-0000',
-  }];
+  const { page, clients, loading, fetchClient } = useStore(state => ({
+    page: state.page,
+    clients: state.clients,
+    loading: state.loading,
+    fetchClient: state.fetchClients
+  }));
+
+  useEffect(() => {
+    fetchClient();
+  }, [page]);
+
+  if (loading) {
+    return (
+      <div className={Styles.listClientsContainer}>
+        <p>Carregando os clientes...</p>
+      </div>
+    )
+  }
 
   return (
     <div className={Styles.listClientsContainer}>
-      <div className={Styles.listClientsContent}>
-        {listClients.map((client) => (
-          <div className={Styles.clientCard} key={client.id}>
-            <div className={Styles.clientCardInfo}>
-              <img src="src\assets\client.png" alt="foto do cliente" />
-              <Box borderLeft="1px solid #E1E1E1" pl={2} display={'flex'} flexDir={'column'} justifyContent={'center'} h={'130px'}>
-                <h2>Nome do Cliente: {client.name}</h2>
-                <h3>CPF: {client.cpf}</h3>
-                <h3>Telefone: {client.phone}</h3>
-              </Box>
-            </div>
-            <div className={Styles.clientCardButtons}>
-              <button className={Styles.clientCardButtonEdit}>Editar</button>
-              <button className={Styles.clientCardButtonDelete}>Excluir</button>
-            </div>
-
-          </div>
+      <Actions />
+      <ul className={Styles.listClientsContent}>
+        {clients.map((client) => (
+          <li key={client.id}>
+            <ClientListItem client={client} />
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
