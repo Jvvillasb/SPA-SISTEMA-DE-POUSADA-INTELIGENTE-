@@ -1,21 +1,24 @@
 package com.example.dspousada.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_guest")
-public class Guest implements Serializable{
+@Table(name = "tb_guia")
+public class Guia implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,25 +36,22 @@ public class Guest implements Serializable{
 	private String dataEntrada; 
 	private String dataSaida;
 	private String evento;
-	
-	@ManyToOne(optional = true)
-	@JoinColumn(name = "caravana_id", referencedColumnName = "id", nullable = true)
-	private Caravana caravana;
 	private String nomeCaravana;
 	
-	@ManyToOne(optional = true)
-	@JoinColumn(name = "guia_id", referencedColumnName = "id", nullable = true)
-	private Guia guia;
-	private String nomeGuia;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "caravana_id")
+	private Caravana caravana;
 	
-	public Guest() {
+	@OneToMany(mappedBy = "caravana", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
+	private List<Guest> guests;
+	
+	public Guia() {
 		
 	}
 
-
-	public Guest(Long id, String nome, String documento, String dataNascimento, String telefone, String genero,
+	public Guia(Long id, String nome, String documento, String dataNascimento, String telefone, String genero,
 			String email, String cidade, String estado, String nacionalidade, String dataEntrada,
-			String dataSaida, String evento, Caravana caravana, String nomeCaravana, Guia guia, String nomeGuia) {
+			String dataSaida, String evento, Caravana caravana, String nomeCaravana) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -68,8 +68,6 @@ public class Guest implements Serializable{
 		this.evento = evento;
 		this.caravana = caravana;
 		this.nomeCaravana = nomeCaravana;
-		this.guia = guia;
-		this.nomeGuia = nomeGuia;
 	}
 
 
@@ -215,19 +213,11 @@ public class Guest implements Serializable{
 		this.nomeCaravana = nomeCaravana;
 	}
 	
-	public Guia getGuia() {
-		return guia;
+	public List<Guest> getGuests() {
+		return guests;
 	}
 	
-	public void setGuia(Guia guia) {
-		this.guia = guia;
-	}
-	
-	public String getNomeGuia() {
-		return nomeGuia;
-	}
-	
-	public void setNomeGuia(String nomeGuia) {
-		this.nomeGuia = nomeGuia;
+	public void setGuests(List<Guest> guests) {
+		this.guests = guests;
 	}
 }

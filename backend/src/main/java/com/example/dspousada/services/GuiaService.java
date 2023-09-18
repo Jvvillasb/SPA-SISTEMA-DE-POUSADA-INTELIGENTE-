@@ -16,57 +16,52 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.dspousada.dto.GuestDTO;
+import com.example.dspousada.dto.GuiaDTO;
 import com.example.dspousada.entities.Caravana;
-import com.example.dspousada.entities.Guest;
 import com.example.dspousada.entities.Guia;
 import com.example.dspousada.repositories.CaravanaRepository;
-import com.example.dspousada.repositories.GuestRepository;
 import com.example.dspousada.repositories.GuiaRepository;
 import com.example.dspousada.services.exception.DatabaseException;
 import com.example.dspousada.services.exception.ResourceNotFoundException;
 
 @Service
-public class GuestService {
+public class GuiaService {
 
 	@Autowired
-	private GuestRepository repository;
-	
-	@Autowired
-	private GuiaRepository guiaRepository;
+	private GuiaRepository repository;
 	
 	@Autowired
 	private CaravanaRepository caravanaRepository;
 
 	@Transactional(readOnly = true)
-	public Page<GuestDTO> findAllPaged(String name, String documento, String dataEntrada1, String dataEntrada2,
-			String dataSaida1, String dataSaida2, String ativo, Long caravana, Pageable pageable) {
-		Page<Guest> list;
+	public Page<GuiaDTO> findAllPaged(String name, String documento, String dataEntrada1, String dataEntrada2,
+			String dataSaida1, String dataSaida2, String ativo, Pageable pageable) {
+		Page<Guia> list;
 		if (!dataEntrada1.isEmpty() && !dataEntrada2.isEmpty()) {
 			if (dataEntrada1.equals(dataEntrada2)) {
-				list = repository.findGuestDataEntradaEqualPaged(dataEntrada1, pageable);
+				list = repository.findGuiaDataEntradaEqualPaged(dataEntrada1, pageable);
 			} else {
-				list = repository.findGuestDataEntradaPaged(dataEntrada1, dataEntrada2, pageable);
+				list = repository.findGuiaDataEntradaPaged(dataEntrada1, dataEntrada2, pageable);
 			}
 		} else if (!dataSaida1.isEmpty() && !dataSaida2.isEmpty()) {
 			if (dataSaida1.equals(dataSaida2)) {
-				list = repository.findGuestDataSaidaEqualPaged(dataSaida1, pageable);
+				list = repository.findGuiaDataSaidaEqualPaged(dataSaida1, pageable);
 			} else {
-				list = repository.findGuestDataSaidaPaged(dataSaida1, dataSaida2, pageable);
+				list = repository.findGuiaDataSaidaPaged(dataSaida1, dataSaida2, pageable);
 			}
 		} else if (!ativo.isEmpty()) {
-			list = repository.findGuestAtivos(pageable);
+			list = repository.findGuiaAtivos(pageable);
 		} else {
-			list = repository.findGuestPaged(name, documento, caravana, pageable);
+			list = repository.findGuiaPaged(name, documento, pageable);
 		}
-		return list.map(x -> new GuestDTO(x));
+		return list.map(x -> new GuiaDTO(x));
 	}
 
 	@Transactional(readOnly = true)
-	public GuestDTO findById(Long id) {
-		Optional<Guest> obj = repository.findById(id);
-		Guest entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-		return new GuestDTO(entity);
+	public GuiaDTO findById(Long id) {
+		Optional<Guia> obj = repository.findById(id);
+		Guia entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new GuiaDTO(entity);
 	}
 
 	@Transactional
@@ -75,15 +70,14 @@ public class GuestService {
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
 		String dataFormatada = dateFormat.format(dataAtual);
 		for (int i = 0; i < lista.size(); i++) {
-			repository.checkoutGuest(lista.get(i), dataFormatada);
+			repository.checkoutGuia(lista.get(i), dataFormatada);
 		}
 	}
 
 	@Transactional
-	public GuestDTO insert(GuestDTO dto) {
+	public GuiaDTO insert(GuiaDTO dto) {
 		Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
-		Guia guia = guiaRepository.getReferenceById(dto.getGuia());
-		Guest entity = new Guest();
+		Guia entity = new Guia();
 		entity.setNome(dto.getNome());
 		entity.setDocumento(dto.getDocumento());
 		entity.setDataNascimento(dto.getDataNascimento());
@@ -96,20 +90,17 @@ public class GuestService {
 		entity.setDataEntrada(dto.getDataEntrada());
 		entity.setDataSaida(dto.getDataSaida());
 		entity.setEvento(dto.getEvento());
-		entity.setGuia(guia);
-		entity.setNomeGuia(guia.getNome());
 		entity.setCaravana(caravana);
 		entity.setNomeCaravana(caravana.getNome());
 		entity = repository.save(entity);
-		return new GuestDTO(entity);
+		return new GuiaDTO(entity);
 	}
 
 	@Transactional
-	public GuestDTO udpate(Long id, GuestDTO dto) {
+	public GuiaDTO udpate(Long id, GuiaDTO dto) {
 		try {
 			Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
-			Guia guia = guiaRepository.getReferenceById(dto.getGuia());
-			Guest entity = repository.getReferenceById(id);
+			Guia entity = repository.getReferenceById(id);
 			entity.setNome(dto.getNome());
 			entity.setDocumento(dto.getDocumento());
 			entity.setDataNascimento(dto.getDataNascimento());
@@ -122,12 +113,10 @@ public class GuestService {
 			entity.setDataEntrada(dto.getDataEntrada());
 			entity.setDataSaida(dto.getDataSaida());
 			entity.setEvento(dto.getEvento());
-			entity.setGuia(guia);
-			entity.setNomeGuia(guia.getNome());
 			entity.setCaravana(caravana);
 			entity.setNomeCaravana(caravana.getNome());
 			entity = repository.save(entity);
-			return new GuestDTO(entity);
+			return new GuiaDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
 		}

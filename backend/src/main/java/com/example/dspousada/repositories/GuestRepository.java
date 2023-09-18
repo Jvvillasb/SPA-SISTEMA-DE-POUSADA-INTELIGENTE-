@@ -12,8 +12,8 @@ import com.example.dspousada.entities.Guest;
 @Repository
 public interface GuestRepository extends JpaRepository<Guest, Long>{
 
-	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest i WHERE (LOWER(i.nome) LIKE LOWER(CONCAT('%',:name,'%'))) AND (LOWER(i.documento) LIKE LOWER(CONCAT('%',:documento,'%')))")
-	Page<Guest> findGuestPaged(String name, String documento, Pageable pageable);
+	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest i WHERE (LOWER(i.nome) LIKE LOWER(CONCAT('%',:name,'%'))) AND (LOWER(i.documento) LIKE LOWER(CONCAT('%',:documento,'%'))) AND i.caravana_id = :caravana")
+	Page<Guest> findGuestPaged(String name, String documento, Long caravana, Pageable pageable);
 	
 	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest WHERE DATA_ENTRADA BETWEEN :dataEntrada1 AND :dataEntrada2")
 	Page<Guest> findGuestDataEntradaPaged(String dataEntrada1, String dataEntrada2, Pageable pageable);

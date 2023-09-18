@@ -8,8 +8,11 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 
-INSERT INTO tb_guest(id, caravana, cidade, data_entrada, data_nascimento, data_saida, documento, email, estado, genero, nacionalidade, nome, telefone) VALUES (1, true, 'Lorena', '27032001', '27/03/2001', '55', '503.060.258-50', 'ana@gmail.com', 'SP', 'Masculino', 'Brasileiro', 'Ana Red', '31012203');
-INSERT INTO tb_guest(id, caravana, cidade, data_entrada, data_nascimento, data_saida, documento, email, estado, genero, nacionalidade, nome, telefone) VALUES (2, true, 'Cachoeira Paulista', '27032001', '27/03/2001', '28032001', '503.060.258-50', 'ana@gmail.com', 'SP', 'Masculino', 'Brasileiro', 'Ana Red', '31012203');
-INSERT INTO tb_guest(id, caravana, cidade, data_entrada, data_nascimento, data_saida, documento, email, estado, genero, nacionalidade, nome, telefone) VALUES (3, true, 'Lorena', '27032001', '27/03/2001', '29032001', '503.060.258-50', 'ana@gmail.com', 'SP', 'Masculino', 'Brasileiro', 'Ana Red', '31012203');
-INSERT INTO tb_guest(id, caravana, cidade, data_entrada, data_nascimento, data_saida, documento, email, estado, genero, nacionalidade, nome, telefone) VALUES (4, true, 'Cachoeira Paulista', '27032001', '27/03/2001', '55', '503.060.258-50', 'ana@gmail.com', 'SP', 'Masculino', 'Brasileiro', 'Ana Red', '31012203');
+INSERT INTO tb_caravana(id, cidade, nome, guia_id) VALUES (1, '', 'Sem caravana', null);
 
+INSERT INTO tb_guia(id, cidade, data_entrada, data_nascimento, data_saida, documento, email, estado, evento, genero, nacionalidade, nome, nome_caravana, telefone, caravana_id) VALUES (1, '', '', '', '', '', '', '', '', '', '', 'Sem Guia', '', '', 1);
+
+UPDATE tb_caravana SET guia_id = 1 WHERE id = 1;
+
+INSERT INTO tb_guest(id, nome, documento, data_nascimento, telefone, genero, email, cidade, estado, nacionalidade, data_entrada, data_saida, evento, caravana_id, nome_caravana, guia_id, nome_guia ) VALUES (1, 'João', '503.060.258-50', '27/03/2001', '996470064', 'Masculino', 'joao@gmail.com', 'Cachoeira Paulista', 'SP', 'Brasileiro', '', '','Hosana Brasil',1,'Sem Caravana',1,'Sem Guia');
+INSERT INTO tb_guest(id, nome, documento, data_nascimento, telefone, genero, email, cidade, estado, nacionalidade, data_entrada, data_saida, evento, caravana_id, nome_caravana, guia_id, nome_guia ) VALUES (2, 'Maria', '503.060.258-50', '27/03/2001', '996470064', 'Feminino', 'maria@gmail.com', 'Cachoeira Paulista', 'SP', 'Brasileiro', '', '','Hosana Brasil',1,'Sem Caravana',1,'Sem Guia');

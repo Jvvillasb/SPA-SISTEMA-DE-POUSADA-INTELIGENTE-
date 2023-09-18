@@ -18,16 +18,22 @@ public class GuestDTO implements Serializable{
 	private String cidade;
 	private String estado;
 	private String nacionalidade;
-	private Boolean caravana;
 	private String dataEntrada;
 	private String dataSaida;
+	private String evento;
+	
+	private Long caravana;
+	private String nomeCaravana;
+	
+	private Long guia;
+	private String nomeGuia;
 	
 	public GuestDTO() {
 	}
 
 	public GuestDTO(Long id, String nome, String documento, String dataNascimento, String telefone, String genero,
-			String email, String cidade, String estado, String nacionalidade, Boolean caravana, String dataEntrada,
-			String dataSaida) {
+			String email, String cidade, String estado, String nacionalidade, String dataEntrada,
+			String dataSaida, String evento, Long caravana, String nomeCaravana, Long guia, String nomeGuia) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -39,9 +45,13 @@ public class GuestDTO implements Serializable{
 		this.cidade = cidade;
 		this.estado = estado;
 		this.nacionalidade = nacionalidade;
-		this.caravana = caravana;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
+		this.evento = evento;
+		this.caravana = caravana;
+		this.nomeCaravana = nomeCaravana;
+		this.guia = guia;
+		this.nomeGuia = nomeGuia;
 	}
 	
 	public GuestDTO(Guest guest) {
@@ -56,9 +66,13 @@ public class GuestDTO implements Serializable{
 		cidade = guest.getCidade();
 		estado = guest.getEstado();
 		nacionalidade = guest.getNacionalidade();
-		caravana = guest.getCaravana();
 		dataEntrada = guest.getDataEntrada();
 		dataSaida = guest.getDataSaida();
+		evento = guest.getEvento();
+		caravana = guest.getCaravana().getId();
+		nomeCaravana = guest.getCaravana().getNome();
+		guia = guest.getGuia().getId();
+		nomeGuia = guest.getGuia().getNome();
 	}
 
 	public Long getId() {
@@ -141,14 +155,6 @@ public class GuestDTO implements Serializable{
 		this.nacionalidade = nacionalidade;
 	}
 
-	public Boolean getCaravana() {
-		return caravana;
-	}
-
-	public void setCaravana(Boolean caravana) {
-		this.caravana = caravana;
-	}
-
 	public String getDataEntrada() {
 		return dataEntrada;
 	}
@@ -164,7 +170,45 @@ public class GuestDTO implements Serializable{
 	public void setDataSaida(String dataSaida) {
 		this.dataSaida = dataSaida;
 	}
+	
+	public String getEvento() {
+		return evento;
+	}
+	
+	public void setEvento(String evento) {
+		this.evento = evento;
+	}
+	
+	public Long getCaravana() {
+		return caravana;
+	}
+	
+	public void setCaravana(Long caravana) {
+		this.caravana = caravana;
+	}
+	
+	public String getNomeCaravana() {
+		return nomeCaravana;
+	}
+	
+	public void setNomeCaravana(String nomeCaravana) {
+		this.nomeCaravana = nomeCaravana;
+	}
+	
+	public Long getGuia() {
+		return guia;
+	}
+	
+	public void setGuia(Long guia) {
+		this.guia = guia;
+	}
+	
+	public String getNomeGuia() {
+		return nomeGuia;
+	}
+	
+	public void setNomeGuia(String nomeGuia) {
+		this.nomeGuia = nomeGuia;
+	}
 
-	
-	
 }
