@@ -6,20 +6,24 @@ jest.mock('react-cookie');
 
 describe('NavBar', () => {
   beforeEach(() => {
-    (useCookies as jest.Mock).mockReturnValue([{ access_token: 'test-token' }, jest.fn(), jest.fn()]);
+    (useCookies as jest.Mock).mockReturnValue([
+      { access_token: 'test-token' },
+      jest.fn(),
+      jest.fn()
+    ]);
   });
 
   it('should render correctly', () => {
-    const { getByText } = render(<NavBar />);
+    const { getByText, getByRole } = render(<NavBar />);
     expect(getByText('SPI')).toBeInTheDocument();
     expect(getByText('Lista de Usuários')).toBeInTheDocument();
   });
 
-  it('should render correctly when user is not authenticated', () => {
+  it('should render sign in and register buttons when user is not authenticated', () => {
     (useCookies as jest.Mock).mockReturnValue([{}, jest.fn(), jest.fn()]);
-    const { getByText, queryByText } = render(<NavBar />);
+    const { getByRole, queryByText } = render(<NavBar />);
     expect(queryByText('Lista de Usuários')).not.toBeInTheDocument();
-    expect(getByText('Login')).toBeInTheDocument();
-    expect(getByText('Cadastrar')).toBeInTheDocument();
+    expect(getByRole('link', { name: /login/i })).toBeInTheDocument();
+    expect(getByRole('link', { name: /cadastrar/i })).toBeInTheDocument();
   });
 });

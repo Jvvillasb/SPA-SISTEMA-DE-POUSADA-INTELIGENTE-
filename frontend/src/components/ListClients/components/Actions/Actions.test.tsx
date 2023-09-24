@@ -6,8 +6,7 @@ import { create } from 'zustand';
 jest.mock('../../../../store/index');
 const mockedUseStore = useStore as jest.MockedFunction<typeof useStore>;
 describe('Actions component', () => {
-
-    jest.mock('../../../../store/index');
+  
     const setPage = jest.fn();
     beforeEach(() => {
         const store = create((set) => ({
@@ -27,14 +26,14 @@ describe('Actions component', () => {
     expect(getByText('Avançar')).toBeInTheDocument();
   });
 
-  it('should call setPage with page +1 when next is clicked', () => {
+  it('should call setPage with next page when click advance', () => {
     const { getByText } = render(<Actions />);
     fireEvent.click(getByText('Avançar'));
 
     expect(setPage).toHaveBeenCalledWith(2);
   });
 
-  it('should call setPage with page -1 when back is clicked', () => {
+  it('should call setPage with previous page when click return', () => {
     const { getByText } = render(<Actions />);
     fireEvent.click(getByText('Voltar'));
 
