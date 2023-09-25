@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from '../auth/components/Login/loginForm';
+import LoginForm from '../auth/components/Login/LoginForm';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';	

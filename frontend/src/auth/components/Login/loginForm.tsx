@@ -4,6 +4,7 @@ import styles from './LoginForm.module.scss';
 import axios from 'axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import img from '../../../assets/spa.png'
 
 interface Props {
   setCookie: (name: string, value: string, options?: any) => void;
@@ -77,7 +78,7 @@ const LoginForm = ({ setCookie }: Props) => {
           </Stack>
         </Stack>
       </form>
-      <img src="src\assets\spa.png" />
+      <img src={img} />
     </FormControl>
   );
 }
