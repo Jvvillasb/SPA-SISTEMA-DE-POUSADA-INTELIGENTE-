@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import { ClientListItem } from './components/ClientListItem/ClientListItem';
+import Filters from './components/Filters/Filters';
 
 const ListClients = () => {
   const { page, clients, loading, fetchClient } = useStore(state => ({
@@ -27,6 +28,7 @@ const ListClients = () => {
   return (
     <div className={Styles.listClientsContainer}>
       <Actions />
+      <Filters />
       <ul className={Styles.listClientsContent}>
         {clients.map((client) => (
           <li key={client.id}>

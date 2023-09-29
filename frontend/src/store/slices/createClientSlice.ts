@@ -9,17 +9,24 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     first: true,
     clients: [],
     loading: false,
+    totalPages: 0,
+    searchString: "",
     setPage: (page) => {
         set({page})
     },
     fetchClients: async () => {
         set({loading: true});
-        const {data: {first, last, content}} = await listClients(get().page);
+        const {page, searchString} = get();
+        const {data: {first, last, content, totalPages}} = await listClients(page, searchString);
         set({
             last,
             first,
             loading: false,
+            totalPages,
             clients: content,
         });
+    },
+    setSearchString: (searchString) => {
+        set({searchString})
     }
 });

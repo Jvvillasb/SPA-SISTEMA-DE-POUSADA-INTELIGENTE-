@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    list-style: none;
+
+    .items,.actions,.ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px lightgray solid;
+    }
+
+    .active {
+        background-color: lightgray;
+        color: white;
+    }
+
+    // .items {
+    //     width: 3rem;
+    //     height: 3rem;
+    // }
+
+    // .actions {
+    //     height: 3rem;
+    // }
+
+    
+}

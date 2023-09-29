@@ -1,35 +1,21 @@
+import Pagination from '../../../../commons/ui/Pagination/Pagination';
 import useStore from '../../../../store/index';
-
-import Styles from './Actions.module.scss';
 
 const Actions: React.FC = () => {
 
-    const [last, first, page, setPage] = useStore(state => ([
-        state.last,
-        state.first,
+    const [page, setPage, totalPages] = useStore(state => ([
         state.page,
         state.setPage,
+        state.totalPages
     ]));
 
-    const nextHandler = () => {
-        setPage(page + 1);
-    };
-    
-    const backHandler = () => {
-        setPage(page - 1);
-    };
+    const handlePageChange = (selectedPage: {selected: number}) => {
+        const {selected} = selectedPage;
+        setPage(selected);
+    }
 
     return (
-        <div className={Styles.clientListActions}>
-            <button className={Styles.clientListActionsButton} disabled={first}
-                onClick={backHandler}>
-                Voltar
-            </button>
-            <button className={Styles.clientListActionsButton} disabled={last}
-                onClick={nextHandler}>
-                Avançar
-            </button>
-        </div>
+        <Pagination pageCount={totalPages} onPageChange={handlePageChange} initialPage={page}/>
     )
 };
 
