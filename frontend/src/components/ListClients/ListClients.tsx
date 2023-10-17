@@ -27,7 +27,6 @@ const ListClients = () => {
 
   return (
     <div className={Styles.listClientsContainer}>
-      <Actions />
       <Filters />
       <ul className={Styles.listClientsContent}>
         {clients.map((client) => (
@@ -36,6 +35,7 @@ const ListClients = () => {
           </li>
         ))}
       </ul>
+      <Actions />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import ReactPaginate from 'react-paginate';
-import Styles from './Pagination.module.scss';
+import { StyledPagination } from './Pagination.styles'; 
 
 interface PaginationProps {
   pageCount: number;
@@ -7,29 +7,26 @@ interface PaginationProps {
   initialPage: number;
 }
 
-
 const Pagination = ({pageCount, onPageChange, initialPage}: PaginationProps) => {
   return (
-    <>
+    <StyledPagination>
       <ReactPaginate
         breakLabel="..."
-        nextLabel="Avançar"
+        nextLabel={null}
         onPageChange={onPageChange}
         pageRangeDisplayed={1}
         pageCount={pageCount}
-        previousLabel="Voltar"
+        previousLabel={null}
         renderOnZeroPageCount={null}
         marginPagesDisplayed={1}
-        className={Styles.pagination}
-        pageClassName={Styles.items}
-        pageLinkClassName={Styles.teste}
-        previousClassName={Styles.actions}
-        nextClassName={Styles.actions}
-        breakClassName={Styles.ellipsis}
-        activeClassName={Styles.active}
+        containerClassName="pagination"
+        pageClassName="pagination-item" // Vamos usar string simples aqui
+        pageLinkClassName="page-link"
+        breakClassName="pagination-item ellipsis"
+        activeClassName="active"
         initialPage={initialPage}
       />
-    </>
+    </StyledPagination>
   );
 }
 
