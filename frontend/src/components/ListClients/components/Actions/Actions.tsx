@@ -3,6 +3,7 @@ import useStore from '../../../../store/index';
 import Styles from './Actions.module.scss';
 
 const Actions: React.FC = () => {
+<<<<<<< Updated upstream
 
     const [last, first, page, setPage] = useStore(state => ([
         state.last,
@@ -31,6 +32,26 @@ const Actions: React.FC = () => {
             </button>
         </div>
     )
+=======
+    const [page, setPage, totalPages] = useStore((state) => [
+        state.page,
+        state.setPage,
+        state.totalPages,
+    ]);
+
+    const handlePageChange = (selectedPage: { selected: number }) => {
+        const { selected } = selectedPage;
+        setPage(selected);
+    };
+
+    return (
+        <Pagination
+            pageCount={totalPages}
+            onPageChange={handlePageChange}
+            initialPage={page}
+        />
+    );
+>>>>>>> Stashed changes
 };
 
 export default Actions;

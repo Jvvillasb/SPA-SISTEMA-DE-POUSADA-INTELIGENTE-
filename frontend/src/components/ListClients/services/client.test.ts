@@ -16,7 +16,9 @@ describe('listClients', () => {
         };
         mockedAxiosInstance.get.mockResolvedValue(response);
         const result = await listClients(page);
-        expect(axiosInstance.get).toHaveBeenCalledWith(`/guest?size=4&page=${page}`);
+        expect(axiosInstance.get).toHaveBeenCalledWith(
+            `/guest?size=4&page=${page}`
+        );
         expect(result).toEqual(response);
     });
 
@@ -24,7 +26,7 @@ describe('listClients', () => {
         const page = 1;
         const error = new Error('Error');
         mockedAxiosInstance.get.mockRejectedValue(error);
-        
+
         await expect(listClients(page)).rejects.toThrow(error);
     });
 });

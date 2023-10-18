@@ -1,6 +1,6 @@
 import Styles from './ClientListItem.module.scss';
 
-import { ClientListItemProps } from "./ClientListItem.types";
+import { ClientListItemProps } from './ClientListItem.types';
 
 export const ClientListItem: React.FC<ClientListItemProps> = ({ client }) => {
     return (
@@ -14,9 +14,13 @@ export const ClientListItem: React.FC<ClientListItemProps> = ({ client }) => {
                 </div>
             </div>
             <div className={Styles.clientListItemButtons}>
-                <button className={Styles.clientListItemButtonEdit}>Editar</button>
-                <button className={Styles.clientListItemButtonDelete}>Excluir</button>
+                <button className={Styles.clientListItemButtonEdit}>
+                    Editar
+                </button>
+                <button className={Styles.clientListItemButtonDelete}>
+                    Excluir
+                </button>
             </div>
         </div>
-    )
+    );
 };
