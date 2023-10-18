@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import { ClientListItem } from './components/ClientListItem/ClientListItem';
+import Card from '../../commons/ui/Card/Card';
 
 const ListClients = () => {
   const { page, clients, loading, fetchClient } = useStore(state => ({
@@ -30,7 +31,8 @@ const ListClients = () => {
       <ul className={Styles.listClientsContent}>
         {clients.map((client) => (
           <li key={client.id}>
-            <ClientListItem client={client} />
+            {/* <ClientListItem client={client} /> */}
+            <Card client={client}></Card>
           </li>
         ))}
       </ul>
