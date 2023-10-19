@@ -7,10 +7,15 @@ import { create } from 'zustand';
 jest.mock('../../store');
 const mockedUseStore = useStore as jest.MockedFunction<typeof useStore>;
 
+interface Clients {
+    id: string;
+    name: string;
+}
+
 describe('<ListClients />', () => {
     let mockFetchClient: jest.Mock;
     let mockPage: number;
-    let mockClients: any[];
+    let mockClients: Clients[];
     let mockLoading: boolean;
 
     beforeEach(() => {
@@ -26,7 +31,7 @@ describe('<ListClients />', () => {
             fetchClients: mockFetchClient,
         }));
 
-        (mockedUseStore).mockImplementation(mockState);
+        mockedUseStore.mockImplementation(mockState);
     });
 
     it('should render correctly', () => {
@@ -53,10 +58,12 @@ describe('<ListClients />', () => {
             fetchClients: mockFetchClient,
         }));
 
-        (mockedUseStore).mockImplementation(mockState);
+        mockedUseStore.mockImplementation(mockState);
 
         render(<ListClients />);
 
-        expect(screen.getByText('Carregando os clientes...')).toBeInTheDocument();
+        expect(
+            screen.getByText('Carregando os clientes...')
+        ).toBeInTheDocument();
     });
 });
