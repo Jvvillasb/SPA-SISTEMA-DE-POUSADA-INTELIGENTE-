@@ -1,4 +1,4 @@
 export interface TemplateCardMenuAction {
-    label: string,
-    onClick: VoidFunction,
+    label: string;
+    onClick: VoidFunction;
 }

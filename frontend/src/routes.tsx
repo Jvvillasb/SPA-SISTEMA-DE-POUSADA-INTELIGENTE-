@@ -7,26 +7,26 @@ import NavBar from './components/Nav/NavBar';
 import Listing from './pages/Listing';
 
 const Routers = () => {
-  const [cookies] = useCookies(['access_token']);
-  const isAuthenticated = !!cookies.access_token;
+    const [cookies] = useCookies(['access_token']);
+    const isAuthenticated = !!cookies.access_token;
 
-  return (
-    <>
-      <AuthChecker />
-      <NavBar />
-      <Routes>
-        {!isAuthenticated && (
-          <Route path="/login" element={<Login />} />
-        )}
-        {isAuthenticated && (
-          <>
-          <Route path="/list" element={<Listing />} />
-          <Route path="/logout" element={<>asd</>} />
-          </>
-        )}
-      </Routes>
-    </>
-  );
-}
+    return (
+        <>
+            <AuthChecker />
+            <NavBar />
+            <Routes>
+                {!isAuthenticated && (
+                    <Route path="/login" element={<Login />} />
+                )}
+                {isAuthenticated && (
+                    <>
+                        <Route path="/list" element={<Listing />} />
+                        <Route path="/logout" element={<>asd</>} />
+                    </>
+                )}
+            </Routes>
+        </>
+    );
+};
 
 export default Routers;
