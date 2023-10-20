@@ -26,28 +26,6 @@ const ListClients = () => {
     }
 
     return (
-<<<<<<< Updated upstream
-      <div className={Styles.listClientsContainer}>
-        <p>Carregando os clientes...</p>
-      </div>
-    )
-  }
-
-  return (
-    <div className={Styles.listClientsContainer}>
-      <Filters />
-      <ul className={Styles.listClientsContent}>
-        {clients.map((client) => (
-          <li key={client.id}>
-            <ClientListItem client={client} />
-          </li>
-        ))}
-      </ul>
-      <Actions />
-    </div>
-  );
-}
-=======
         <div className={Styles.listClientsContainer}>
             <Filters />
             <ul className={Styles.listClientsContent}>
@@ -61,6 +39,5 @@ const ListClients = () => {
         </div>
     );
 };
->>>>>>> Stashed changes
 
 export default ListClients;
