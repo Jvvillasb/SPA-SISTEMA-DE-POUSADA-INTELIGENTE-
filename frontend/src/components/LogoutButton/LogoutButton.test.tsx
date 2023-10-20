@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 
 // Fazer o mock de `useCookies` do pacote react-cookie
 jest.mock('react-cookie', () => ({
-    useCookies: jest.fn()
+    useCookies: jest.fn(),
 }));
 
 describe('<LogoutButton />', () => {
@@ -13,14 +13,18 @@ describe('<LogoutButton />', () => {
 
     beforeEach(() => {
         mockRemoveCookie = jest.fn();
-        (useCookies as jest.Mock).mockImplementation(() => [[], undefined, mockRemoveCookie]);
+        (useCookies as jest.Mock).mockImplementation(() => [
+            [],
+            undefined,
+            mockRemoveCookie,
+        ]);
 
         Object.defineProperty(window, 'location', {
             value: {
                 assign: jest.fn(),
-                href: ''
+                href: '',
             },
-            writable: true
+            writable: true,
         });
     });
 

@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
-export function useDebounce(fn: any, delay: number) {
-    const timeoutRef = useRef(0);
+export function useDebounce<F extends (...args: never[]) => void>(fn: F, delay: number) {
+    const timeoutRef = useRef<number | null>(null);
 
-    function debouncedFn(...args: any) {
-        window.clearTimeout(timeoutRef.current);
+    function debouncedFn(...args: Parameters<F>) {
+        if (timeoutRef.current) {
+            window.clearTimeout(timeoutRef.current);
+        }
         timeoutRef.current = window.setTimeout(() => {
             fn(...args);
         }, delay);
