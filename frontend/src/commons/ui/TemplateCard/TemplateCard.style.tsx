@@ -17,6 +17,7 @@ export const TemplateCardContainer = styled(ChakraBox, {
   shouldForwardProp: (propName) => propName !== "hasActions",
 })<TemplateCardContainerProps>`
   border-radius: 4px;
+  max-width: 300px;
   border-top: 6px solid #81868f;
   box-shadow: 0px 0px 5px 0px rgba(197, 197, 197, 0.44);
   transition: all 0.4s;
@@ -40,6 +41,7 @@ export const TemplateCardActions = styled(ChakraMenuButton)`
 
 export const TemplateCardBody = styled(ChakraBox)`
   margin-top: 32px;
+  width: 300px;
 `;
 
 export const TemplateCardBodyText = styled(ChakraText)`
