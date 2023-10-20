@@ -26,11 +26,9 @@ const ListClients = () => {
 
     return (
         <div className={Styles.listClientsContainer}>
-            <Actions />
             <ul className={Styles.listClientsContent}>
                 {clients.map((client) => (
                     <li key={client.id}>
-                        {/* <ClientListItem client={client} /> */}
                         <TemplateCard
                             title={client.nome}
                             subtitle={`${client.cidade} - ${client.estado}`}
@@ -56,6 +54,7 @@ const ListClients = () => {
                     </li>
                 ))}
             </ul>
+            <Actions />
         </div>
     );
 };
