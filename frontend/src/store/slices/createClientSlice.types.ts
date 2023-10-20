@@ -1,19 +1,6 @@
 import { Client } from 'src/commons/types/Client';
 
 export interface ClientState {
-<<<<<<< Updated upstream
-    page: number,
-    last: boolean,
-    first: boolean,
-    loading: boolean
-    clients: Client[]
-};
-
-export interface ClientStateType extends ClientState {
-    fetchClients: () => void
-    setPage: (page: number) => void
-};
-=======
     page: number;
     last: boolean;
     first: boolean;
@@ -28,4 +15,3 @@ export interface ClientStateType extends ClientState {
     setPage: (page: number) => void;
     setSearchString: (searchString: string) => void;
 }
->>>>>>> Stashed changes
