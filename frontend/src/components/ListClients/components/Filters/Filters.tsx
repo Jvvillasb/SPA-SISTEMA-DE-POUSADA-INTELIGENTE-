@@ -1,4 +1,4 @@
-import { useDebounce } from '../../../../commons/hooks/useDebounce';
+import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
 import { StyledInput } from './Filters.styles';
 
@@ -32,7 +32,7 @@ const Filters = () => {
                 value={searchString}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Pesquise usuários pelo nome"
+                placeholder="Pesquise usuários"
             />
         </>
     );
