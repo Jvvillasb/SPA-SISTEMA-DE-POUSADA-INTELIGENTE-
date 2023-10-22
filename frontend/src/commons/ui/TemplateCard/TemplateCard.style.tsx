@@ -51,4 +51,5 @@ export const TemplateCardBodyText = styled(ChakraText)`
 
 export const TemplateCardTitle = styled(ChakraHeading)`
     color: #81868f;
+    margin-bottom: 4px;
 `;

@@ -1,4 +1,4 @@
-import { Badge, Box, Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import {
     TemplateCardBody,
     TemplateCardTitle,
@@ -9,6 +9,7 @@ import {
 
 import TemplateCardMenu from '../TemplateCardMenu/TemplateCardMenu';
 import { TemplateCardMenuAction } from './../../types/TemplateCardMenu';
+import Badge from '../Badge/Badge';
 
 interface TemplateCardProps {
     title: string;
@@ -32,7 +33,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     <TemplateCardTitle noOfLines={1} size="md">
                         {title}
                     </TemplateCardTitle>
-                    <Badge variant="outline" colorScheme="green">
+                    <Badge variant="outline" colorScheme="green" noOfLines={1}>
                         {subtitle}
                     </Badge>
                 </Box>

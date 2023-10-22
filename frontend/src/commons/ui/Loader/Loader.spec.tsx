@@ -1,4 +1,4 @@
-import Loader from './Loader.component';
+import Loader from './Loader';
 
 import { render, screen } from '@testing-library/react';
 
