@@ -9,6 +9,7 @@ import {
 
 import styled from '@emotion/styled';
 
+import theme from '../../../theme';
 interface TemplateCardContainerProps extends BoxProps {
     hasActions: boolean;
 }
@@ -24,7 +25,7 @@ export const TemplateCardContainer = styled(ChakraBox, {
     padding: ${(props) => (props.hasActions ? '48px 20px 20px 20px' : '20px')};
     position: relative;
     &:hover {
-        border-top: 6px solid #39ae71;
+        border-top: 6px solid #${theme.colors.customGreen};
         box-shadow: 0px 0px 5px 0px rgba(197, 197, 197, 0.88);
     }
 `;
