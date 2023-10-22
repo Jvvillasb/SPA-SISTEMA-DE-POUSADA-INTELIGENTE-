@@ -1,9 +1,14 @@
-import Styles from './ListClients.module.scss';
 import { useEffect } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
-import { ClientListItem } from './components/ClientListItem/ClientListItem';
+import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
 import Filters from './components/Filters/Filters';
+import Loader from '../../commons/ui/Loader/Loader.component';
+import {
+    ClientsSection,
+    ListClientsContainer,
+    ListClientsContent,
+} from './ListClients.style';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -19,24 +24,47 @@ const ListClients = () => {
 
     if (loading) {
         return (
-            <div className={Styles.listClientsContainer}>
-                <p>Carregando os clientes...</p>
-            </div>
+            <ListClientsContainer>
+                <Loader message="Carregando Clientes" />
+            </ListClientsContainer>
         );
     }
 
     return (
-        <div className={Styles.listClientsContainer}>
-            <Filters />
-            <ul className={Styles.listClientsContent}>
-                {clients.map((client) => (
-                    <li key={client.id}>
-                        <ClientListItem client={client} />
-                    </li>
-                ))}
-            </ul>
-            <Actions />
-        </div>
+        <ListClientsContainer>
+            <ClientsSection>
+                <Filters />
+                <ListClientsContent>
+                    {clients.map((client) => (
+                        <li key={client.id}>
+                            <TemplateCard
+                                title={client.nome}
+                                subtitle={`${client.cidade} - ${client.estado}`}
+                                bodyItems={[
+                                    `Celular: ${client.telefone}`,
+                                    `Email: ${client.email}`,
+                                ]}
+                                actions={[
+                                    {
+                                        label: 'Editar',
+                                        onClick: () => {
+                                            console.log('Editar');
+                                        },
+                                    },
+                                    {
+                                        label: 'Excluir',
+                                        onClick: () => {
+                                            console.log('Excluir');
+                                        },
+                                    },
+                                ]}
+                            ></TemplateCard>
+                        </li>
+                    ))}
+                </ListClientsContent>
+                <Actions />
+            </ClientsSection>
+        </ListClientsContainer>
     );
 };
 
