@@ -32,6 +32,7 @@ const Filters = () => {
                 value={searchString}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
+                placeholder="Pesquise usuários pelo nome"
             />
         </>
     );

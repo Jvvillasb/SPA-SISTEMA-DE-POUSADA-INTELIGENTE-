@@ -14,13 +14,16 @@ export const StyledPagination = styled.div`
         font-family: 'Roboto', sans-serif;
         background-color: #ffffff;
         border: 1px solid #ccc;
-        width: 24px;
-        height: 24px;
+        width: 36px;
+        height: 36px;
         text-align: center;
         border-radius: 6px;
         color: #81868f;
         cursor: pointer;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .pagination-item.active {

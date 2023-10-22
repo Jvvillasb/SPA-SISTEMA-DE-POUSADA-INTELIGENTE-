@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Login from './pages/login';
-import AuthChecker from './components/AuthChecker/AuthChecker';
+import AuthChecker from './components/AuthChecker/authChecker';
 import { useCookies } from 'react-cookie';
-import NavBar from './components/Nav/NavBar';
 import Listing from './pages/Listing';
+import Navigation from './commons/layout/Navigation/Navigation';
 
 const Routers = () => {
     const [cookies] = useCookies(['access_token']);
@@ -13,7 +13,7 @@ const Routers = () => {
     return (
         <>
             <AuthChecker />
-            <NavBar />
+            <Navigation />
             <Routes>
                 {!isAuthenticated && (
                     <Route path="/login" element={<Login />} />
