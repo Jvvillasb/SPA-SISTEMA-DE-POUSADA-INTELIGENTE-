@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '@chakra-ui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Styles from './SideMenu.module.scss';
+import { SideMenuContainer, MenuItem } from './SideMenu.style';
 
 const SideMenu = () => {
     const navigate = useNavigate();
@@ -26,26 +25,20 @@ const SideMenu = () => {
     };
 
     return (
-        <Box className={Styles.sideMenu} width="204px">
-            <div className={Styles.sideMenuOptions}>
-                <a
-                    className={`${Styles.options} ${
-                        selectedItem === 'Caravanas' ? Styles.selected : ''
-                    }`}
-                    onClick={() => handleItemClick('Caravanas')}
-                >
-                    Caravanas
-                </a>
-                <a
-                    className={`${Styles.options} ${
-                        selectedItem === 'clientes' ? Styles.selected : ''
-                    }`}
-                    onClick={() => handleItemClick('clientes')}
-                >
-                    Clientes
-                </a>
-            </div>
-        </Box>
+        <SideMenuContainer>
+            <MenuItem
+                selected={selectedItem === 'Caravanas'}
+                onClick={() => handleItemClick('Caravanas')}
+            >
+                Caravanas
+            </MenuItem>
+            <MenuItem
+                selected={selectedItem === 'clientes'}
+                onClick={() => handleItemClick('clientes')}
+            >
+                Clientes
+            </MenuItem>
+        </SideMenuContainer>
     );
 };
 
