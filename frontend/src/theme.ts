@@ -6,8 +6,8 @@ const theme = extendTheme({
         lightGray: '#F7F8FC',
         softBlue: '#EFF3FC',
         mediumBlue: '#D8E4F4',
-        darkGray: '#2F3846'
-    }
+        darkGray: '#2F3846',
+    },
 });
 
 export default theme;

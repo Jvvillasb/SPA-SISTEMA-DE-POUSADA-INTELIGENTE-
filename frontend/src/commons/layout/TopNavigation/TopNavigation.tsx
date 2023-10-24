@@ -8,7 +8,10 @@ import {
     TopNavigationLink,
 } from './TopNavigation.styles';
 import { MdLogout } from 'react-icons/md';
-import { authenticatedRoutes, commonRoutes } from './../../../commons/constants/navigationRoutes';
+import {
+    authenticatedRoutes,
+    commonRoutes,
+} from './../../../commons/constants/navigationRoutes';
 
 const TopNavigation = () => {
     const [cookies, , removeCookie] = useCookies(['access_token']);
@@ -22,11 +25,11 @@ const TopNavigation = () => {
 
     return (
         <TopNavigationContainer>
-            <TopNavigationBrand to="/">SPI</TopNavigationBrand>
+            <TopNavigationBrand to="/list">SPI</TopNavigationBrand>
             <TopNavigationList>
                 {isAuthenticated ? (
                     <>
-                        {authenticatedRoutes.map(({path, title}) => (
+                        {authenticatedRoutes.map(({ path, title }) => (
                             <TopNavigationItem key={path}>
                                 <TopNavigationLink to={path}>
                                     {title}
@@ -36,8 +39,8 @@ const TopNavigation = () => {
                     </>
                 ) : (
                     <>
-                        {commonRoutes.map(({path, title}) => (
-                             <TopNavigationItem key={path}>
+                        {commonRoutes.map(({ path, title }) => (
+                            <TopNavigationItem key={path}>
                                 <TopNavigationLink to={path}>
                                     {title}
                                 </TopNavigationLink>

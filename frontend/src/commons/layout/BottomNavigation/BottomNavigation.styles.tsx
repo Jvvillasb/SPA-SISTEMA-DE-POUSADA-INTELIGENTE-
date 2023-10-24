@@ -1,8 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react';
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const BottomNavigationContainer = styled(Box)`
     position: fixed;
@@ -13,17 +13,16 @@ export const BottomNavigationContainer = styled(Box)`
     z-index: 2;
     background-color: #fff;
     box-shadow: 0px -1px 6px 0px rgba(131, 131, 131, 0.25) inset;
-`
+`;
 
 export const BottomNavigationList = styled.ul`
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: space-around;
-`
+`;
 
-export const BottomNavigationListItem = styled.li`
-`
+export const BottomNavigationListItem = styled.li``;
 
 export const BottomNavigationListLink = styled(NavLink)`
     width: 64px;
@@ -32,7 +31,8 @@ export const BottomNavigationListLink = styled(NavLink)`
     align-items: center;
     justify-content: center;
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
         background-color: #f3f4f5;
     }
 
@@ -41,4 +41,4 @@ export const BottomNavigationListLink = styled(NavLink)`
             fill: #39ae71;
         }
     }
-`
+`;
