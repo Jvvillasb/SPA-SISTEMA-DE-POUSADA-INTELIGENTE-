@@ -5,7 +5,6 @@ export const ListClientsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     background-color: #ffffff;
     padding: 24px;
@@ -20,30 +19,9 @@ export const ClientsSection = styled.div`
 export const ListClientsContent = styled.ul`
     display: grid;
     gap: 16px;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 16px;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );;
+    margin-top: 1.5rem;
     list-style: none;
-
-    @media (max-width: 1400px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media (max-width: 1200px) {
-        grid-template-columns: repeat(2, 1fr);
-        overflow: auto;
-        max-height: 600px;
-        padding: 16px;
-    }
-
-    @media (max-width: 900px) {
-        grid-template-columns: repeat(1, 1fr);
-        text-align: -webkit-center;
-    }
-
-    @media (max-width: 600px) {
-        max-height: 470px;
-        max-width: 346px;
-    }
 
     ::-webkit-scrollbar {
         width: 10px;

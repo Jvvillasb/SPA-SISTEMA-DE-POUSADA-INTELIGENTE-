@@ -3,7 +3,7 @@ import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
 import Filters from './components/Filters/Filters';
-import Loader from '../../commons/ui/Loader/Loader.component';
+import Loader from '../../commons/ui/Loader/Loader';
 import {
     ClientsSection,
     ListClientsContainer,

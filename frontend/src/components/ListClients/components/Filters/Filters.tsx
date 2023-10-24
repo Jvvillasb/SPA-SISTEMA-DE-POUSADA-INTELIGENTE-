@@ -1,5 +1,5 @@
 import { Button } from '../../../../commons/ui/Button/Button.styles';
-import { useDebounce } from '../../../../commons/hooks/useDebounce';
+import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
 import { FlexContainer, StyledInput } from './Filters.styles';
 import theme from '../../../../theme';
@@ -34,6 +34,7 @@ const Filters = () => {
                 value={searchString}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
+                placeholder="Pesquise usuários"
             />
             <Button
                 colorScheme={theme.colors.customGreen}

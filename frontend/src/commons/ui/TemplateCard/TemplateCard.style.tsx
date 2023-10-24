@@ -18,12 +18,12 @@ export const TemplateCardContainer = styled(ChakraBox, {
     shouldForwardProp: (propName) => propName !== 'hasActions',
 })<TemplateCardContainerProps>`
     border-radius: 4px;
-    max-width: 300px;
     border-top: 6px solid #81868f;
     box-shadow: 0px 0px 5px 0px rgba(197, 197, 197, 0.44);
     transition: all 0.4s;
-    padding: ${(props) => (props.hasActions ? '48px 20px 20px 20px' : '20px')};
+    padding: ${(props) => (props.hasActions ? '54px 20px 20px 20px' : '20px')};
     position: relative;
+    height: 100%;
     &:hover {
         border-top: 6px solid #${theme.colors.customGreen};
         box-shadow: 0px 0px 5px 0px rgba(197, 197, 197, 0.88);
@@ -42,7 +42,6 @@ export const TemplateCardActions = styled(ChakraMenuButton)`
 
 export const TemplateCardBody = styled(ChakraBox)`
     margin-top: 32px;
-    width: 300px;
 `;
 
 export const TemplateCardBodyText = styled(ChakraText)`
@@ -52,4 +51,5 @@ export const TemplateCardBodyText = styled(ChakraText)`
 
 export const TemplateCardTitle = styled(ChakraHeading)`
     color: #81868f;
+    margin-bottom: 4px;
 `;
