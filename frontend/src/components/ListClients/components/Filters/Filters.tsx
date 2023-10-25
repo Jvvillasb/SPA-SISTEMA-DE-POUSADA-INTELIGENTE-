@@ -4,7 +4,11 @@ import useStore from '../../../../store/index';
 import { FlexContainer, StyledInput } from './Filters.styles';
 import theme from '../../../../theme';
 
-const Filters = () => {
+interface FiltersProps {
+    action: () => void;
+}
+
+const Filters: React.FC<FiltersProps> = ({ action }) => {
     const { setSearchString, searchString, fetchClients } = useStore(
         (state) => ({
             setSearchString: state.setSearchString,
@@ -36,10 +40,7 @@ const Filters = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise usuários"
             />
-            <Button
-                colorScheme={theme.colors.customGreen}
-                onClick={() => console.log('clicou')}
-            >
+            <Button colorScheme={theme.colors.customGreen} onClick={action}>
                 Adicionar Cliente
             </Button>
         </FlexContainer>

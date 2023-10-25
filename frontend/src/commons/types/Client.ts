@@ -1,5 +1,6 @@
 export type Client = {
-    caravana: true;
+    caravana: number;
+    nomeCaravana: string;
     cidade: string;
     dataEntrada: string;
     dataNascimento: string;
@@ -12,4 +13,7 @@ export type Client = {
     nacionalidade: string;
     nome: string;
     telefone: string;
+    guia: number;
+    nomeGuia: string;
+    evento: string;
 };

@@ -30,7 +30,7 @@ const TopNavigation = () => {
                 {isAuthenticated ? (
                     <>
                         {authenticatedRoutes.map(({ path, title }) => (
-                            <TopNavigationItem key={path}>
+                            <TopNavigationItem key={`${path}_${title}`}>
                                 <TopNavigationLink to={path}>
                                     {title}
                                 </TopNavigationLink>
@@ -40,7 +40,7 @@ const TopNavigation = () => {
                 ) : (
                     <>
                         {commonRoutes.map(({ path, title }) => (
-                            <TopNavigationItem key={path}>
+                            <TopNavigationItem key={`${path}_${title}`}>
                                 <TopNavigationLink to={path}>
                                     {title}
                                 </TopNavigationLink>

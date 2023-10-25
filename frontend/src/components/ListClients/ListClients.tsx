@@ -9,6 +9,10 @@ import {
     ListClientsContainer,
     ListClientsContent,
 } from './ListClients.style';
+import { useDisclosure, useSteps } from '@chakra-ui/react';
+import Modal from '../../commons/ui/Modal/Modal';
+import ClientForm from '../Forms/Forms';
+import GenericStepper from '../../commons/ui/Stepper/Stepper';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -17,6 +21,20 @@ const ListClients = () => {
         loading: state.loading,
         fetchClient: state.fetchClients,
     }));
+    const addDisclosure = useDisclosure();
+
+    const steps = [
+        { title: 'Informação Pessoal' },
+        { title: 'Informações Geral' },
+    ];
+
+    const { activeStep, setActiveStep } = useSteps({
+        index: 0,
+        count: steps.length,
+    });
+
+    const stepsTitles = ['Registro de cliente', 'Registro de cliente'];
+    const stepsActions = ['Próximo', 'Concluir'];
 
     useEffect(() => {
         fetchClient();
@@ -33,7 +51,7 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters />
+                <Filters action={() => addDisclosure.onOpen()} />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
@@ -47,9 +65,7 @@ const ListClients = () => {
                                 actions={[
                                     {
                                         label: 'Editar',
-                                        onClick: () => {
-                                            console.log('Editar');
-                                        },
+                                        onClick: () => addDisclosure.onOpen(),
                                     },
                                     {
                                         label: 'Excluir',
@@ -63,6 +79,30 @@ const ListClients = () => {
                     ))}
                 </ListClientsContent>
                 <Actions />
+                <Modal
+                    isOpen={addDisclosure.isOpen}
+                    onClose={addDisclosure.onClose}
+                    title={stepsTitles[activeStep]}
+                    onSave={() => {
+                        if (activeStep < stepsTitles.length - 1) {
+                            setActiveStep((prev) => prev + 1);
+                        } else {
+                            // função de salvar
+                        }
+                    }}
+                    onBack={() => {
+                        if (activeStep > 0) {
+                            setActiveStep((prev) => prev - 1);
+                        }
+                    }}
+                    avoidCloseOnBack={false}
+                    size="5xl"
+                    saveLabel={stepsActions[activeStep]}
+                    activeStep={activeStep}
+                >
+                    <GenericStepper steps={steps} activeStep={activeStep} />
+                    <ClientForm activeStep={activeStep} />
+                </Modal>
             </ClientsSection>
         </ListClientsContainer>
     );
