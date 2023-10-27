@@ -1,9 +1,19 @@
-import { Column, Input, Label, Select, TwoColumns } from './Forms.styles';
-import { useForm } from 'react-hook-form';
+import {
+    Column,
+    Input,
+    Label,
+    Select,
+    TwoColumns,
+    InputMaskStyled,
+} from './Forms.styles';
 import { Client } from '../../commons/types/Client';
+import { UseFormRegister } from 'react-hook-form';
 
-const PersonalInfoRegister = () => {
-    const { register } = useForm<Client>();
+interface PersonalInfoProps {
+    register: UseFormRegister<Client>;
+}
+
+const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
     return (
         <TwoColumns>
             <Column>
@@ -13,8 +23,13 @@ const PersonalInfoRegister = () => {
                 </Label>
 
                 <Label>
-                    <span>Documento:</span>
-                    <Input {...register('documento')} placeholder="Documento" />
+                    <span>RG:</span>
+                    <InputMaskStyled
+                        mask="99.999.999-*"
+                        {...register('documento')}
+                        placeholder="Documento"
+                        type="text"
+                    />
                 </Label>
 
                 <Label>

@@ -1,80 +1,81 @@
 import styled from '@emotion/styled';
 import theme from '../../theme';
+import InputMask from 'react-input-mask';
+
+const BaseInputsStyle = `
+padding: 0.5rem;
+border-radius: 0.5rem;
+border: 1px solid ${theme.colors.mediumBlue};
+background-color: ${theme.colors.softBlue};
+color: ${theme.colors.darkGray};
+&:focus {
+    border-color: ${theme.colors.customGreen};
+    outline: none;
+    box-shadow: 0 0 0 0.1rem ${theme.colors.customGreen};
+}
+`;
 
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     overflow: auto;
-    padding: 1rem;
-    background-color: ${theme.colors.softBlue};
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    max-height: 750px;
+    padding: 1.5rem;
+    background-color: #f8fafc; // Adaptei para a cor de fundo do formulário da imagem
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05); // Reduzi a intensidade do box-shadow
 `;
 
 export const FormContent = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 `;
 
 export const TwoColumns = styled.div`
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
-    @media (max-width: 600px) {
-        flex-direction: column;
-    }
+    background-color: #ffffff; // Branco, assim como no design
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Shadow mais sutil
 `;
 
 export const Column = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    flex: 1;
 `;
 
 export const Input = styled.input`
-    padding: 0.8rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    flex: 1;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    ${BaseInputsStyle};
+`;
 
-    &:focus {
-        border-color: #${theme.colors.softBlue};
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-
-    &::placeholder {
-        color: #aaa;
-    }
+export const InputMaskStyled = styled(InputMask)`
+    ${BaseInputsStyle};
 `;
 
 export const Select = styled.select`
-    padding: 0.8rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    flex: 1;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
-
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid ${theme.colors.mediumBlue};
+    background-color: ${theme.colors.softBlue};
+    color: ${theme.colors.darkGray};
     &:focus {
-        border-color: ${theme.colors.softBlue};
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        border-color: ${theme.colors.customGreen};
+        outline: none;
+        box-shadow: 0 0 0 0.1rem ${theme.colors.customGreen};
     }
 `;
 
 export const Label = styled.label`
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-
+    color: ${theme.colors.darkGray};
+    font-size: 0.9rem;
+    font-weight: bold;
     span {
         margin-bottom: 0.5rem;
     }

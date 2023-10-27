@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
@@ -8,6 +8,7 @@ import {
     ClientsSection,
     ListClientsContainer,
     ListClientsContent,
+    StyledContentModal,
 } from './ListClients.style';
 import { useDisclosure, useSteps } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
@@ -22,6 +23,14 @@ const ListClients = () => {
         fetchClient: state.fetchClients,
     }));
     const addDisclosure = useDisclosure();
+
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const submitForm = () => {
+        if (formRef.current) {
+            formRef.current.requestSubmit();
+        }
+    };
 
     const steps = [
         { title: 'Informação Pessoal' },
@@ -87,7 +96,7 @@ const ListClients = () => {
                         if (activeStep < stepsTitles.length - 1) {
                             setActiveStep((prev) => prev + 1);
                         } else {
-                            // função de salvar
+                            submitForm();
                         }
                     }}
                     onBack={() => {
@@ -100,8 +109,10 @@ const ListClients = () => {
                     saveLabel={stepsActions[activeStep]}
                     activeStep={activeStep}
                 >
-                    <GenericStepper steps={steps} activeStep={activeStep} />
-                    <ClientForm activeStep={activeStep} />
+                    <StyledContentModal>
+                        <GenericStepper steps={steps} activeStep={activeStep} />
+                        <ClientForm activeStep={activeStep} formRef={formRef} />
+                    </StyledContentModal>
                 </Modal>
             </ClientsSection>
         </ListClientsContainer>

@@ -9,6 +9,7 @@ import Navigation from './commons/layout/Navigation/Navigation';
 const Routers = () => {
     const [cookies] = useCookies(['access_token']);
     const isAuthenticated = !!cookies.access_token;
+    console.log(cookies.access_token);
 
     return (
         <>

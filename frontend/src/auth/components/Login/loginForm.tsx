@@ -53,7 +53,7 @@ const LoginForm = ({ setCookie }: Props) => {
             })
             .then((response: AxiosResponse) => {
                 setCookie('access_token', response.data.access_token, {
-                    path: '/list',
+                    path: '/',
                     maxAge: response.data.expires_in,
                 });
                 navigate('/list');

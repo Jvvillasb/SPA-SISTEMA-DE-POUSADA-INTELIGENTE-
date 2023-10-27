@@ -1,9 +1,13 @@
 import { Column, Input, Label, TwoColumns } from './Forms.styles';
-import { useForm } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../commons/types/Client';
+interface GerencialInfoRegisterProps {
+    register: UseFormRegister<Client>;
+}
 
-const GerencialInfoRegister = () => {
-    const { register } = useForm<Client>();
+const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
+    register,
+}) => {
     return (
         <TwoColumns>
             <Column>
@@ -29,15 +33,6 @@ const GerencialInfoRegister = () => {
                     <span>Evento:</span>
                     <Input {...register('evento')} placeholder="Evento" />
                 </Label>
-
-                <Label>
-                    <span>Número da Caravana:</span>
-                    <Input
-                        {...register('caravana')}
-                        placeholder="Número da Caravana"
-                        type="number"
-                    />
-                </Label>
             </Column>
             <Column>
                 <Label>
@@ -45,15 +40,6 @@ const GerencialInfoRegister = () => {
                     <Input
                         {...register('nomeCaravana')}
                         placeholder="Nome da Caravana"
-                    />
-                </Label>
-
-                <Label>
-                    <span>Guia:</span>
-                    <Input
-                        {...register('guia')}
-                        placeholder="Guia"
-                        type="number"
                     />
                 </Label>
 

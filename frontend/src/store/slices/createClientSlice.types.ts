@@ -12,6 +12,7 @@ export interface ClientState {
 
 export interface ClientStateType extends ClientState {
     fetchClients: () => void;
+    createClients: (client: Client) => void;
     setPage: (page: number) => void;
     setSearchString: (searchString: string) => void;
 }

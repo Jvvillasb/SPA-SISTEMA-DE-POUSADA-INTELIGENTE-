@@ -9,3 +9,7 @@ export const listClients = async (page: number, searchString = '') => {
         `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}`
     );
 };
+
+export const createClients = async (client: Client) => {
+    return axiosInstance.post<Client>(`/guest`, client);
+};

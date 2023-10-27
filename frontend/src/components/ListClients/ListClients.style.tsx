@@ -38,3 +38,9 @@ export const ListClientsContent = styled.ul`
         background: #555;
     }
 `;
+
+export const StyledContentModal = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+`;
