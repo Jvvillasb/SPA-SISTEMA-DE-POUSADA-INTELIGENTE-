@@ -1,6 +1,10 @@
 import { StateCreator } from 'zustand';
 
-import { createClients, listClients, updateClient } from './../../components/ListClients/services/client.service';
+import {
+    createClients,
+    listClients,
+    updateClient,
+} from './../../components/ListClients/services/client.service';
 import { ClientStateType } from './createClientSlice.types';
 import { Client } from '../../commons/types/Client';
 
@@ -35,7 +39,7 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
             await createClients(client);
             await get().fetchClients();
         } catch (error) {
-            console.error("erro ao criar o cliente: ", error);
+            console.error('erro ao criar o cliente: ', error);
             set({ loading: false });
         }
     },
@@ -45,7 +49,7 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
             await updateClient(client, id);
             await get().fetchClients();
         } catch (error) {
-            console.error("Erro ao atualizar o cliente: ", error);
+            console.error('Erro ao atualizar o cliente: ', error);
             set({ loading: false });
         }
     },
