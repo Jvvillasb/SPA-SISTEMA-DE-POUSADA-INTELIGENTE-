@@ -83,7 +83,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                     <span>Estado:</span>
                     <Select
                         {...register('estado')}
-                        defaultValue={client.estado}
+                        defaultValue={client.estado.toLowerCase()}
                     >
                         <option value="estado">Selecione o Estado</option>
                         <option value="ac">Acre</option>
