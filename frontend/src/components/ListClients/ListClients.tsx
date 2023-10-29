@@ -8,7 +8,9 @@ import {
     ClientsSection,
     ListClientsContainer,
     ListClientsContent,
+    EmptyStateSection,
 } from './ListClients.style';
+import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -26,6 +28,20 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <Loader message="Carregando Clientes" />
+            </ListClientsContainer>
+        );
+    }
+
+    if (!clients.length) {
+        return (
+            <ListClientsContainer>
+                <EmptyStateSection>
+                    <Filters />
+                    <IllustratedState
+                        title="Nenhum cliente foi encontrado"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
             </ListClientsContainer>
         );
     }
