@@ -1,6 +1,6 @@
 import { Column, Input, Label, TwoColumns } from './Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
-import { Client } from '../../commons/types/Client';
+import { Client } from '../../../commons/types/Client';
 interface GerencialInfoRegisterProps {
     register: UseFormRegister<Client>;
 }

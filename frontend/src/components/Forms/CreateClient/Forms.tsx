@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Client } from '../../commons/types/Client';
+import { Client } from '../../../commons/types/Client';
 import { Column, Form, TwoColumns, FormContent } from './Forms.styles';
 import PersonalInfoRegister from './PersonalInfoRegister';
 import GerencialInfoRegister from './GerencialInfoRegister';
 import { useForm } from 'react-hook-form';
-import { formatDateToBR } from '../../commons/utils/FormatDateToBR';
-import useStore from './../../store/index';
+import { formatDateToBR } from '../../../commons/utils/FormatDate';
+import useStore from '../../../store/index';
 interface ClientFormProps {
     activeStep: number;
     formRef: React.RefObject<HTMLFormElement>;
@@ -20,7 +20,10 @@ const validateData = (data: Client) => {
     data.dataSaida = formatDateToBR(data.dataSaida);
 };
 
-const ClientForm: React.FC<ClientFormProps> = ({ activeStep, formRef }) => {
+const CreateClientForm: React.FC<ClientFormProps> = ({
+    activeStep,
+    formRef,
+}) => {
     const { createClient } = useStore((state) => ({
         createClient: state.createClients,
     }));
@@ -55,4 +58,4 @@ const ClientForm: React.FC<ClientFormProps> = ({ activeStep, formRef }) => {
     );
 };
 
-export default ClientForm;
+export default CreateClientForm;

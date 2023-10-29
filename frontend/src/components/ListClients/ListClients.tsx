@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
@@ -12,8 +12,10 @@ import {
 } from './ListClients.style';
 import { useDisclosure, useSteps } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
-import ClientForm from '../Forms/Forms';
+import CreateClientForm from '../Forms/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
+import EditClientForm from '../Forms/EditClient/EditClientForm';
+import { Client } from '../../commons/types/Client';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -23,6 +25,29 @@ const ListClients = () => {
         fetchClient: state.fetchClients,
     }));
     const addDisclosure = useDisclosure();
+
+    const defaultClient: Client = {
+        id: 0,
+        nome: '',
+        email: '',
+        telefone: '',
+        cidade: '',
+        estado: '',
+        caravana: 0,
+        nomeCaravana: '',
+        dataEntrada: '',
+        dataNascimento: '',
+        dataSaida: '',
+        documento: '',
+        genero: 'Masculino',
+        nacionalidade: '',
+        guia: 0,
+        nomeGuia: '',
+        evento: '',
+    };
+
+    const [creation, setCreation] = useState(false);
+    const [editClient, setEditClient] = useState<Client>(defaultClient);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -42,7 +67,9 @@ const ListClients = () => {
         count: steps.length,
     });
 
-    const stepsTitles = ['Registro de cliente', 'Registro de cliente'];
+    const stepsTitles = creation
+        ? ['Registro de cliente', 'Registro de cliente']
+        : ['Editar cliente', 'Editar cliente'];
     const stepsActions = ['Próximo', 'Concluir'];
 
     useEffect(() => {
@@ -60,7 +87,12 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters action={() => addDisclosure.onOpen()} />
+                <Filters
+                    action={() => {
+                        addDisclosure.onOpen();
+                        setCreation(true);
+                    }}
+                />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
@@ -74,7 +106,11 @@ const ListClients = () => {
                                 actions={[
                                     {
                                         label: 'Editar',
-                                        onClick: () => addDisclosure.onOpen(),
+                                        onClick: () => {
+                                            setCreation(false);
+                                            addDisclosure.onOpen();
+                                            setEditClient(client);
+                                        },
                                     },
                                     {
                                         label: 'Excluir',
@@ -111,7 +147,18 @@ const ListClients = () => {
                 >
                     <StyledContentModal>
                         <GenericStepper steps={steps} activeStep={activeStep} />
-                        <ClientForm activeStep={activeStep} formRef={formRef} />
+                        {creation ? (
+                            <CreateClientForm
+                                activeStep={activeStep}
+                                formRef={formRef}
+                            />
+                        ) : (
+                            <EditClientForm
+                                activeStep={activeStep}
+                                formRef={formRef}
+                                Client={editClient}
+                            />
+                        )}
                     </StyledContentModal>
                 </Modal>
             </ClientsSection>

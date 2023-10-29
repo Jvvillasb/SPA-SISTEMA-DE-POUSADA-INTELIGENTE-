@@ -13,3 +13,7 @@ export const listClients = async (page: number, searchString = '') => {
 export const createClients = async (client: Client) => {
     return axiosInstance.post<Client>(`/guest`, client);
 };
+
+export const updateClient = async (client: Client, id: number) => {
+    return axiosInstance.put<Client>(`/guest/${id}`, client);
+};

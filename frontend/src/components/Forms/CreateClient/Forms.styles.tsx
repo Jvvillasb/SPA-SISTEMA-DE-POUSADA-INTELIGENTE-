@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import theme from '../../theme';
+import theme from '../../../theme';
 import InputMask from 'react-input-mask';
+import { Input as chakraInput } from '@chakra-ui/react';
 
 const BaseInputsStyle = `
 padding: 0.5rem;
 border-radius: 0.5rem;
 border: 1px solid ${theme.colors.mediumBlue};
-background-color: ${theme.colors.softBlue};
 color: ${theme.colors.darkGray};
 &:focus {
     border-color: ${theme.colors.customGreen};
@@ -21,9 +21,9 @@ export const Form = styled.form`
     gap: 1.5rem;
     overflow: auto;
     padding: 1.5rem;
-    background-color: #f8fafc; // Adaptei para a cor de fundo do formulário da imagem
+    background-color: #f8fafc;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05); // Reduzi a intensidade do box-shadow
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
 `;
 
 export const FormContent = styled.div`
@@ -36,10 +36,10 @@ export const TwoColumns = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    background-color: #ffffff; // Branco, assim como no design
+    background-color: #ffffff;
     padding: 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Shadow mais sutil
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 `;
 
 export const Column = styled.div`
@@ -49,7 +49,7 @@ export const Column = styled.div`
     gap: 1rem;
 `;
 
-export const Input = styled.input`
+export const Input = styled(chakraInput)`
     ${BaseInputsStyle};
 `;
 
@@ -61,7 +61,6 @@ export const Select = styled.select`
     padding: 0.5rem;
     border-radius: 0.5rem;
     border: 1px solid ${theme.colors.mediumBlue};
-    background-color: ${theme.colors.softBlue};
     color: ${theme.colors.darkGray};
     &:focus {
         border-color: ${theme.colors.customGreen};
