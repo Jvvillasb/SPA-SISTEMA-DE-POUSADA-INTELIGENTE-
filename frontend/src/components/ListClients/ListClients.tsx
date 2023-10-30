@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
