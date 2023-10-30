@@ -16,6 +16,11 @@ export const ClientsSection = styled.div`
     margin: 0 auto;
 `;
 
+export const EmptyStateSection = styled.div`
+    width: 100%;
+    height: 100%;
+`;
+
 export const ListClientsContent = styled.ul`
     display: grid;
     gap: 16px;

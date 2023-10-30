@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
 import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
@@ -8,8 +9,10 @@ import {
     ClientsSection,
     ListClientsContainer,
     ListClientsContent,
+    EmptyStateSection,
     StyledContentModal,
 } from './ListClients.style';
+import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
 import { useDisclosure, useSteps } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
 import CreateClientForm from '../Forms/CreateClient/Forms';
@@ -80,6 +83,25 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <Loader message="Carregando Clientes" />
+            </ListClientsContainer>
+        );
+    }
+
+    if (!clients.length) {
+        return (
+            <ListClientsContainer>
+                <EmptyStateSection>
+                    <Filters
+                        action={() => {
+                            addDisclosure.onOpen();
+                            setCreation(true);
+                        }}
+                    />
+                    <IllustratedState
+                        title="Nenhum cliente foi encontrado"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
             </ListClientsContainer>
         );
     }
