@@ -61,5 +61,5 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     },
     setFilters: (filters) => {
         set({ filters });
-    }
+    },
 });

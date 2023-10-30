@@ -12,12 +12,14 @@ import {
     StyledContentModal,
 } from './ListClients.style';
 import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
-import { useDisclosure, useSteps } from '@chakra-ui/react';
+import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
 import CreateClientForm from '../Forms/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
 import EditClientForm from '../Forms/EditClient/EditClientForm';
 import { Client } from '../../commons/types/Client';
+import IconButton from '../../commons/ui/IconButton/IconButton';
+import { AddIcon } from '@chakra-ui/icons';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -90,12 +92,7 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <EmptyStateSection>
-                    <Filters
-                        action={() => {
-                            addDisclosure.onOpen();
-                            setCreation(true);
-                        }}
-                    />
+                    <Filters />
                     <IllustratedState
                         title="Nenhum cliente foi encontrado"
                         subtitle="Verifique os valores de busca e filtro. Tente novamente."
@@ -108,12 +105,7 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters
-                    action={() => {
-                        addDisclosure.onOpen();
-                        setCreation(true);
-                    }}
-                />
+                <Filters />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
@@ -182,6 +174,19 @@ const ListClients = () => {
                         )}
                     </StyledContentModal>
                 </Modal>
+                <Tooltip hasArrow label="Adicionar Clientes">
+                    <IconButton
+                        variant="solid"
+                        colorScheme="teal"
+                        aria-label="Done"
+                        fontSize="20px"
+                        icon={<AddIcon />}
+                        onClick={() => {
+                            addDisclosure.onOpen();
+                            setCreation(true);
+                        }}
+                    />
+                </Tooltip>
             </ClientsSection>
         </ListClientsContainer>
     );

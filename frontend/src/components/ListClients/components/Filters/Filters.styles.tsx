@@ -16,8 +16,15 @@ export const FlexContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
 `;
 
 export const Select = styled(chakraSelect)`
-    width: 100%;
+    width: 150px;
 `;

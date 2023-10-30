@@ -48,10 +48,11 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
 
                 <Label>
                     <span>Telefone:</span>
-                    <Input
+                    <InputMaskStyled
+                        mask="(99) 99999-9999"
                         {...register('telefone')}
                         defaultValue={client.telefone}
-                        type="tel"
+                        type="text"
                     />
                 </Label>
 

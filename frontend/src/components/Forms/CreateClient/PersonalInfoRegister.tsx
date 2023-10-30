@@ -43,10 +43,11 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
 
                 <Label>
                     <span>Telefone:</span>
-                    <Input
+                    <InputMaskStyled
+                        mask="(99) 99999-9999"
                         {...register('telefone')}
                         placeholder="Telefone"
-                        type="tel"
+                        type="text"
                     />
                 </Label>
 
