@@ -10,3 +10,9 @@ export const StyledInput = styled.input`
     height: 36px;
     padding: 8px;
 `;
+
+export const FlexContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;

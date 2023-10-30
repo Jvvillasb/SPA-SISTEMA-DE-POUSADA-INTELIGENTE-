@@ -56,7 +56,7 @@ const LoginForm = ({ setCookie }: Props) => {
                     path: '/',
                     maxAge: response.data.expires_in,
                 });
-                navigate('/dashboard');
+                navigate('/list');
             })
             .catch((error: AxiosError) => {
                 if (error.response && error.response.status === 400) {

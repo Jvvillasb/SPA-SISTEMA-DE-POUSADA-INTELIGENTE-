@@ -20,7 +20,7 @@ const SideMenu = () => {
         if (item === 'clientes') {
             navigate('/list');
         } else if (item === 'Caravanas') {
-            navigate('/');
+            navigate('/list');
         }
     };
 

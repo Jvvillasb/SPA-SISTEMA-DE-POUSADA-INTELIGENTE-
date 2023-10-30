@@ -24,7 +24,7 @@ export const EmptyStateSection = styled.div`
 export const ListClientsContent = styled.ul`
     display: grid;
     gap: 16px;
-    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     margin-top: 1.5rem;
     list-style: none;
 
@@ -42,4 +42,10 @@ export const ListClientsContent = styled.ul`
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+`;
+
+export const StyledContentModal = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `;

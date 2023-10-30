@@ -1,8 +1,14 @@
+import { Button } from '../../../../commons/ui/Button/Button.styles';
 import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
-import { StyledInput } from './Filters.styles';
+import { FlexContainer, StyledInput } from './Filters.styles';
+import theme from '../../../../theme';
 
-const Filters = () => {
+interface FiltersProps {
+    action: () => void;
+}
+
+const Filters: React.FC<FiltersProps> = ({ action }) => {
     const { setSearchString, searchString, fetchClients } = useStore(
         (state) => ({
             setSearchString: state.setSearchString,
@@ -26,7 +32,7 @@ const Filters = () => {
     const debouncedHandleInputChange = useDebounce(fetchClients, 500);
 
     return (
-        <>
+        <FlexContainer>
             <StyledInput
                 type="text"
                 value={searchString}
@@ -34,7 +40,10 @@ const Filters = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise usuários"
             />
-        </>
+            <Button colorScheme={theme.colors.customGreen} onClick={action}>
+                Adicionar Cliente
+            </Button>
+        </FlexContainer>
     );
 };
 
