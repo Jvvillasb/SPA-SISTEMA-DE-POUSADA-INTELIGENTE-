@@ -8,8 +8,10 @@ import {
     ClientsSection,
     ListClientsContainer,
     ListClientsContent,
+    EmptyStateSection,
     StyledContentModal,
 } from './ListClients.style';
+import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
 import { useDisclosure, useSteps } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
 import CreateClientForm from '../Forms/CreateClient/Forms';
@@ -80,6 +82,20 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <Loader message="Carregando Clientes" />
+            </ListClientsContainer>
+        );
+    }
+
+    if (!clients.length) {
+        return (
+            <ListClientsContainer>
+                <EmptyStateSection>
+                    <Filters />
+                    <IllustratedState
+                        title="Nenhum cliente foi encontrado"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
             </ListClientsContainer>
         );
     }
