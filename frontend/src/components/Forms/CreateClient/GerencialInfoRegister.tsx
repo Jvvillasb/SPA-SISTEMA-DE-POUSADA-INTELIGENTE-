@@ -1,4 +1,4 @@
-import { Column, Input, Label, TwoColumns } from './Forms.styles';
+import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
 interface GerencialInfoRegisterProps {
@@ -36,13 +36,26 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
             </Column>
             <Column>
                 <Label>
+                    <span>Está em caravana:</span>
+                    <Select {...register('caravana')}>
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
+                </Label>
+                <Label>
                     <span>Nome da Caravana:</span>
                     <Input
                         {...register('nomeCaravana')}
                         placeholder="Nome da Caravana"
                     />
                 </Label>
-
+                <Label>
+                    <span>Tem guia:</span>
+                    <Select {...register('guia')}>
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
+                </Label>
                 <Label>
                     <span>Nome do Guia:</span>
                     <Input

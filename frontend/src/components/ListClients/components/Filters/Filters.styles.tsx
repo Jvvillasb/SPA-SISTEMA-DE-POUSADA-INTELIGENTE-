@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Select as chakraSelect } from '@chakra-ui/react';
 
 export const StyledInput = styled.input`
     border-radius: 4px;
@@ -15,4 +16,8 @@ export const FlexContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+`;
+
+export const Select = styled(chakraSelect)`
+    width: 100%;
 `;

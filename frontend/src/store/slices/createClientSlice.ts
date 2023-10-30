@@ -16,15 +16,18 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     loading: false,
     totalPages: 0,
     searchString: '',
+    filters: {
+        excursionType: 1,
+    },
     setPage: (page) => {
         set({ page });
     },
     fetchClients: async () => {
         set({ loading: true });
-        const { page, searchString } = get();
+        const { page, searchString, filters } = get();
         const {
             data: { first, last, content, totalPages },
-        } = await listClients(page, searchString);
+        } = await listClients(page, searchString, filters);
         set({
             last,
             first,
@@ -56,4 +59,7 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     setSearchString: (searchString) => {
         set({ searchString });
     },
+    setFilters: (filters) => {
+        set({ filters });
+    }
 });

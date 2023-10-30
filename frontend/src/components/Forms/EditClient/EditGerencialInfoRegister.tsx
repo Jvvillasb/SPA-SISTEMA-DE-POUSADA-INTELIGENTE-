@@ -1,4 +1,10 @@
-import { Column, Input, Label, TwoColumns } from '../CreateClient/Forms.styles';
+import {
+    Column,
+    Input,
+    Label,
+    TwoColumns,
+    Select,
+} from '../CreateClient/Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
 import { formatDateToISO } from '../../../commons/utils/FormatDate';
@@ -43,20 +49,47 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
             </Column>
             <Column>
                 <Label>
-                    <span>Nome da Caravana:</span>
-                    <Input
-                        {...register('nomeCaravana')}
-                        defaultValue={client.nomeCaravana}
-                    />
+                    <span>Está em caravana:</span>
+                    <Select
+                        {...register('caravana')}
+                        defaultValue={client.caravana}
+                    >
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
                 </Label>
 
+                {client.caravana ? (
+                    <Label>
+                        <span>Nome da Caravana:</span>
+                        <Input
+                            {...register('nomeCaravana')}
+                            defaultValue={client.nomeCaravana}
+                        />
+                    </Label>
+                ) : (
+                    <></>
+                )}
+
                 <Label>
-                    <span>Nome do Guia:</span>
-                    <Input
-                        {...register('nomeGuia')}
-                        defaultValue={client.nomeGuia}
-                    />
+                    <span>Tem guia:</span>
+                    <Select {...register('guia')} defaultValue={client.guia}>
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
                 </Label>
+
+                {client.guia ? (
+                    <Label>
+                        <span>Nome do guia:</span>
+                        <Input
+                            {...register('nomeGuia')}
+                            defaultValue={client.nomeGuia}
+                        />
+                    </Label>
+                ) : (
+                    <></>
+                )}
             </Column>
         </TwoColumns>
     );
