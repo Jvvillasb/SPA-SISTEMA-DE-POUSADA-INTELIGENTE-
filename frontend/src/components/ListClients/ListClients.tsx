@@ -90,7 +90,12 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <EmptyStateSection>
-                    <Filters />
+                    <Filters
+                        action={() => {
+                            addDisclosure.onOpen();
+                            setCreation(true);
+                        }}
+                    />
                     <IllustratedState
                         title="Nenhum cliente foi encontrado"
                         subtitle="Verifique os valores de busca e filtro. Tente novamente."
