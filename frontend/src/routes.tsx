@@ -22,8 +22,9 @@ const Routers = () => {
                 {isAuthenticated && (
                     <>
                         <Route path="/list" element={<Listing />} />
+                        <Route path="/" element={<Listing />} />
                         <Route path="/logout" element={<>asd</>} />
-                        <Route path="*" element={<PageNotFound/>}/>
+                        <Route path="*" element={<PageNotFound />} />
                     </>
                 )}
             </Routes>

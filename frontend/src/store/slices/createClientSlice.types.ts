@@ -14,6 +14,7 @@ export interface ClientStateType extends ClientState {
     fetchClients: () => void;
     createClients: (client: Client) => void;
     updateClient: (client: Client, id: number) => void;
+    deleteClient: (id: number) => void;
     setPage: (page: number) => void;
     setSearchString: (searchString: string) => void;
 }

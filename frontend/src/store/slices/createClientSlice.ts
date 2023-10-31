@@ -53,6 +53,16 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
             set({ loading: false });
         }
     },
+    deleteClient: async (id: number) => {
+        set({ loading: true });
+        try {
+            await deleteClient(id);
+            await get().fetchClients();
+        } catch (error) {
+            console.error('Erro ao deletar o cliente: ', error);
+            set({ loading: false });
+        }
+    },
     setSearchString: (searchString) => {
         set({ searchString });
     },

@@ -17,3 +17,7 @@ export const createClients = async (client: Client) => {
 export const updateClient = async (client: Client, id: number) => {
     return axiosInstance.put<Client>(`/guest/${id}`, client);
 };
+
+export const deleteClient = async (id: number) => {
+    return axiosInstance.delete<Client>(`/guest/${id}`);
+};
