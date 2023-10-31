@@ -1,5 +1,4 @@
 import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
-import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
 interface GerencialInfoRegisterProps {

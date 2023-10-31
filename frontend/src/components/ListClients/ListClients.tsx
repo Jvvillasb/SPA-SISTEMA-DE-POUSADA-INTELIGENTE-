@@ -147,7 +147,10 @@ const ListClients = () => {
                 <Actions />
                 <Modal
                     isOpen={addDisclosure.isOpen}
-                    onClose={addDisclosure.onClose}
+                    onClose={() => {
+                        setActiveStep(0);
+                        addDisclosure.onClose();
+                    }}
                     title={stepsTitles[activeStep]}
                     onSave={() => {
                         if (activeStep < stepsTitles.length - 1) {

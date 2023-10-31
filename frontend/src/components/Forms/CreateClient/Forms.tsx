@@ -29,7 +29,6 @@ const CreateClientForm: React.FC<ClientFormProps> = ({
     const { register, handleSubmit, ...rest } = useForm<Client>();
 
     const onSubmit = (data: Client) => {
-        console.log(data);
         validateData(data);
         createClient(data);
     };
