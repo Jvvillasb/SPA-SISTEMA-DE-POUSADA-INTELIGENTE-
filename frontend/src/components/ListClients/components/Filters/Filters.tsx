@@ -1,21 +1,16 @@
-import { Button } from '../../../../commons/ui/Button/Button.styles';
 import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
-import { FlexContainer, StyledInput } from './Filters.styles';
-import theme from '../../../../theme';
+import { FlexContainer, Select, StyledInput } from './Filters.styles';
 
-interface FiltersProps {
-    action: () => void;
-}
-
-const Filters: React.FC<FiltersProps> = ({ action }) => {
-    const { setSearchString, searchString, fetchClients } = useStore(
-        (state) => ({
+const Filters: React.FC = () => {
+    const { setSearchString, searchString, fetchClients, setFilters, filters } =
+        useStore((state) => ({
             setSearchString: state.setSearchString,
             searchString: state.searchString,
             fetchClients: state.fetchClients,
-        })
-    );
+            setFilters: state.setFilters,
+            filters: state.filters,
+        }));
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchString(e.target.value);
@@ -31,6 +26,19 @@ const Filters: React.FC<FiltersProps> = ({ action }) => {
 
     const debouncedHandleInputChange = useDebounce(fetchClients, 500);
 
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setFilters({ excursionType: +event.target.value });
+        fetchClients();
+    };
+
+    const getPlaceholderFilter = () => {
+        const excursionTypeFilter: { [key: number]: string } = {
+            1: 'Sem caravana',
+            2: 'Com caravana',
+        };
+        return excursionTypeFilter[filters.excursionType];
+    };
+
     return (
         <FlexContainer>
             <StyledInput
@@ -40,9 +48,19 @@ const Filters: React.FC<FiltersProps> = ({ action }) => {
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise usuários"
             />
-            <Button colorScheme={theme.colors.customGreen} onClick={action}>
-                Adicionar Cliente
-            </Button>
+            <Select
+                rootProps={{ style: { width: 'fit-content' } }}
+                onChange={handleChange}
+                value={filters.excursionType}
+            >
+                {!filters.excursionType && (
+                    <option value="" disabled>
+                        {getPlaceholderFilter()}
+                    </option>
+                )}
+                <option value="2">Com caravana</option>
+                <option value="1">Sem caravana</option>
+            </Select>
         </FlexContainer>
     );
 };

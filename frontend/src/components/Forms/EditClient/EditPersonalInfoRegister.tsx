@@ -63,7 +63,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                             required: 'Telefone é obrigatório',
                         })}
                         defaultValue={client.telefone}
-                        type="tel"
+                        type="text"
                     />
                 </Label>
 
