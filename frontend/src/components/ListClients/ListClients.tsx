@@ -18,6 +18,9 @@ import CreateClientForm from '../Forms/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
 import EditClientForm from '../Forms/EditClient/EditClientForm';
 import { Client } from '../../commons/types/Client';
+import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
+import { deleteClient } from './services/client.service';
+import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -27,6 +30,8 @@ const ListClients = () => {
         fetchClient: state.fetchClients,
     }));
     const addDisclosure = useDisclosure();
+
+    const alertDisclosure = useDisclosure();
 
     const defaultClient: Client = {
         id: 0,
@@ -73,6 +78,8 @@ const ListClients = () => {
         ? ['Registro de cliente', 'Registro de cliente']
         : ['Editar cliente', 'Editar cliente'];
     const stepsActions = ['Próximo', 'Concluir'];
+
+    const { showCustomToast } = useCustomToast();
 
     useEffect(() => {
         fetchClient();
@@ -136,7 +143,8 @@ const ListClients = () => {
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
-                                            console.log('Excluir');
+                                            alertDisclosure.onOpen();
+                                            setEditClient(client);
                                         },
                                     },
                                 ]}
@@ -182,6 +190,36 @@ const ListClients = () => {
                         )}
                     </StyledContentModal>
                 </Modal>
+                <AlertDialog
+                    title="Excluir Cliente"
+                    description="Deseja realmente excluir este cliente?"
+                    isOpen={alertDisclosure.isOpen}
+                    onClose={alertDisclosure.onClose}
+                    confirmButtonText="Excluir"
+                    cancelButtonText="Cancelar"
+                    onConfirm={() => {
+                        alertDisclosure.onClose();
+                        deleteClient(editClient.id)
+                            .then(() => {
+                                showCustomToast({
+                                    title: 'Cliente deletado',
+                                    description:
+                                        'O cliente foi deletado com sucesso.',
+                                    status: 'success',
+                                });
+
+                                fetchClient();
+                            })
+                            .catch(() => {
+                                showCustomToast({
+                                    title: 'Erro ao deletar',
+                                    description:
+                                        'Ocorreu um erro ao tentar deletar o cliente.',
+                                    status: 'error',
+                                });
+                            });
+                    }}
+                />
             </ClientsSection>
         </ListClientsContainer>
     );

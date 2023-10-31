@@ -1,4 +1,10 @@
-import { Column, Input, Label, TwoColumns } from '../CreateClient/Forms.styles';
+import {
+    Column,
+    Input,
+    Label,
+    TwoColumns,
+    Select,
+} from '../CreateClient/Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
 import { formatDateToISO } from '../../../commons/utils/FormatDate';

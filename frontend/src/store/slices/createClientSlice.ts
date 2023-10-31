@@ -4,6 +4,7 @@ import {
     createClients,
     listClients,
     updateClient,
+    deleteClient,
 } from './../../components/ListClients/services/client.service';
 import { ClientStateType } from './createClientSlice.types';
 import { Client } from '../../commons/types/Client';
