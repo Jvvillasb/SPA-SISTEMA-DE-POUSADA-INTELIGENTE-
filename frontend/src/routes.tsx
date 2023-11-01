@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
 import AuthChecker from './components/AuthChecker/authChecker';
 import { useCookies } from 'react-cookie';
-import Listing from './pages/Listing';
+import ListingClients from './pages/ListingClients';
 import PageNotFound from './pages/NotFound/NotFound';
 import Navigation from './commons/layout/Navigation/Navigation';
 
@@ -21,9 +21,11 @@ const Routers = () => {
                 )}
                 {isAuthenticated && (
                     <>
-                        <Route path="/list" element={<Listing />} />
+                        <Route path="/usuarios" element={<ListingClients />} />
+                        <Route path="/" element={<ListingClients />} />
+                        <Route path="/caravanas" element={<>asd</>} />
                         <Route path="/logout" element={<>asd</>} />
-                        <Route path="*" element={<PageNotFound/>}/>
+                        <Route path="*" element={<PageNotFound />} />
                     </>
                 )}
             </Routes>

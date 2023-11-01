@@ -40,6 +40,10 @@ export const TwoColumns = styled.div`
     padding: 1rem;
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+    }
 `;
 
 export const Column = styled.div`
