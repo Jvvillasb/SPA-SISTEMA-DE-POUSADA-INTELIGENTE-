@@ -24,7 +24,9 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                 <Label>
                     <span>Data de Entrada:</span>
                     <Input
-                        {...register('dataEntrada')}
+                        {...register('dataEntrada', {
+                            required: 'Data de entrada é obrigatória',
+                        })}
                         defaultValue={formatDateToISO(client.dataEntrada)}
                         type="date"
                     />
@@ -42,7 +44,9 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                 <Label>
                     <span>Evento:</span>
                     <Input
-                        {...register('evento')}
+                        {...register('evento', {
+                            required: 'Evento é obrigatório',
+                        })}
                         defaultValue={client.evento}
                     />
                 </Label>
@@ -51,7 +55,9 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                 <Label>
                     <span>Está em caravana:</span>
                     <Select
-                        {...register('caravana')}
+                        {...register('caravana', {
+                            required: 'Este campo é obrigatório',
+                        })}
                         defaultValue={client.caravana}
                     >
                         <option value="2">Sim</option>
@@ -73,7 +79,12 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
 
                 <Label>
                     <span>Tem guia:</span>
-                    <Select {...register('guia')} defaultValue={client.guia}>
+                    <Select
+                        {...register('guia', {
+                            required: 'Este campo é obrigatório',
+                        })}
+                        defaultValue={client.guia}
+                    >
                         <option value="2">Sim</option>
                         <option value="1">Não</option>
                     </Select>

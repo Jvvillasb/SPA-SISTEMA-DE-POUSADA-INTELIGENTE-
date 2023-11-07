@@ -45,7 +45,9 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                     <span>Telefone:</span>
                     <InputMaskStyled
                         mask="(99) 99999-9999"
-                        {...register('telefone')}
+                        {...register('telefone', {
+                            required: 'Telefone é obrigatório',
+                        })}
                         placeholder="Telefone"
                         type="text"
                     />
