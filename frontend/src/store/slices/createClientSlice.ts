@@ -4,6 +4,7 @@ import {
     createClients,
     listClients,
     updateClient,
+    deleteClient,
 } from './../../components/ListClients/services/client.service';
 import { ClientStateType } from './createClientSlice.types';
 import { Client } from '../../commons/types/Client';
@@ -16,15 +17,18 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     loading: false,
     totalPages: 0,
     searchString: '',
+    filters: {
+        excursionType: 1,
+    },
     setPage: (page) => {
         set({ page });
     },
     fetchClients: async () => {
         set({ loading: true });
-        const { page, searchString } = get();
+        const { page, searchString, filters } = get();
         const {
             data: { first, last, content, totalPages },
-        } = await listClients(page, searchString);
+        } = await listClients(page, searchString, filters);
         set({
             last,
             first,
@@ -53,7 +57,20 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
             set({ loading: false });
         }
     },
+    deleteClient: async (id: number) => {
+        set({ loading: true });
+        try {
+            await deleteClient(id);
+            await get().fetchClients();
+        } catch (error) {
+            console.error('Erro ao deletar o cliente: ', error);
+            set({ loading: false });
+        }
+    },
     setSearchString: (searchString) => {
         set({ searchString });
+    },
+    setFilters: (filters) => {
+        set({ filters });
     },
 });

@@ -12,12 +12,17 @@ import {
     StyledContentModal,
 } from './ListClients.style';
 import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
-import { useDisclosure, useSteps } from '@chakra-ui/react';
+import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
 import CreateClientForm from '../Forms/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
 import EditClientForm from '../Forms/EditClient/EditClientForm';
 import { Client } from '../../commons/types/Client';
+import IconButton from '../../commons/ui/IconButton/IconButton';
+import { AddIcon } from '@chakra-ui/icons';
+import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
+import { deleteClient } from './services/client.service';
+import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 
 const ListClients = () => {
     const { page, clients, loading, fetchClient } = useStore((state) => ({
@@ -27,6 +32,8 @@ const ListClients = () => {
         fetchClient: state.fetchClients,
     }));
     const addDisclosure = useDisclosure();
+
+    const alertDisclosure = useDisclosure();
 
     const defaultClient: Client = {
         id: 0,
@@ -74,6 +81,8 @@ const ListClients = () => {
         : ['Editar cliente', 'Editar cliente'];
     const stepsActions = ['Próximo', 'Concluir'];
 
+    const { showCustomToast } = useCustomToast();
+
     useEffect(() => {
         fetchClient();
     }, [page]);
@@ -90,12 +99,7 @@ const ListClients = () => {
         return (
             <ListClientsContainer>
                 <EmptyStateSection>
-                    <Filters
-                        action={() => {
-                            addDisclosure.onOpen();
-                            setCreation(true);
-                        }}
-                    />
+                    <Filters />
                     <IllustratedState
                         title="Nenhum cliente foi encontrado"
                         subtitle="Verifique os valores de busca e filtro. Tente novamente."
@@ -108,12 +112,7 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters
-                    action={() => {
-                        addDisclosure.onOpen();
-                        setCreation(true);
-                    }}
-                />
+                <Filters />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
@@ -136,7 +135,8 @@ const ListClients = () => {
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
-                                            console.log('Excluir');
+                                            alertDisclosure.onOpen();
+                                            setEditClient(client);
                                         },
                                     },
                                 ]}
@@ -147,7 +147,10 @@ const ListClients = () => {
                 <Actions />
                 <Modal
                     isOpen={addDisclosure.isOpen}
-                    onClose={addDisclosure.onClose}
+                    onClose={() => {
+                        setActiveStep(0);
+                        addDisclosure.onClose();
+                    }}
                     title={stepsTitles[activeStep]}
                     onSave={() => {
                         if (activeStep < stepsTitles.length - 1) {
@@ -182,6 +185,49 @@ const ListClients = () => {
                         )}
                     </StyledContentModal>
                 </Modal>
+                <AlertDialog
+                    title="Excluir Cliente"
+                    description="Deseja realmente excluir este cliente?"
+                    isOpen={alertDisclosure.isOpen}
+                    onClose={alertDisclosure.onClose}
+                    confirmButtonText="Excluir"
+                    cancelButtonText="Cancelar"
+                    onConfirm={() => {
+                        alertDisclosure.onClose();
+                        deleteClient(editClient.id)
+                            .then(() => {
+                                showCustomToast({
+                                    title: 'Cliente deletado',
+                                    description:
+                                        'O cliente foi deletado com sucesso.',
+                                    status: 'success',
+                                });
+
+                                fetchClient();
+                            })
+                            .catch(() => {
+                                showCustomToast({
+                                    title: 'Erro ao deletar',
+                                    description:
+                                        'Ocorreu um erro ao tentar deletar o cliente.',
+                                    status: 'error',
+                                });
+                            });
+                    }}
+                />
+                <Tooltip hasArrow label="Adicionar Clientes">
+                    <IconButton
+                        variant="solid"
+                        colorScheme="teal"
+                        aria-label="Done"
+                        fontSize="20px"
+                        icon={<AddIcon />}
+                        onClick={() => {
+                            addDisclosure.onOpen();
+                            setCreation(true);
+                        }}
+                    />
+                </Tooltip>
             </ClientsSection>
         </ListClientsContainer>
     );

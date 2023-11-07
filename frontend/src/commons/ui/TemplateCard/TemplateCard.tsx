@@ -33,7 +33,12 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     <TemplateCardTitle noOfLines={1} size="md">
                         {title}
                     </TemplateCardTitle>
-                    <Badge variant="outline" colorScheme="green" noOfLines={1}>
+                    <Badge
+                        variant="outline"
+                        colorScheme="green"
+                        noOfLines={1}
+                        w={'fit-content'}
+                    >
                         {subtitle}
                     </Badge>
                 </Box>

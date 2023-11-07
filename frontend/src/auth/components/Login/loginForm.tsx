@@ -56,7 +56,7 @@ const LoginForm = ({ setCookie }: Props) => {
                     path: '/',
                     maxAge: response.data.expires_in,
                 });
-                navigate('/list');
+                navigate('/usuarios');
             })
             .catch((error: AxiosError) => {
                 if (error.response && error.response.status === 400) {
@@ -104,20 +104,15 @@ const LoginForm = ({ setCookie }: Props) => {
                         {error && (
                             <FormErrorMessage>{errorMessage}</FormErrorMessage>
                         )}
-                        <a href="/">Esqueci a senha?</a>
                     </Stack>
                     <Button
                         color="white"
-                        backgroundColor="blue.500"
+                        colorScheme="green"
                         type="submit"
-                        _hover={{ 'background-color': '#4097df' }}
+                        _hover={{ filter: 'brightness(80%)' }}
                     >
                         Logar
                     </Button>
-                    <Stack pt={6} flexDirection="row" alignItems="baseline">
-                        <FormLabel color="#9E9E9E">Não tem Cadastro?</FormLabel>
-                        <a href="/">Cadastrar</a>
-                    </Stack>
                 </Stack>
             </form>
             <img src={img} />
