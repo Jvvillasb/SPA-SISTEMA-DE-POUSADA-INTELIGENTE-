@@ -24,14 +24,21 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
             <Column>
                 <Label>
                     <span>Nome:</span>
-                    <Input {...register('nome')} defaultValue={client.nome} />
+                    <Input
+                        {...register('nome', {
+                            required: 'Nome é obrigatório',
+                        })}
+                        defaultValue={client.nome}
+                    />
                 </Label>
 
                 <Label>
                     <span>RG:</span>
                     <InputMaskStyled
                         mask="99.999.999-*"
-                        {...register('documento')}
+                        {...register('documento', {
+                            required: 'RG é obrigatório',
+                        })}
                         value={client.documento}
                         type="text"
                     />
@@ -40,7 +47,9 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                 <Label>
                     <span>Data de Nascimento:</span>
                     <Input
-                        {...register('dataNascimento')}
+                        {...register('dataNascimento', {
+                            required: 'Data de nascimento é obrigatória',
+                        })}
                         defaultValue={formatDateToISO(client.dataNascimento)}
                         type="date"
                     />
@@ -48,17 +57,22 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
 
                 <Label>
                     <span>Telefone:</span>
-                    <Input
-                        {...register('telefone')}
+                    <InputMaskStyled
+                        mask="(99) 99999-9999"
+                        {...register('telefone', {
+                            required: 'Telefone é obrigatório',
+                        })}
                         defaultValue={client.telefone}
-                        type="tel"
+                        type="text"
                     />
                 </Label>
 
                 <Label>
                     <span>Gênero:</span>
                     <Select
-                        {...register('genero')}
+                        {...register('genero', {
+                            required: 'Gênero é obrigatório',
+                        })}
                         defaultValue={client.genero}
                     >
                         <option value="Masculino">Masculino</option>
@@ -69,20 +83,32 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
             <Column>
                 <Label>
                     <span>Email:</span>
-                    <Input {...register('email')} defaultValue={client.email} />
+                    <Input
+                        {...register('email', {
+                            required: 'Email é obrigatório',
+                            pattern:
+                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                        })}
+                        defaultValue={client.email}
+                    />
                 </Label>
 
                 <Label>
                     <span>Cidade:</span>
                     <Input
-                        {...register('cidade')}
+                        {...register('cidade', {
+                            required: 'Cidade é obrigatória',
+                        })}
                         defaultValue={client.cidade}
                     />
                 </Label>
+
                 <Label>
                     <span>Estado:</span>
                     <Select
-                        {...register('estado')}
+                        {...register('estado', {
+                            required: 'Estado é obrigatório',
+                        })}
                         defaultValue={client.estado.toLowerCase()}
                     >
                         <option value="estado">Selecione o Estado</option>
@@ -115,10 +141,13 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         <option value="to">Tocantins</option>
                     </Select>
                 </Label>
+
                 <Label>
                     <span>Nacionalidade:</span>
                     <Input
-                        {...register('nacionalidade')}
+                        {...register('nacionalidade', {
+                            required: 'Nacionalidade é obrigatória',
+                        })}
                         defaultValue={client.nacionalidade}
                     />
                 </Label>

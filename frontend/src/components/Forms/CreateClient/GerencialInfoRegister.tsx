@@ -1,4 +1,4 @@
-import { Column, Input, Label, TwoColumns } from './Forms.styles';
+import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
 interface GerencialInfoRegisterProps {
@@ -14,7 +14,9 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                 <Label>
                     <span>Data de Entrada:</span>
                     <Input
-                        {...register('dataEntrada')}
+                        {...register('dataEntrada', {
+                            required: 'Data de entrada é obrigatória',
+                        })}
                         placeholder="Data de Entrada"
                         type="date"
                     />
@@ -31,16 +33,45 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
 
                 <Label>
                     <span>Evento:</span>
-                    <Input {...register('evento')} placeholder="Evento" />
+                    <Input
+                        {...register('evento', {
+                            required: 'Evento é obrigatório',
+                        })}
+                        placeholder="Evento"
+                    />
                 </Label>
             </Column>
             <Column>
+                <Label>
+                    <span>Está em caravana:</span>
+                    <Select
+                        {...register('caravana', {
+                            required: 'Este campo é obrigatório',
+                        })}
+                    >
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
+                </Label>
+
                 <Label>
                     <span>Nome da Caravana:</span>
                     <Input
                         {...register('nomeCaravana')}
                         placeholder="Nome da Caravana"
                     />
+                </Label>
+
+                <Label>
+                    <span>Tem guia:</span>
+                    <Select
+                        {...register('guia', {
+                            required: 'Este campo é obrigatório',
+                        })}
+                    >
+                        <option value="2">Sim</option>
+                        <option value="1">Não</option>
+                    </Select>
                 </Label>
 
                 <Label>
