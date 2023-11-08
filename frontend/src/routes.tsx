@@ -4,6 +4,7 @@ import Login from './pages/login';
 import AuthChecker from './components/AuthChecker/authChecker';
 import { useCookies } from 'react-cookie';
 import ListingClients from './pages/ListingClients';
+import ListingExcursions from './pages/ListingExcursions';
 import PageNotFound from './pages/NotFound/NotFound';
 import Navigation from './commons/layout/Navigation/Navigation';
 
@@ -23,7 +24,10 @@ const Routers = () => {
                     <>
                         <Route path="/usuarios" element={<ListingClients />} />
                         <Route path="/" element={<ListingClients />} />
-                        <Route path="/caravanas" element={<>asd</>} />
+                        <Route
+                            path="/caravanas"
+                            element={<ListingExcursions />}
+                        />
                         <Route path="/logout" element={<>asd</>} />
                         <Route path="*" element={<PageNotFound />} />
                     </>
