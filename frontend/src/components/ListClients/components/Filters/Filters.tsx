@@ -1,16 +1,36 @@
+import { useEffect, useState } from 'react';
 import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
-import { FlexContainer, Select, StyledInput } from './Filters.styles';
+import { FlexContainer, Select, StyledInput, Option } from './Filters.styles';
+import theme from '../../../../theme';
+import { Tooltip } from '@chakra-ui/react';
 
 const Filters: React.FC = () => {
-    const { setSearchString, searchString, fetchClients, setFilters, filters } =
-        useStore((state) => ({
-            setSearchString: state.setSearchString,
-            searchString: state.searchString,
-            fetchClients: state.fetchClients,
-            setFilters: state.setFilters,
-            filters: state.filters,
-        }));
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const {
+        setSearchString,
+        searchString,
+        fetchClients,
+        setFilters,
+        filters,
+        excursions,
+        fetchExcursions,
+    } = useStore((state) => ({
+        setSearchString: state.setSearchString,
+        searchString: state.searchString,
+        fetchClients: state.fetchClients,
+        fetchExcursions: state.fetchExcursions,
+        setFilters: state.setFilters,
+        filters: state.filters,
+        excursions: state.excursions,
+    }));
+
+    useEffect(() => {
+        if (isDropdownOpen && excursions.length === 0) {
+            fetchExcursions();
+        }
+    }, [isDropdownOpen, excursions.length, fetchExcursions]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchString(e.target.value);
@@ -31,11 +51,19 @@ const Filters: React.FC = () => {
         fetchClients();
     };
 
+    const handleDropdownFocus = () => {
+        setIsDropdownOpen(true);
+    };
+
+    const handleDropdownBlur = () => {
+        setIsDropdownOpen(false);
+    };
+
     const getPlaceholderFilter = () => {
         const excursionTypeFilter: { [key: number]: string } = {
-            1: 'Sem caravana',
-            2: 'Com caravana',
+            1: 'Filtre por caravana',
         };
+        console.log(excursionTypeFilter[filters.excursionType]);
         return excursionTypeFilter[filters.excursionType];
     };
 
@@ -48,19 +76,27 @@ const Filters: React.FC = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise usuários"
             />
-            <Select
-                rootProps={{ style: { width: 'fit-content' } }}
-                onChange={handleChange}
-                value={filters.excursionType}
-            >
-                {!filters.excursionType && (
-                    <option value="" disabled>
-                        {getPlaceholderFilter()}
-                    </option>
-                )}
-                <option value="2">Com caravana</option>
-                <option value="1">Sem caravana</option>
-            </Select>
+            <Tooltip hasArrow label="Filtrar por caravana">
+                <Select
+                    rootProps={{ style: { width: 'fit-content' } }}
+                    onChange={handleChange}
+                    value={filters.excursionType}
+                    onFocus={handleDropdownFocus}
+                    onBlur={handleDropdownBlur}
+                    focusBorderColor={theme.colors.customGreen}
+                >
+                    {excursions.length === 0 && (
+                        <Option value="1" disabled>
+                            {getPlaceholderFilter()}
+                        </Option>
+                    )}
+                    {excursions.map((excursion) => (
+                        <Option key={excursion.id} value={excursion.id}>
+                            {excursion.nome}
+                        </Option>
+                    ))}
+                </Select>
+            </Tooltip>
         </FlexContainer>
     );
 };

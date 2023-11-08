@@ -25,12 +25,15 @@ import { deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 
 const ListClients = () => {
-    const { page, clients, loading, fetchClient } = useStore((state) => ({
-        page: state.page,
-        clients: state.clients,
-        loading: state.loading,
-        fetchClient: state.fetchClients,
-    }));
+    const { page, clients, loading, fetchClient, fetchExcursions } = useStore(
+        (state) => ({
+            page: state.page,
+            clients: state.clients,
+            loading: state.loading,
+            fetchClient: state.fetchClients,
+            fetchExcursions: state.fetchExcursions,
+        })
+    );
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
@@ -224,6 +227,7 @@ const ListClients = () => {
                         fontSize="20px"
                         icon={<AddIcon />}
                         onClick={() => {
+                            fetchExcursions();
                             addDisclosure.onOpen();
                             setCreation(true);
                         }}

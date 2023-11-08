@@ -2,13 +2,12 @@ import {
     Step,
     StepIndicator,
     StepSeparator,
-    StepTitle,
     Box,
     StepIcon,
     Text,
     StepStatus,
 } from '@chakra-ui/react';
-import { Stepper } from './Stepper.styles';
+import { Stepper, StepTitle } from './Stepper.styles';
 
 type StepData = {
     title: string;

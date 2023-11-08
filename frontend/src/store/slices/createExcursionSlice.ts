@@ -15,14 +15,14 @@ export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get)
     last: false,
     first: true,
     excursions: [],
-    loading: false,
+    loadingExcursion: false,
     totalPages: 0,
     searchString: '',
     setPage: (page) => {
         set({ page });
     },
     fetchExcursions: async () => {
-        set({ loading: true });
+        set({ loadingExcursion: true });
         const { page, searchString } = get();
         const {
             data: { first, last, content, totalPages },
@@ -30,39 +30,39 @@ export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get)
         set({
             last,
             first,
-            loading: false,
+            loadingExcursion: false,
             totalPages,
             excursions: content,
         });
     },
     createExcursions: async (excursion: Excursion) => {
-        set({ loading: true });
+        set({ loadingExcursion: true });
         try {
             await createExcursions(excursion);
             get().fetchExcursions();
         } catch (error) {
             console.error('erro ao criar a excursão: ', error);
-            set({ loading: false });
+            set({ loadingExcursion: false });
         }
     },
     updateExcursion: async (excursion: Excursion, id: number) => {
-        set({ loading: true });
+        set({ loadingExcursion: true });
         try {
             await updateExcursion(excursion, id);
             get().fetchExcursions();
         } catch (error) {
             console.error('Erro ao atualizar a excursão: ', error);
-            set({ loading: false });
+            set({ loadingExcursion: false });
         }
     },
     deleteExcursion: async (id: number) => {
-        set({ loading: true });
+        set({ loadingExcursion: true });
         try {
             await deleteExcursion(id);
             get().fetchExcursions();
         } catch (error) {
             console.error('Erro ao deletar a excursão: ', error);
-            set({ loading: false });
+            set({ loadingExcursion: false });
         }
     },
     setSearchString: (searchString) => {

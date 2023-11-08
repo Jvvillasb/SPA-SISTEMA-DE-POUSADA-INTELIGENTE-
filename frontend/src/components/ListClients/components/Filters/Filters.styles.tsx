@@ -28,3 +28,8 @@ export const FlexContainer = styled.div`
 export const Select = styled(chakraSelect)`
     width: 150px;
 `;
+
+export const Option = styled.option`
+    color: #000;
+    gap: 16px;
+`;

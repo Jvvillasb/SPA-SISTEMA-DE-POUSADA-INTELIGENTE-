@@ -1,6 +1,7 @@
 import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
 import { Client } from '../../../commons/types/Client';
+import useStore from '../../../store/index';
 interface GerencialInfoRegisterProps {
     register: UseFormRegister<Client>;
 }
@@ -8,6 +9,12 @@ interface GerencialInfoRegisterProps {
 const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
     register,
 }) => {
+    const { excursions } = useStore((state) => ({
+        excursions: state.excursions,
+    }));
+
+    console.log(excursions);
+
     return (
         <TwoColumns>
             <Column>
@@ -43,23 +50,18 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
             </Column>
             <Column>
                 <Label>
-                    <span>Está em caravana:</span>
+                    <span>caravana:</span>
                     <Select
                         {...register('caravana', {
                             required: 'Este campo é obrigatório',
                         })}
                     >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
+                        {excursions.map((caravana) => (
+                            <option key={caravana.id} value={caravana.id}>
+                                {caravana.nome}
+                            </option>
+                        ))}
                     </Select>
-                </Label>
-
-                <Label>
-                    <span>Nome da Caravana:</span>
-                    <Input
-                        {...register('nomeCaravana')}
-                        placeholder="Nome da Caravana"
-                    />
                 </Label>
 
                 <Label>
@@ -72,14 +74,6 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         <option value="2">Sim</option>
                         <option value="1">Não</option>
                     </Select>
-                </Label>
-
-                <Label>
-                    <span>Nome do Guia:</span>
-                    <Input
-                        {...register('nomeGuia')}
-                        placeholder="Nome do Guia"
-                    />
                 </Label>
             </Column>
         </TwoColumns>

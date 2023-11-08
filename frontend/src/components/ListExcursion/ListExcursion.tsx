@@ -23,11 +23,11 @@ import EditExcursionForm from '../Forms/EditExcursion/EditExcursionForm';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 
 const ListExcursion: React.FC = () => {
-    const { page, excursions, loading, fetchExcursions } = useStore(
+    const { page, excursions, loadingExcursion, fetchExcursions } = useStore(
         (state) => ({
             page: state.page,
             excursions: state.excursions,
-            loading: state.loading,
+            loadingExcursion: state.loadingExcursion,
             fetchExcursions: state.fetchExcursions,
         })
     );
@@ -73,7 +73,7 @@ const ListExcursion: React.FC = () => {
         fetchExcursions();
     }, [page]);
 
-    if (loading) {
+    if (loadingExcursion) {
         return (
             <ListExcursionContainer>
                 <Loader message="Carregando Caravanas" />

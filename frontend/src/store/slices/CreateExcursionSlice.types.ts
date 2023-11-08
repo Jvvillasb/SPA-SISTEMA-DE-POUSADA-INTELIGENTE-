@@ -4,7 +4,7 @@ export interface ExcursionState {
     page: number;
     last: boolean;
     first: boolean;
-    loading: boolean;
+    loadingExcursion: boolean;
     excursions: Excursion[];
     totalPages: number;
     searchString: string;
