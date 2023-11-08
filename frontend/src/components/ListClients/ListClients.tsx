@@ -157,6 +157,7 @@ const ListClients = () => {
                             setActiveStep((prev) => prev + 1);
                         } else {
                             submitForm();
+                            addDisclosure.onClose();
                         }
                     }}
                     onBack={() => {

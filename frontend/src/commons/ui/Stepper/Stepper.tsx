@@ -24,7 +24,11 @@ const GenericStepper: React.FC<GenericStepperProps> = ({
     activeStep,
 }) => {
     return (
-        <Stepper index={activeStep} colorScheme="green">
+        <Stepper
+            index={activeStep}
+            colorScheme="green"
+            justifyContent={'center'}
+        >
             {steps.map((step, index) => (
                 <Step key={index}>
                     <StepIndicator>
