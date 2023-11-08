@@ -113,7 +113,6 @@ const ListExcursion: React.FC = () => {
                         </li>
                     ))}
                 </ListExcursionContent>
-                <Actions />
                 <Modal
                     isOpen={addDisclosure.isOpen}
                     onClose={() => {
@@ -185,20 +184,21 @@ const ListExcursion: React.FC = () => {
                             });
                     }}
                 />
-                <Tooltip hasArrow label="Adicionar Caravana">
-                    <IconButton
-                        variant="solid"
-                        colorScheme="teal"
-                        aria-label="Done"
-                        fontSize="20px"
-                        icon={<AddIcon />}
-                        onClick={() => {
-                            addDisclosure.onOpen();
-                            setCreation(true);
-                        }}
-                    />
-                </Tooltip>
             </ExcursionSection>
+            <Actions />
+            <Tooltip hasArrow label="Adicionar Caravana">
+                <IconButton
+                    variant="solid"
+                    colorScheme="teal"
+                    aria-label="Done"
+                    fontSize="20px"
+                    icon={<AddIcon />}
+                    onClick={() => {
+                        addDisclosure.onOpen();
+                        setCreation(true);
+                    }}
+                />
+            </Tooltip>
         </ListExcursionContainer>
     );
 };

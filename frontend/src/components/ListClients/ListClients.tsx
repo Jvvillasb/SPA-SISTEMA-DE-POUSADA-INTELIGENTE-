@@ -147,7 +147,6 @@ const ListClients = () => {
                         </li>
                     ))}
                 </ListClientsContent>
-                <Actions />
                 <Modal
                     isOpen={addDisclosure.isOpen}
                     onClose={() => {
@@ -219,21 +218,22 @@ const ListClients = () => {
                             });
                     }}
                 />
-                <Tooltip hasArrow label="Adicionar Clientes">
-                    <IconButton
-                        variant="solid"
-                        colorScheme="teal"
-                        aria-label="Done"
-                        fontSize="20px"
-                        icon={<AddIcon />}
-                        onClick={() => {
-                            fetchExcursions();
-                            addDisclosure.onOpen();
-                            setCreation(true);
-                        }}
-                    />
-                </Tooltip>
             </ClientsSection>
+            <Actions />
+            <Tooltip hasArrow label="Adicionar Clientes">
+                <IconButton
+                    variant="solid"
+                    colorScheme="teal"
+                    aria-label="Done"
+                    fontSize="20px"
+                    icon={<AddIcon />}
+                    onClick={() => {
+                        fetchExcursions();
+                        addDisclosure.onOpen();
+                        setCreation(true);
+                    }}
+                />
+            </Tooltip>
         </ListClientsContainer>
     );
 };

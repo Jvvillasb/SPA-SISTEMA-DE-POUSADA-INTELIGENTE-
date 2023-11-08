@@ -13,8 +13,6 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
         excursions: state.excursions,
     }));
 
-    console.log(excursions);
-
     return (
         <TwoColumns>
             <Column>

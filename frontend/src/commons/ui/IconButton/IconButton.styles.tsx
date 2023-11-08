@@ -5,4 +5,8 @@ export const IconButton = styled(chakraIconButton)`
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+
+    @media (max-width: 768px) {
+        bottom: 5rem;
+    }
 `;

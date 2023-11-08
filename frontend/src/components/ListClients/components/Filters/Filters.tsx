@@ -63,7 +63,6 @@ const Filters: React.FC = () => {
         const excursionTypeFilter: { [key: number]: string } = {
             1: 'Filtre por caravana',
         };
-        console.log(excursionTypeFilter[filters.excursionType]);
         return excursionTypeFilter[filters.excursionType];
     };
 
