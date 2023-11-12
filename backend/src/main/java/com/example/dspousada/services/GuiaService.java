@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dspousada.dto.GuiaDTO;
 import com.example.dspousada.entities.Caravana;
+import com.example.dspousada.entities.Guest;
 import com.example.dspousada.entities.Guia;
 import com.example.dspousada.repositories.CaravanaRepository;
+import com.example.dspousada.repositories.GuestRepository;
 import com.example.dspousada.repositories.GuiaRepository;
 import com.example.dspousada.services.exception.DatabaseException;
 import com.example.dspousada.services.exception.ResourceNotFoundException;
@@ -32,6 +34,9 @@ public class GuiaService {
 	
 	@Autowired
 	private CaravanaRepository caravanaRepository;
+	
+	@Autowired
+	private GuestRepository guestRepository;
 
 	@Transactional(readOnly = true)
 	public Page<GuiaDTO> findAllPaged(String name, String documento, String dataEntrada1, String dataEntrada2,
@@ -75,26 +80,43 @@ public class GuiaService {
 	}
 
 	@Transactional
-	public GuiaDTO insert(GuiaDTO dto) {
-		Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
-		Guia entity = new Guia();
-		entity.setNome(dto.getNome());
-		entity.setDocumento(dto.getDocumento());
-		entity.setDataNascimento(dto.getDataNascimento());
-		entity.setTelefone(dto.getTelefone());
-		entity.setGenero(dto.getGenero());
-		entity.setEmail(dto.getEmail());
-		entity.setCidade(dto.getCidade());
-		entity.setEstado(dto.getEstado());
-		entity.setNacionalidade(dto.getNacionalidade());
-		entity.setDataEntrada(dto.getDataEntrada());
-		entity.setDataSaida(dto.getDataSaida());
-		entity.setEvento(dto.getEvento());
-		entity.setCaravana(caravana);
-		entity.setNomeCaravana(caravana.getNome());
-		entity = repository.save(entity);
-		return new GuiaDTO(entity);
-	}
+    public GuiaDTO insert(GuiaDTO dto) {
+        Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
+        Guia entity = new Guia();
+        entity.setNome(dto.getNome());
+        entity.setDocumento(dto.getDocumento());
+        entity.setDataNascimento(dto.getDataNascimento());
+        entity.setTelefone(dto.getTelefone());
+        entity.setGenero(dto.getGenero());
+        entity.setEmail(dto.getEmail());
+        entity.setCidade(dto.getCidade());
+        entity.setEstado(dto.getEstado());
+        entity.setNacionalidade(dto.getNacionalidade());
+        entity.setDataEntrada(dto.getDataEntrada());
+        entity.setDataSaida(dto.getDataSaida());
+        entity.setEvento(dto.getEvento());
+        entity.setCaravana(caravana);
+        entity.setNomeCaravana(caravana.getNome());
+        entity = repository.save(entity);
+        Guest guest = new Guest();
+        guest.setNome(dto.getNome());
+        guest.setDocumento(dto.getDocumento());
+        guest.setDataNascimento(dto.getDataNascimento());
+        guest.setTelefone(dto.getTelefone());
+        guest.setGenero(dto.getGenero());
+        guest.setEmail(dto.getEmail());
+        guest.setCidade(dto.getCidade());
+        guest.setEstado(dto.getEstado());
+        guest.setNacionalidade(dto.getNacionalidade());
+        guest.setDataEntrada(dto.getDataEntrada());
+        guest.setDataSaida(dto.getDataSaida());
+        guest.setEvento(dto.getEvento());
+        guest.setCaravana(caravana);
+        guest.setNomeCaravana(caravana.getNome());
+        guest.setGuia(entity);
+        guestRepository.save(guest);
+        return new GuiaDTO(entity);
+    }
 
 	@Transactional
 	public GuiaDTO udpate(Long id, GuiaDTO dto) {
