@@ -20,9 +20,11 @@ import com.example.dspousada.dto.GuiaDTO;
 import com.example.dspousada.entities.Caravana;
 import com.example.dspousada.entities.Guest;
 import com.example.dspousada.entities.Guia;
+import com.example.dspousada.entities.Leito;
 import com.example.dspousada.repositories.CaravanaRepository;
 import com.example.dspousada.repositories.GuestRepository;
 import com.example.dspousada.repositories.GuiaRepository;
+import com.example.dspousada.repositories.LeitoRepository;
 import com.example.dspousada.services.exception.DatabaseException;
 import com.example.dspousada.services.exception.ResourceNotFoundException;
 
@@ -37,6 +39,9 @@ public class GuiaService {
 	
 	@Autowired
 	private GuestRepository guestRepository;
+	
+	@Autowired
+	private LeitoRepository leitoRepository;
 
 	@Transactional(readOnly = true)
 	public Page<GuiaDTO> findAllPaged(String name, String documento, String dataEntrada1, String dataEntrada2,
@@ -99,6 +104,7 @@ public class GuiaService {
         entity.setNomeCaravana(caravana.getNome());
         entity = repository.save(entity);
         Guest guest = new Guest();
+	    Leito leito = leitoRepository.getReferenceById(1L);
         guest.setNome(dto.getNome());
         guest.setDocumento(dto.getDocumento());
         guest.setDataNascimento(dto.getDataNascimento());
@@ -114,6 +120,7 @@ public class GuiaService {
         guest.setCaravana(caravana);
         guest.setNomeCaravana(caravana.getNome());
         guest.setGuia(entity);
+        guest.setLeito(leito);
         guestRepository.save(guest);
         return new GuiaDTO(entity);
     }
