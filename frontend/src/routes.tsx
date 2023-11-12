@@ -3,30 +3,33 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
 import AuthChecker from './components/AuthChecker/authChecker';
 import { useCookies } from 'react-cookie';
-import NavBar from './components/Nav/NavBar';
 import Listing from './pages/Listing';
+import PageNotFound from './pages/NotFound/NotFound';
+import Navigation from './commons/layout/Navigation/Navigation';
 
 const Routers = () => {
-  const [cookies] = useCookies(['access_token']);
-  const isAuthenticated = !!cookies.access_token;
+    const [cookies] = useCookies(['access_token']);
+    const isAuthenticated = !!cookies.access_token;
 
-  return (
-    <>
-      <AuthChecker />
-      <NavBar />
-      <Routes>
-        {!isAuthenticated && (
-          <Route path="/login" element={<Login />} />
-        )}
-        {isAuthenticated && (
-          <>
-          <Route path="/list" element={<Listing />} />
-          <Route path="/logout" element={<>asd</>} />
-          </>
-        )}
-      </Routes>
-    </>
-  );
-}
+    return (
+        <>
+            <AuthChecker />
+            <Navigation />
+            <Routes>
+                {!isAuthenticated && (
+                    <Route path="/login" element={<Login />} />
+                )}
+                {isAuthenticated && (
+                    <>
+                        <Route path="/list" element={<Listing />} />
+                        <Route path="/" element={<Listing />} />
+                        <Route path="/logout" element={<>asd</>} />
+                        <Route path="*" element={<PageNotFound />} />
+                    </>
+                )}
+            </Routes>
+        </>
+    );
+};
 
 export default Routers;

@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
-import { Box } from '@chakra-ui/react';
-import Styles from './SideMenu.module.scss';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { SideMenuContainer, MenuItem } from './SideMenu.style';
 
 const SideMenu = () => {
-  const [selectedItem, setSelectedItem] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [selectedItem, setSelectedItem] = useState('');
 
-  const handleItemClick = (item: string) => {
-    setSelectedItem(item);
-  };
+    useEffect(() => {
+        if (location.pathname.includes('/list')) {
+            setSelectedItem('clientes');
+        } else if (location.pathname.includes('/caravanas')) {
+            setSelectedItem('Caravanas');
+        }
+    }, [location]);
 
-  return (
-    <Box className={Styles.sideMenu} width="204px">
-      <div className={Styles.sideMenuOptions}>
-        <a
-          className={`${Styles.options} ${selectedItem === 'atendimentos' ? Styles.selected : ''}`}
-          onClick={() => handleItemClick('atendimentos')}
-        >
-          Atendimentos
-        </a>
-        <a
-          className={`${Styles.options} ${selectedItem === 'clientes' ? Styles.selected : ''}`}
-          onClick={() => handleItemClick('clientes')}
-        >
-          Clientes
-        </a>
-      </div>
-    </Box>
-  );
-}
+    const handleItemClick = (item: string) => {
+        setSelectedItem(item);
+        if (item === 'clientes') {
+            navigate('/list');
+        } else if (item === 'Caravanas') {
+            navigate('/list');
+        }
+    };
+
+    return (
+        <SideMenuContainer>
+            <MenuItem
+                selected={selectedItem === 'Caravanas'}
+                onClick={() => handleItemClick('Caravanas')}
+            >
+                Caravanas
+            </MenuItem>
+            <MenuItem
+                selected={selectedItem === 'clientes'}
+                onClick={() => handleItemClick('clientes')}
+            >
+                Clientes
+            </MenuItem>
+        </SideMenuContainer>
+    );
+};
 
 export default SideMenu;
