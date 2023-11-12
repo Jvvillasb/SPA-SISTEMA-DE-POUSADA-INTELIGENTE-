@@ -15,12 +15,12 @@ const Filters: React.FC = () => {
         setFilters,
         filters,
         excursions,
-        fetchExcursions,
+        fetchExcursionsBySearch,
     } = useStore((state) => ({
         setSearchString: state.setSearchString,
         searchString: state.searchString,
         fetchClients: state.fetchClients,
-        fetchExcursions: state.fetchExcursions,
+        fetchExcursionsBySearch: state.fetchExcursionsBySearch,
         setFilters: state.setFilters,
         filters: state.filters,
         excursions: state.excursions,
@@ -28,9 +28,9 @@ const Filters: React.FC = () => {
 
     useEffect(() => {
         if (isDropdownOpen && excursions.length === 0) {
-            fetchExcursions();
+            fetchExcursionsBySearch();
         }
-    }, [isDropdownOpen, excursions.length, fetchExcursions]);
+    }, [isDropdownOpen, excursions.length, fetchExcursionsBySearch]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchString(e.target.value);

@@ -1,7 +1,7 @@
 import { Pagination } from 'src/commons/types/Pagination';
 import { Client } from '../../../commons/types/Client';
 import axiosInstance from './../../../axiosConfig';
-import { clientFilters } from '../../../store/slices/createClientSlice.types';
+import { clientFilters } from '../../../store/slices/Client/createClientSlice.types';
 
 const DEFAULT_PAGE_SIZE = 12;
 

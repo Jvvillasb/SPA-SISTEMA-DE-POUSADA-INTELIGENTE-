@@ -15,11 +15,11 @@ import { Excursion } from '../../commons/types/Excursion';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
 import { Tooltip, useDisclosure, useSteps } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
-import ExcursionForm from '../Forms/CreateExcursion/ExcursionForm';
+import ExcursionForm from '../Forms/Excursion/CreateExcursion/ExcursionForm';
 import Filters from '../ListExcursion/Components/Filters/Filters';
 import { deleteExcursion } from './services/Excursion.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
-import EditExcursionForm from '../Forms/EditExcursion/EditExcursionForm';
+import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionForm';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 
 const ListExcursion: React.FC = () => {

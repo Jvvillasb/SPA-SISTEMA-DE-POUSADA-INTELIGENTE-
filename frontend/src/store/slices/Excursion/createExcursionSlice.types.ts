@@ -12,6 +12,7 @@ export interface ExcursionState {
 
 export interface ExcursionStateType extends ExcursionState {
     fetchExcursions: () => void;
+    fetchExcursionsBySearch: () => void;
     createExcursions: (excursion: Excursion) => void;
     updateExcursion: (excursion: Excursion, id: number) => void;
     deleteExcursion: (id: number) => void;

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Client } from '../../../commons/types/Client';
+import { Client } from '../../../../commons/types/Client';
 import { Column, Form, TwoColumns, FormContent } from './Forms.styles';
 import PersonalInfoRegister from './PersonalInfoRegister';
 import GerencialInfoRegister from './GerencialInfoRegister';
 import { useForm } from 'react-hook-form';
-import { formatDateToBR } from '../../../commons/utils/FormatDate';
-import useStore from '../../../store/index';
+import { formatDateToBR } from '../../../../commons/utils/FormatDate';
+import useStore from '../../../../store/index';
 interface ClientFormProps {
     activeStep: number;
     formRef: React.RefObject<HTMLFormElement>;

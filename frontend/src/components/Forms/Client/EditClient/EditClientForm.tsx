@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Client } from '../../../commons/types/Client';
+import { Client } from '../../../../commons/types/Client';
 import {
     Column,
     Form,
@@ -8,10 +8,10 @@ import {
     FormContent,
 } from '../CreateClient/Forms.styles';
 import { useForm } from 'react-hook-form';
-import useStore from '../../../store/index';
+import useStore from '../../../../store/index';
 import EditPersonalInfoRegister from './EditPersonalInfoRegister';
 import EditGerencialInfoRegister from './EditGerencialInfoRegister';
-import { formatDateToBR } from '../../../commons/utils/FormatDate';
+import { formatDateToBR } from '../../../../commons/utils/FormatDate';
 
 interface EditClientFormProps {
     activeStep: number;

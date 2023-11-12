@@ -6,8 +6,8 @@ import {
     Select,
 } from '../CreateClient/Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
-import { Client } from '../../../commons/types/Client';
-import { formatDateToISO } from '../../../commons/utils/FormatDate';
+import { Client } from '../../../../commons/types/Client';
+import { formatDateToISO } from '../../../../commons/utils/FormatDate';
 
 interface GerencialInfoRegisterProps {
     register: UseFormRegister<Client>;

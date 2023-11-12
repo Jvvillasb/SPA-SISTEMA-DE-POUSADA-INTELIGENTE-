@@ -6,7 +6,7 @@ import {
     TwoColumns,
 } from './ExcursionForm.style';
 import { UseFormRegister } from 'react-hook-form';
-import { Excursion } from '../../../commons/types/Excursion';
+import { Excursion } from '../../../../commons/types/Excursion';
 
 interface ExcursionInfoRegisterProps {
     register: UseFormRegister<Excursion>;

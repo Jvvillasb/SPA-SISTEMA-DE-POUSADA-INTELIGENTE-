@@ -5,10 +5,11 @@ import {
     listExcursions,
     updateExcursion,
     deleteExcursion,
-} from './../../components/ListExcursion/services/Excursion.service';
+    listExcursionsBySearch,
+} from '../../../components/ListExcursion/services/Excursion.service';
 
-import { ExcursionStateType } from './CreateExcursionSlice.types';
-import { Excursion } from '../../commons/types/Excursion';
+import { ExcursionStateType } from './createExcursionSlice.types';
+import { Excursion } from '../../../commons/types/Excursion';
 
 export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get) => ({
     page: 0,
@@ -27,6 +28,19 @@ export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get)
         const {
             data: { first, last, content, totalPages },
         } = await listExcursions(page, searchString);
+        set({
+            last,
+            first,
+            loadingExcursion: false,
+            totalPages,
+            excursions: content,
+        });
+    },
+    fetchExcursionsBySearch: async () => {
+        set({ loadingExcursion: true });
+        const {
+            data: { first, last, content, totalPages },
+        } = await listExcursionsBySearch();
         set({
             last,
             first,

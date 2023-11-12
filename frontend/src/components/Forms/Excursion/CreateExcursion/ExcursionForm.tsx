@@ -2,8 +2,8 @@ import React from 'react';
 import { Column, Form, TwoColumns, FormContent } from './ExcursionForm.style';
 import ExcursionInfoRegister from './ExcursionInfoRegister';
 import { useForm } from 'react-hook-form';
-import useStore from '../../../store/index';
-import { Excursion } from '../../../commons/types/Excursion';
+import useStore from '../../../../store/index';
+import { Excursion } from '../../../../commons/types/Excursion';
 
 interface ExcursionFormProps {
     activeStep: number;

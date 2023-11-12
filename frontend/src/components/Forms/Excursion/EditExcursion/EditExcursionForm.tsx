@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Excursion } from '../../../commons/types/Excursion';
+import { Excursion } from '../../../../commons/types/Excursion';
 import {
     Column,
     Form,
     TwoColumns,
     FormContent,
-} from '../CreateClient/Forms.styles';
+} from '../../Client/CreateClient/Forms.styles';
 import { useForm } from 'react-hook-form';
-import useStore from '../../../store/index';
+import useStore from '../../../../store/index';
 import EditExcursionInfoRegister from './EditExcursionInfoRegister';
 
 interface EditExcursionFormProps {

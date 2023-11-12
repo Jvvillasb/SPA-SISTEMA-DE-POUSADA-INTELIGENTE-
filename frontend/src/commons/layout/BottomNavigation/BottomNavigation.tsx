@@ -6,10 +6,11 @@ import {
 } from './BottomNavigation.styles';
 
 import {
-    MdOutlineRoom,
     MdOutlineHome,
     MdPersonOutline,
     MdOutlineDirectionsBus,
+    MdPeopleOutline,
+    MdHouseSiding,
 } from 'react-icons/md';
 
 const BottomNavigation = () => {
@@ -28,12 +29,17 @@ const BottomNavigation = () => {
                 </BottomNavigationListItem>
                 <BottomNavigationListItem>
                     <BottomNavigationListLink to="/caravanas">
-                        <MdOutlineRoom size="1.6rem" color="#798494" />
+                        <MdOutlineDirectionsBus size="1.6rem" color="#798494" />
                     </BottomNavigationListLink>
                 </BottomNavigationListItem>
                 <BottomNavigationListItem>
                     <BottomNavigationListLink to="/quartos">
-                        <MdOutlineDirectionsBus size="1.6rem" color="#798494" />
+                        <MdHouseSiding size="1.6rem" color="#798494" />
+                    </BottomNavigationListLink>
+                </BottomNavigationListItem>
+                <BottomNavigationListItem>
+                    <BottomNavigationListLink to="/guia">
+                        <MdPeopleOutline size="1.6rem" color="#798494" />
                     </BottomNavigationListLink>
                 </BottomNavigationListItem>
             </BottomNavigationList>

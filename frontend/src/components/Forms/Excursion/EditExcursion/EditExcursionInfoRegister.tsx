@@ -1,6 +1,11 @@
-import { Column, Label, TwoColumns, Input } from '../CreateClient/Forms.styles';
+import {
+    Column,
+    Label,
+    TwoColumns,
+    Input,
+} from '../../Client/CreateClient/Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
-import { Excursion } from '../../../commons/types/Excursion';
+import { Excursion } from '../../../../commons/types/Excursion';
 import { Select } from '../CreateExcursion/ExcursionForm.style';
 
 interface EditExcursionInfoRegisterProps {
@@ -34,7 +39,7 @@ const EditExcursionInfoRegister: React.FC<EditExcursionInfoRegisterProps> = ({
                     />
                 </Label>
                 <Label>
-                    <span>Tem guia:</span>
+                    <span>guia:</span>
                     <Select
                         {...register('guia', {
                             required: 'Este campo é obrigatório',

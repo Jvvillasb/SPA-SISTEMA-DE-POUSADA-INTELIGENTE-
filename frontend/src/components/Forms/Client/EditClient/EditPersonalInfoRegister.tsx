@@ -1,33 +1,45 @@
 import {
     Column,
-    Input,
     Label,
     Select,
     TwoColumns,
+    Input,
     InputMaskStyled,
-} from './Forms.styles';
-import { Client } from '../../../commons/types/Client';
+} from '../CreateClient/Forms.styles';
+import { Client } from '../../../../commons/types/Client';
 import { UseFormRegister } from 'react-hook-form';
+import { formatDateToISO } from '../../../../commons/utils/FormatDate';
 
-interface PersonalInfoProps {
+interface EditPersonalInfoProps {
     register: UseFormRegister<Client>;
+    client: Client;
 }
 
-const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
+const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
+    register,
+    client,
+}) => {
     return (
         <TwoColumns>
             <Column>
                 <Label>
                     <span>Nome:</span>
-                    <Input {...register('nome')} placeholder="Nome" />
+                    <Input
+                        {...register('nome', {
+                            required: 'Nome é obrigatório',
+                        })}
+                        defaultValue={client.nome}
+                    />
                 </Label>
 
                 <Label>
                     <span>RG:</span>
                     <InputMaskStyled
                         mask="99.999.999-*"
-                        {...register('documento')}
-                        placeholder="Documento"
+                        {...register('documento', {
+                            required: 'RG é obrigatório',
+                        })}
+                        value={client.documento}
                         type="text"
                     />
                 </Label>
@@ -35,8 +47,10 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                 <Label>
                     <span>Data de Nascimento:</span>
                     <Input
-                        {...register('dataNascimento')}
-                        placeholder="Data de Nascimento"
+                        {...register('dataNascimento', {
+                            required: 'Data de nascimento é obrigatória',
+                        })}
+                        defaultValue={formatDateToISO(client.dataNascimento)}
                         type="date"
                     />
                 </Label>
@@ -48,14 +62,19 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                         {...register('telefone', {
                             required: 'Telefone é obrigatório',
                         })}
-                        placeholder="Telefone"
+                        defaultValue={client.telefone}
                         type="text"
                     />
                 </Label>
 
                 <Label>
                     <span>Gênero:</span>
-                    <Select {...register('genero')}>
+                    <Select
+                        {...register('genero', {
+                            required: 'Gênero é obrigatório',
+                        })}
+                        defaultValue={client.genero}
+                    >
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
                     </Select>
@@ -64,16 +83,34 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
             <Column>
                 <Label>
                     <span>Email:</span>
-                    <Input {...register('email')} placeholder="Email" />
+                    <Input
+                        {...register('email', {
+                            required: 'Email é obrigatório',
+                            pattern:
+                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                        })}
+                        defaultValue={client.email}
+                    />
                 </Label>
 
                 <Label>
                     <span>Cidade:</span>
-                    <Input {...register('cidade')} placeholder="Cidade" />
+                    <Input
+                        {...register('cidade', {
+                            required: 'Cidade é obrigatória',
+                        })}
+                        defaultValue={client.cidade}
+                    />
                 </Label>
+
                 <Label>
                     <span>Estado:</span>
-                    <Select {...register('estado')}>
+                    <Select
+                        {...register('estado', {
+                            required: 'Estado é obrigatório',
+                        })}
+                        defaultValue={client.estado.toLowerCase()}
+                    >
                         <option value="estado">Selecione o Estado</option>
                         <option value="ac">Acre</option>
                         <option value="al">Alagoas</option>
@@ -104,11 +141,14 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                         <option value="to">Tocantins</option>
                     </Select>
                 </Label>
+
                 <Label>
                     <span>Nacionalidade:</span>
                     <Input
-                        {...register('nacionalidade')}
-                        placeholder="Nacionalidade"
+                        {...register('nacionalidade', {
+                            required: 'Nacionalidade é obrigatória',
+                        })}
+                        defaultValue={client.nacionalidade}
                     />
                 </Label>
             </Column>
@@ -116,4 +156,4 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
     );
 };
 
-export default PersonalInfoRegister;
+export default EditPersonalInfoRegister;

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
-import Actions from './components/Actions/Actions';
+import Actions from '../ListClients/components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
-import Filters from './components/Filters/Filters';
+import Filters from '../ListGuideUsers/Components/Filters/Filters';
 import Loader from '../../commons/ui/Loader/Loader';
 import {
     ClientsSection,
@@ -10,35 +10,38 @@ import {
     ListClientsContent,
     EmptyStateSection,
     StyledContentModal,
-} from './ListClients.style';
+} from '../ListClients/ListClients.style';
 import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
 import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
-import CreateClientForm from '../Forms/Client/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
-import EditClientForm from '../Forms/Client/EditClient/EditClientForm';
-import { Client } from '../../commons/types/Client';
+import { GuideUser } from '../../commons/types/GuideUser';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { AddIcon } from '@chakra-ui/icons';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { deleteClient } from './services/client.service';
+import { deleteGuideUser } from './services/GuideUser.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
+import GuideUserForm from '../Forms/GuideUsers/CreateGuideUsers/GuideUsersForm';
 
-const ListClients = () => {
-    const { page, clients, loading, fetchClient, fetchExcursions } = useStore(
-        (state) => ({
-            page: state.page,
-            clients: state.clients,
-            loading: state.loading,
-            fetchClient: state.fetchClients,
-            fetchExcursions: state.fetchExcursions,
-        })
-    );
+const ListGuidesUsers = () => {
+    const {
+        page,
+        GuideUsers,
+        loadingGuideUser,
+        fetchGuideUser,
+        fetchExcursionsBySearch,
+    } = useStore((state) => ({
+        page: state.page,
+        GuideUsers: state.GuideUsers,
+        loadingGuideUser: state.loadingGuideUser,
+        fetchGuideUser: state.fetchGuideUser,
+        fetchExcursionsBySearch: state.fetchExcursionsBySearch,
+    }));
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
 
-    const defaultClient: Client = {
+    const defaultGuideUser: GuideUser = {
         id: 0,
         nome: '',
         email: '',
@@ -53,13 +56,12 @@ const ListClients = () => {
         documento: '',
         genero: 'Masculino',
         nacionalidade: '',
-        guia: 0,
-        nomeGuia: '',
         evento: '',
     };
 
     const [creation, setCreation] = useState(false);
-    const [editClient, setEditClient] = useState<Client>(defaultClient);
+    const [editGuideUser, setEditguideUser] =
+        useState<GuideUser>(defaultGuideUser);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -80,31 +82,31 @@ const ListClients = () => {
     });
 
     const stepsTitles = creation
-        ? ['Registro de cliente', 'Registro de cliente']
-        : ['Editar cliente', 'Editar cliente'];
+        ? ['Registro de guia', 'Registro de guia']
+        : ['Editar guia', 'Editar guia'];
     const stepsActions = ['Próximo', 'Concluir'];
 
     const { showCustomToast } = useCustomToast();
 
     useEffect(() => {
-        fetchClient();
+        fetchGuideUser();
     }, [page]);
 
-    if (loading) {
+    if (loadingGuideUser) {
         return (
             <ListClientsContainer>
-                <Loader message="Carregando Clientes" />
+                <Loader message="Carregando Guias" />
             </ListClientsContainer>
         );
     }
 
-    if (!clients.length) {
+    if (!GuideUsers.length) {
         return (
             <ListClientsContainer>
                 <EmptyStateSection>
                     <Filters />
                     <IllustratedState
-                        title="Nenhum cliente foi encontrado"
+                        title="Nenhum guia foi encontrado"
                         subtitle="Verifique os valores de busca e filtro. Tente novamente."
                     />
                 </EmptyStateSection>
@@ -117,14 +119,14 @@ const ListClients = () => {
             <ClientsSection>
                 <Filters />
                 <ListClientsContent>
-                    {clients.map((client) => (
-                        <li key={client.id}>
+                    {GuideUsers.map((guideUser) => (
+                        <li key={guideUser.id}>
                             <TemplateCard
-                                title={client.nome}
-                                subtitle={`${client.cidade} - ${client.estado}`}
+                                title={guideUser.nome}
+                                subtitle={`${guideUser.cidade} - ${guideUser.estado}`}
                                 bodyItems={[
-                                    `Celular: ${client.telefone}`,
-                                    `Email: ${client.email}`,
+                                    `Celular: ${guideUser.telefone}`,
+                                    `Email: ${guideUser.email}`,
                                 ]}
                                 actions={[
                                     {
@@ -132,14 +134,14 @@ const ListClients = () => {
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
-                                            setEditClient(client);
+                                            setEditguideUser(guideUser);
                                         },
                                     },
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
-                                            setEditClient(client);
+                                            setEditguideUser(guideUser);
                                         },
                                     },
                                 ]}
@@ -175,44 +177,40 @@ const ListClients = () => {
                     <StyledContentModal>
                         <GenericStepper steps={steps} activeStep={activeStep} />
                         {creation ? (
-                            <CreateClientForm
+                            <GuideUserForm
                                 activeStep={activeStep}
                                 formRef={formRef}
                             />
                         ) : (
-                            <EditClientForm
-                                activeStep={activeStep}
-                                formRef={formRef}
-                                Client={editClient}
-                            />
+                            <>teste</>
                         )}
                     </StyledContentModal>
                 </Modal>
                 <AlertDialog
-                    title="Excluir Cliente"
-                    description="Deseja realmente excluir este cliente?"
+                    title="Excluir Guia"
+                    description="Deseja realmente excluir este guia?"
                     isOpen={alertDisclosure.isOpen}
                     onClose={alertDisclosure.onClose}
                     confirmButtonText="Excluir"
                     cancelButtonText="Cancelar"
                     onConfirm={() => {
                         alertDisclosure.onClose();
-                        deleteClient(editClient.id)
+                        deleteGuideUser(editGuideUser.id)
                             .then(() => {
                                 showCustomToast({
-                                    title: 'Cliente deletado',
+                                    title: 'Guia deletado',
                                     description:
-                                        'O cliente foi deletado com sucesso.',
+                                        'O guia foi deletado com sucesso.',
                                     status: 'success',
                                 });
 
-                                fetchClient();
+                                fetchGuideUser();
                             })
                             .catch(() => {
                                 showCustomToast({
                                     title: 'Erro ao deletar',
                                     description:
-                                        'Ocorreu um erro ao tentar deletar o cliente.',
+                                        'Ocorreu um erro ao tentar deletar o guia.',
                                     status: 'error',
                                 });
                             });
@@ -220,7 +218,7 @@ const ListClients = () => {
                 />
             </ClientsSection>
             <Actions />
-            <Tooltip hasArrow label="Adicionar Clientes">
+            <Tooltip hasArrow label="Adicionar Guia">
                 <IconButton
                     variant="solid"
                     colorScheme="teal"
@@ -228,7 +226,7 @@ const ListClients = () => {
                     fontSize="20px"
                     icon={<AddIcon />}
                     onClick={() => {
-                        fetchExcursions();
+                        fetchExcursionsBySearch();
                         addDisclosure.onOpen();
                         setCreation(true);
                     }}
@@ -238,4 +236,4 @@ const ListClients = () => {
     );
 };
 
-export default ListClients;
+export default ListGuidesUsers;
