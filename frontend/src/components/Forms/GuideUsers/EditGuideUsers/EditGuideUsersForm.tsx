@@ -1,45 +1,44 @@
 import React from 'react';
 
-import { Client } from '../../../../commons/types/Client';
+import { GuideUser } from '../../../../commons/types/GuideUser';
 import {
     Column,
     Form,
     TwoColumns,
     FormContent,
-} from '../CreateClient/Forms.styles';
+} from '../EditGuideUsers/EditGuideUsersForm.style';
 import { useForm } from 'react-hook-form';
 import useStore from '../../../../store/index';
 import EditPersonalInfoRegister from './EditPersonalInfoRegister';
 import EditGerencialInfoRegister from './EditGerencialInfoRegister';
 import { formatDateToBR } from '../../../../commons/utils/FormatDate';
 
-interface EditClientFormProps {
+interface EditGuideUserFormProps {
     activeStep: number;
     formRef: React.RefObject<HTMLFormElement>;
-    Client: Client;
+    GuideUser: GuideUser;
 }
 
-const EditClientForm: React.FC<EditClientFormProps> = ({
+const EditGuideUserForm: React.FC<EditGuideUserFormProps> = ({
     activeStep,
     formRef,
-    Client,
+    GuideUser,
 }) => {
-    const { updateClient } = useStore((state) => ({
-        updateClient: state.updateClient,
+    const { updateGuideUser } = useStore((state) => ({
+        updateGuideUser: state.updateGuideUser,
     }));
 
-    const { register, handleSubmit, ...rest } = useForm<Client>();
+    const { register, handleSubmit, ...rest } = useForm<GuideUser>();
 
-
-    const validateData = (data: Client) => {
+    const validateData = (data: GuideUser) => {
         data.dataEntrada = formatDateToBR(data.dataEntrada);
         data.dataNascimento = formatDateToBR(data.dataNascimento);
-        data.leito = 1;
+        data.dataSaida = formatDateToBR(data.dataSaida);
     };
 
-    const onSubmit = (data: Client) => {
+    const onSubmit = (data: GuideUser) => {
         validateData(data);
-        updateClient(data, Client.id);
+        updateGuideUser(data, GuideUser.id);
     };
 
     return (
@@ -51,13 +50,13 @@ const EditClientForm: React.FC<EditClientFormProps> = ({
                             <EditPersonalInfoRegister
                                 register={register}
                                 {...rest}
-                                client={Client}
+                                GuideUser={GuideUser}
                             />
                         )}
                         {activeStep === 1 && (
                             <EditGerencialInfoRegister
                                 register={register}
-                                client={Client}
+                                GuideUser={GuideUser}
                             />
                         )}
                     </Column>
@@ -67,4 +66,4 @@ const EditClientForm: React.FC<EditClientFormProps> = ({
     );
 };
 
-export default EditClientForm;
+export default EditGuideUserForm;

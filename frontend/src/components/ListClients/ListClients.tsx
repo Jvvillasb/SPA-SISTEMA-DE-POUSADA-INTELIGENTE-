@@ -56,6 +56,7 @@ const ListClients = () => {
         guia: 0,
         nomeGuia: '',
         evento: '',
+        leito: 1,
     };
 
     const [creation, setCreation] = useState(false);
@@ -132,6 +133,7 @@ const ListClients = () => {
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
+                                            fetchExcursions();
                                             setEditClient(client);
                                         },
                                     },

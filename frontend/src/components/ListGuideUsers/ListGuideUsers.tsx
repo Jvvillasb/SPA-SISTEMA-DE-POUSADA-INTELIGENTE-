@@ -22,6 +22,7 @@ import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
 import { deleteGuideUser } from './services/GuideUser.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import GuideUserForm from '../Forms/GuideUsers/CreateGuideUsers/GuideUsersForm';
+import EditGuideUserForm from '../Forms/GuideUsers/EditGuideUsers/EditGuideUsersForm';
 
 const ListGuidesUsers = () => {
     const {
@@ -57,6 +58,7 @@ const ListGuidesUsers = () => {
         genero: 'Masculino',
         nacionalidade: '',
         evento: '',
+        leito: 1,
     };
 
     const [creation, setCreation] = useState(false);
@@ -134,6 +136,7 @@ const ListGuidesUsers = () => {
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
+                                            fetchExcursionsBySearch();
                                             setEditguideUser(guideUser);
                                         },
                                     },
@@ -182,7 +185,8 @@ const ListGuidesUsers = () => {
                                 formRef={formRef}
                             />
                         ) : (
-                            <>teste</>
+                            <EditGuideUserForm activeStep={activeStep}
+                            formRef={formRef} GuideUser={editGuideUser} />
                         )}
                     </StyledContentModal>
                 </Modal>

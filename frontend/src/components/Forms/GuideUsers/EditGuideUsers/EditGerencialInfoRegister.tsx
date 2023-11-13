@@ -4,20 +4,20 @@ import {
     Label,
     TwoColumns,
     Select,
-} from '../CreateClient/Forms.styles';
+} from '../EditGuideUsers/EditGuideUsersForm.style';
 import { UseFormRegister } from 'react-hook-form';
-import { Client } from '../../../../commons/types/Client';
+import { GuideUser } from '../../../../commons/types/GuideUser';
 import { formatDateToISO } from '../../../../commons/utils/FormatDate';
 import useStore from '../../../../store/index';
 
-interface GerencialInfoRegisterProps {
-    register: UseFormRegister<Client>;
-    client: Client;
+interface EditGerencialInfoRegisterProps {
+    register: UseFormRegister<GuideUser>;
+    GuideUser: GuideUser;
 }
 
-const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
+const EditGerencialInfoRegister: React.FC<EditGerencialInfoRegisterProps> = ({
     register,
-    client,
+    GuideUser,
 }) => {
 
     const { excursions } = useStore((state) => ({
@@ -33,7 +33,7 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('dataEntrada', {
                             required: 'Data de entrada é obrigatória',
                         })}
-                        defaultValue={formatDateToISO(client.dataEntrada)}
+                        defaultValue={formatDateToISO(GuideUser.dataEntrada)}
                         type="date"
                     />
                 </Label>
@@ -44,7 +44,7 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('evento', {
                             required: 'Evento é obrigatório',
                         })}
-                        defaultValue={client.evento}
+                        defaultValue={GuideUser.evento}
                     />
                 </Label>
             </Column>
@@ -55,26 +55,13 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('caravana', {
                             required: 'Este campo é obrigatório',
                         })}
-                        defaultValue={client.caravana}
+                        defaultValue={GuideUser.caravana}
                     >
                         {excursions.map((caravana) => (
                             <option key={caravana.id} value={caravana.id}>
                                 {caravana.nome}
                             </option>
                         ))}
-                    </Select>
-                </Label>
-
-                <Label>
-                    <span>Guia:</span>
-                    <Select
-                        {...register('guia', {
-                            required: 'Este campo é obrigatório',
-                        })}
-                        defaultValue={client.guia}
-                    >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
                     </Select>
                 </Label>
             </Column>
