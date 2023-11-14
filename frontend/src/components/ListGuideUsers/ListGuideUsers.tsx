@@ -1,58 +1,69 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
+import Actions from '../ListClients/components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
+import Filters from '../ListGuideUsers/Components/Filters/Filters';
 import Loader from '../../commons/ui/Loader/Loader';
 import {
-    ListExcursionContainer,
-    ListExcursionContent,
-    ExcursionSection,
+    ClientsSection,
+    ListClientsContainer,
+    ListClientsContent,
+    EmptyStateSection,
     StyledContentModal,
-} from './ListExcursion.style';
-import Actions from '../ListClients/components/Actions/Actions';
+} from '../ListClients/ListClients.style';
+import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
+import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
-import { Excursion } from '../../commons/types/Excursion';
-import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { Tooltip, useDisclosure, useSteps } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
-import ExcursionForm from '../Forms/Excursion/CreateExcursion/ExcursionForm';
-import Filters from '../ListExcursion/Components/Filters/Filters';
-import { deleteExcursion } from './services/Excursion.service';
-import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
-import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionForm';
+import { GuideUser } from '../../commons/types/GuideUser';
 import IconButton from '../../commons/ui/IconButton/IconButton';
+import { AddIcon } from '@chakra-ui/icons';
+import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
+import { deleteGuideUser } from './services/GuideUser.service';
+import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
+import GuideUserForm from '../Forms/GuideUsers/CreateGuideUsers/GuideUsersForm';
+import EditGuideUserForm from '../Forms/GuideUsers/EditGuideUsers/EditGuideUsersForm';
 
-const ListExcursion: React.FC = () => {
+const ListGuidesUsers = () => {
     const {
         page,
-        excursions,
-        loadingExcursion,
-        fetchExcursions,
-        fetchGuideUsersBySearch,
+        GuideUsers,
+        loadingGuideUser,
+        fetchGuideUser,
+        fetchExcursionsBySearch,
     } = useStore((state) => ({
         page: state.page,
-        excursions: state.excursions,
-        loadingExcursion: state.loadingExcursion,
-        fetchExcursions: state.fetchExcursions,
-        fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+        GuideUsers: state.GuideUsers,
+        loadingGuideUser: state.loadingGuideUser,
+        fetchGuideUser: state.fetchGuideUser,
+        fetchExcursionsBySearch: state.fetchExcursionsBySearch,
     }));
-
     const addDisclosure = useDisclosure();
-
-    const { showCustomToast } = useCustomToast();
 
     const alertDisclosure = useDisclosure();
 
-    const defaultExcursion: Excursion = {
-        nome: '',
-        cidade: '',
-        guia: 0,
+    const defaultGuideUser: GuideUser = {
         id: 0,
+        nome: '',
+        email: '',
+        telefone: '',
+        cidade: '',
+        estado: '',
+        caravana: 0,
+        nomeCaravana: '',
+        dataEntrada: '',
+        dataNascimento: '',
+        dataSaida: '',
+        documento: '',
+        genero: 'Masculino',
+        nacionalidade: '',
+        evento: '',
+        leito: 1,
     };
 
     const [creation, setCreation] = useState(false);
-    const [editExcursion, setEditExcursion] =
-        useState<Excursion>(defaultExcursion);
+    const [editGuideUser, setEditguideUser] =
+        useState<GuideUser>(defaultGuideUser);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -62,7 +73,10 @@ const ListExcursion: React.FC = () => {
         }
     };
 
-    const steps = [{ title: 'Informação Geral' }];
+    const steps = [
+        { title: 'Informação Pessoal' },
+        { title: 'Informações Geral' },
+    ];
 
     const { activeStep, setActiveStep } = useSteps({
         index: 0,
@@ -70,55 +84,74 @@ const ListExcursion: React.FC = () => {
     });
 
     const stepsTitles = creation
-        ? ['Registro de Caravana']
-        : ['Editar Caravana'];
-    const stepsActions = ['Concluir'];
+        ? ['Registro de guia', 'Registro de guia']
+        : ['Editar guia', 'Editar guia'];
+    const stepsActions = ['Próximo', 'Concluir'];
+
+    const { showCustomToast } = useCustomToast();
 
     useEffect(() => {
-        fetchExcursions();
+        fetchGuideUser();
     }, [page]);
 
-    if (loadingExcursion) {
+    if (loadingGuideUser) {
         return (
-            <ListExcursionContainer>
-                <Loader message="Carregando Caravanas" />
-            </ListExcursionContainer>
+            <ListClientsContainer>
+                <Loader message="Carregando Guias" />
+            </ListClientsContainer>
+        );
+    }
+
+    if (!GuideUsers.length) {
+        return (
+            <ListClientsContainer>
+                <EmptyStateSection>
+                    <Filters />
+                    <IllustratedState
+                        title="Nenhum guia foi encontrado"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
+            </ListClientsContainer>
         );
     }
 
     return (
-        <ListExcursionContainer>
-            <ExcursionSection>
+        <ListClientsContainer>
+            <ClientsSection>
                 <Filters />
-                <ListExcursionContent>
-                    {excursions.map((excursions) => (
-                        <li key={excursions.id}>
+                <ListClientsContent>
+                    {GuideUsers.map((guideUser) => (
+                        <li key={guideUser.id}>
                             <TemplateCard
-                                title={excursions.nome}
-                                subtitle={`${excursions.cidade}`}
+                                title={guideUser.nome}
+                                subtitle={`${guideUser.cidade} - ${guideUser.estado}`}
+                                bodyItems={[
+                                    `Celular: ${guideUser.telefone}`,
+                                    `Email: ${guideUser.email}`,
+                                ]}
                                 actions={[
                                     {
                                         label: 'Editar',
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
-                                            fetchGuideUsersBySearch();
-                                            setEditExcursion(excursions);
+                                            fetchExcursionsBySearch();
+                                            setEditguideUser(guideUser);
                                         },
                                     },
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
-                                            setEditExcursion(excursions);
+                                            setEditguideUser(guideUser);
                                         },
                                     },
                                 ]}
-                                bodyItems={[]}
                             ></TemplateCard>
                         </li>
                     ))}
-                </ListExcursionContent>
+                </ListClientsContent>
                 <Modal
                     isOpen={addDisclosure.isOpen}
                     onClose={() => {
@@ -147,52 +180,52 @@ const ListExcursion: React.FC = () => {
                     <StyledContentModal>
                         <GenericStepper steps={steps} activeStep={activeStep} />
                         {creation ? (
-                            <ExcursionForm
+                            <GuideUserForm
                                 activeStep={activeStep}
                                 formRef={formRef}
                             />
                         ) : (
-                            <EditExcursionForm
-                                Excursion={editExcursion}
+                            <EditGuideUserForm
                                 activeStep={activeStep}
                                 formRef={formRef}
+                                GuideUser={editGuideUser}
                             />
                         )}
                     </StyledContentModal>
                 </Modal>
                 <AlertDialog
-                    title="Excluir Caravana"
-                    description="Deseja realmente excluir esta caravana?"
+                    title="Excluir Guia"
+                    description="Deseja realmente excluir este guia?"
                     isOpen={alertDisclosure.isOpen}
                     onClose={alertDisclosure.onClose}
                     confirmButtonText="Excluir"
                     cancelButtonText="Cancelar"
                     onConfirm={() => {
                         alertDisclosure.onClose();
-                        deleteExcursion(editExcursion.id)
+                        deleteGuideUser(editGuideUser.id)
                             .then(() => {
                                 showCustomToast({
-                                    title: 'Caravana deletada',
+                                    title: 'Guia deletado',
                                     description:
-                                        'A caravana foi deletada com sucesso.',
+                                        'O guia foi deletado com sucesso.',
                                     status: 'success',
                                 });
 
-                                fetchExcursions();
+                                fetchGuideUser();
                             })
                             .catch(() => {
                                 showCustomToast({
                                     title: 'Erro ao deletar',
                                     description:
-                                        'Ocorreu um erro ao tentar deletar a caravana.',
+                                        'Ocorreu um erro ao tentar deletar o guia.',
                                     status: 'error',
                                 });
                             });
                     }}
                 />
-            </ExcursionSection>
+            </ClientsSection>
             <Actions />
-            <Tooltip hasArrow label="Adicionar Caravana">
+            <Tooltip hasArrow label="Adicionar Guia">
                 <IconButton
                     variant="solid"
                     colorScheme="teal"
@@ -200,14 +233,14 @@ const ListExcursion: React.FC = () => {
                     fontSize="20px"
                     icon={<AddIcon />}
                     onClick={() => {
+                        fetchExcursionsBySearch();
                         addDisclosure.onOpen();
-                        fetchGuideUsersBySearch();
                         setCreation(true);
                     }}
                 />
             </Tooltip>
-        </ListExcursionContainer>
+        </ListClientsContainer>
     );
 };
 
-export default ListExcursion;
+export default ListGuidesUsers;

@@ -1,11 +1,15 @@
 import { Pagination } from 'src/commons/types/Pagination';
 import { Client } from '../../../commons/types/Client';
 import axiosInstance from './../../../axiosConfig';
-import { clientFilters } from '../../../store/slices/createClientSlice.types';
+import { clientFilters } from '../../../store/slices/Client/createClientSlice.types';
 
 const DEFAULT_PAGE_SIZE = 12;
 
-export const listClients = async (page: number, searchString = '', filters: clientFilters) => {
+export const listClients = async (
+    page: number,
+    searchString = '',
+    filters: clientFilters
+) => {
     return axiosInstance.get<Pagination<Client>>(
         `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}&caravana=${filters.excursionType}&sort=id,desc`
     );

@@ -11,16 +11,16 @@ const makeSUT = (title: string, subtitle: string, children: ReactNode) => {
     );
 };
 
-describe("IllustratedState", () => {
-    const mockTitle = "Fake Title";
-    const mockSubtitle = "Fake subtitle";
+describe('IllustratedState', () => {
+    const mockTitle = 'Fake Title';
+    const mockSubtitle = 'Fake subtitle';
     const mockChildren = <div data-testid="children"></div>;
 
-    it("should render component", () => {
+    it('should render component', () => {
         makeSUT(mockTitle, mockSubtitle, mockChildren);
 
         expect(screen.getByText(/fake title/i)).toBeInTheDocument();
         expect(screen.getByText(/fake subtitle/i)).toBeInTheDocument();
-        expect(screen.getByTestId("children")).toBeInTheDocument();
+        expect(screen.getByTestId('children')).toBeInTheDocument();
     });
 });

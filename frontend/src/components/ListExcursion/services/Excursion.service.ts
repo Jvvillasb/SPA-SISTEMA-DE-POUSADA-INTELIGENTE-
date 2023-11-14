@@ -10,6 +10,10 @@ export const listExcursions = async (page: number, searchString = '') => {
     );
 };
 
+export const listExcursionsBySearch = async () => {
+    return axiosInstance.get<Pagination<Excursion>>(`/caravana?&sort=id,desc`);
+};
+
 export const createExcursions = async (Excursion: Excursion) => {
     return axiosInstance.post<Excursion>(`/caravana`, Excursion);
 };

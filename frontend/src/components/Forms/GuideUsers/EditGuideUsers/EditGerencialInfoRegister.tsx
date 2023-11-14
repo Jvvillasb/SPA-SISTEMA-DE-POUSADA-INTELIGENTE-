@@ -1,13 +1,23 @@
-import { Column, Input, Label, TwoColumns, Select } from './Forms.styles';
+import {
+    Column,
+    Input,
+    Label,
+    TwoColumns,
+    Select,
+} from '../EditGuideUsers/EditGuideUsersForm.style';
 import { UseFormRegister } from 'react-hook-form';
-import { Client } from '../../../commons/types/Client';
-import useStore from '../../../store/index';
-interface GerencialInfoRegisterProps {
-    register: UseFormRegister<Client>;
+import { GuideUser } from '../../../../commons/types/GuideUser';
+import { formatDateToISO } from '../../../../commons/utils/FormatDate';
+import useStore from '../../../../store/index';
+
+interface EditGerencialInfoRegisterProps {
+    register: UseFormRegister<GuideUser>;
+    GuideUser: GuideUser;
 }
 
-const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
+const EditGerencialInfoRegister: React.FC<EditGerencialInfoRegisterProps> = ({
     register,
+    GuideUser,
 }) => {
     const { excursions } = useStore((state) => ({
         excursions: state.excursions,
@@ -22,16 +32,7 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('dataEntrada', {
                             required: 'Data de entrada é obrigatória',
                         })}
-                        placeholder="Data de Entrada"
-                        type="date"
-                    />
-                </Label>
-
-                <Label>
-                    <span>Data de Saída:</span>
-                    <Input
-                        {...register('dataSaida')}
-                        placeholder="Data de Saída"
+                        defaultValue={formatDateToISO(GuideUser.dataEntrada)}
                         type="date"
                     />
                 </Label>
@@ -42,7 +43,7 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('evento', {
                             required: 'Evento é obrigatório',
                         })}
-                        placeholder="Evento"
+                        defaultValue={GuideUser.evento}
                     />
                 </Label>
             </Column>
@@ -53,6 +54,7 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         {...register('caravana', {
                             required: 'Este campo é obrigatório',
                         })}
+                        defaultValue={GuideUser.caravana}
                     >
                         {excursions.map((caravana) => (
                             <option key={caravana.id} value={caravana.id}>
@@ -61,21 +63,9 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         ))}
                     </Select>
                 </Label>
-
-                <Label>
-                    <span>Tem guia:</span>
-                    <Select
-                        {...register('guia', {
-                            required: 'Este campo é obrigatório',
-                        })}
-                    >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
-                    </Select>
-                </Label>
             </Column>
         </TwoColumns>
     );
 };
 
-export default GerencialInfoRegister;
+export default EditGerencialInfoRegister;

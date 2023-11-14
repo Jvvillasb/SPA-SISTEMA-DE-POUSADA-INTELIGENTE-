@@ -2,7 +2,7 @@ import { Client } from 'src/commons/types/Client';
 
 export type clientFilters = {
     excursionType: number;
-}
+};
 
 export interface ClientState {
     page: number;

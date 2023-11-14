@@ -5,19 +5,19 @@ import {
     TwoColumns,
     Input,
     InputMaskStyled,
-} from '../CreateClient/Forms.styles';
-import { Client } from '../../../commons/types/Client';
+} from '../EditGuideUsers/EditGuideUsersForm.style';
+import { GuideUser } from '../../../../commons/types/GuideUser';
 import { UseFormRegister } from 'react-hook-form';
-import { formatDateToISO } from '../../../commons/utils/FormatDate';
+import { formatDateToISO } from '../../../../commons/utils/FormatDate';
 
 interface EditPersonalInfoProps {
-    register: UseFormRegister<Client>;
-    client: Client;
+    register: UseFormRegister<GuideUser>;
+    GuideUser: GuideUser;
 }
 
 const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
     register,
-    client,
+    GuideUser,
 }) => {
     return (
         <TwoColumns>
@@ -28,7 +28,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('nome', {
                             required: 'Nome é obrigatório',
                         })}
-                        defaultValue={client.nome}
+                        defaultValue={GuideUser.nome}
                     />
                 </Label>
 
@@ -39,7 +39,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('documento', {
                             required: 'RG é obrigatório',
                         })}
-                        value={client.documento}
+                        value={GuideUser.documento}
                         type="text"
                     />
                 </Label>
@@ -50,7 +50,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('dataNascimento', {
                             required: 'Data de nascimento é obrigatória',
                         })}
-                        defaultValue={formatDateToISO(client.dataNascimento)}
+                        defaultValue={formatDateToISO(GuideUser.dataNascimento)}
                         type="date"
                     />
                 </Label>
@@ -62,7 +62,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('telefone', {
                             required: 'Telefone é obrigatório',
                         })}
-                        defaultValue={client.telefone}
+                        defaultValue={GuideUser.telefone}
                         type="text"
                     />
                 </Label>
@@ -73,7 +73,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('genero', {
                             required: 'Gênero é obrigatório',
                         })}
-                        defaultValue={client.genero}
+                        defaultValue={GuideUser.genero}
                     >
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
@@ -89,7 +89,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                             pattern:
                                 /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                         })}
-                        defaultValue={client.email}
+                        defaultValue={GuideUser.email}
                     />
                 </Label>
 
@@ -99,7 +99,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('cidade', {
                             required: 'Cidade é obrigatória',
                         })}
-                        defaultValue={client.cidade}
+                        defaultValue={GuideUser.cidade}
                     />
                 </Label>
 
@@ -109,7 +109,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('estado', {
                             required: 'Estado é obrigatório',
                         })}
-                        defaultValue={client.estado.toLowerCase()}
+                        defaultValue={GuideUser.estado.toLowerCase()}
                     >
                         <option value="estado">Selecione o Estado</option>
                         <option value="ac">Acre</option>
@@ -148,7 +148,7 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                         {...register('nacionalidade', {
                             required: 'Nacionalidade é obrigatória',
                         })}
-                        defaultValue={client.nacionalidade}
+                        defaultValue={GuideUser.nacionalidade}
                     />
                 </Label>
             </Column>

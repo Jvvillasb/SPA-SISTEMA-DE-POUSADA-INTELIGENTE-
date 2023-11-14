@@ -6,8 +6,9 @@ import {
     Select,
 } from '../CreateClient/Forms.styles';
 import { UseFormRegister } from 'react-hook-form';
-import { Client } from '../../../commons/types/Client';
-import { formatDateToISO } from '../../../commons/utils/FormatDate';
+import { Client } from '../../../../commons/types/Client';
+import { formatDateToISO } from '../../../../commons/utils/FormatDate';
+import useStore from '../../../../store/index';
 
 interface GerencialInfoRegisterProps {
     register: UseFormRegister<Client>;
@@ -18,6 +19,11 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
     register,
     client,
 }) => {
+    const { excursions, guideUsers } = useStore((state) => ({
+        excursions: state.excursions,
+        guideUsers: state.GuideUsers,
+    }));
+
     return (
         <TwoColumns>
             <Column>
@@ -28,15 +34,6 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                             required: 'Data de entrada é obrigatória',
                         })}
                         defaultValue={formatDateToISO(client.dataEntrada)}
-                        type="date"
-                    />
-                </Label>
-
-                <Label>
-                    <span>Data de Saída:</span>
-                    <Input
-                        {...register('dataSaida')}
-                        defaultValue={formatDateToISO(client.dataSaida)}
                         type="date"
                     />
                 </Label>
@@ -53,54 +50,36 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
             </Column>
             <Column>
                 <Label>
-                    <span>Está em caravana:</span>
+                    <span>caravana:</span>
                     <Select
                         {...register('caravana', {
                             required: 'Este campo é obrigatório',
                         })}
                         defaultValue={client.caravana}
                     >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
+                        {excursions.map((caravana) => (
+                            <option key={caravana.id} value={caravana.id}>
+                                {caravana.nome}
+                            </option>
+                        ))}
                     </Select>
                 </Label>
 
-                {client.caravana ? (
-                    <Label>
-                        <span>Nome da Caravana:</span>
-                        <Input
-                            {...register('nomeCaravana')}
-                            defaultValue={client.nomeCaravana}
-                        />
-                    </Label>
-                ) : (
-                    <></>
-                )}
-
                 <Label>
-                    <span>Tem guia:</span>
+                    <span>Guia:</span>
                     <Select
                         {...register('guia', {
                             required: 'Este campo é obrigatório',
                         })}
                         defaultValue={client.guia}
                     >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
+                        {guideUsers.map((guia) => (
+                            <option key={guia.id} value={guia.id}>
+                                {guia.nome}
+                            </option>
+                        ))}
                     </Select>
                 </Label>
-
-                {client.guia ? (
-                    <Label>
-                        <span>Nome do guia:</span>
-                        <Input
-                            {...register('nomeGuia')}
-                            defaultValue={client.nomeGuia}
-                        />
-                    </Label>
-                ) : (
-                    <></>
-                )}
             </Column>
         </TwoColumns>
     );

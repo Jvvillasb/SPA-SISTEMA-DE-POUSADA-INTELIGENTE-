@@ -6,7 +6,7 @@ import {
     TwoColumns,
     InputMaskStyled,
 } from './Forms.styles';
-import { Client } from '../../../commons/types/Client';
+import { Client } from '../../../../commons/types/Client';
 import { UseFormRegister } from 'react-hook-form';
 
 interface PersonalInfoProps {

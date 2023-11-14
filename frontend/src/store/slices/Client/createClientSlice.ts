@@ -5,9 +5,9 @@ import {
     listClients,
     updateClient,
     deleteClient,
-} from './../../components/ListClients/services/client.service';
+} from '../../../components/ListClients/services/client.service';
 import { ClientStateType } from './createClientSlice.types';
-import { Client } from '../../commons/types/Client';
+import { Client } from '../../../commons/types/Client';
 
 export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     page: 0,

@@ -1,4 +1,4 @@
-export type Client = {
+export type GuideUser = {
     caravana: number;
     nomeCaravana: string;
     cidade: string;
@@ -13,8 +13,6 @@ export type Client = {
     nacionalidade: string;
     nome: string;
     telefone: string;
-    guia: number;
-    nomeGuia: string;
     evento: string;
     leito: number;
 };

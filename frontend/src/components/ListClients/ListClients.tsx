@@ -14,9 +14,9 @@ import {
 import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
 import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
 import Modal from '../../commons/ui/Modal/Modal';
-import CreateClientForm from '../Forms/CreateClient/Forms';
+import CreateClientForm from '../Forms/Client/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
-import EditClientForm from '../Forms/EditClient/EditClientForm';
+import EditClientForm from '../Forms/Client/EditClient/EditClientForm';
 import { Client } from '../../commons/types/Client';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { AddIcon } from '@chakra-ui/icons';
@@ -25,15 +25,21 @@ import { deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 
 const ListClients = () => {
-    const { page, clients, loading, fetchClient, fetchExcursions } = useStore(
-        (state) => ({
-            page: state.page,
-            clients: state.clients,
-            loading: state.loading,
-            fetchClient: state.fetchClients,
-            fetchExcursions: state.fetchExcursions,
-        })
-    );
+    const {
+        page,
+        clients,
+        loading,
+        fetchClient,
+        fetchExcursions,
+        fetchGuideUsersBySearch,
+    } = useStore((state) => ({
+        page: state.page,
+        clients: state.clients,
+        loading: state.loading,
+        fetchClient: state.fetchClients,
+        fetchExcursions: state.fetchExcursions,
+        fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+    }));
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
@@ -56,6 +62,7 @@ const ListClients = () => {
         guia: 0,
         nomeGuia: '',
         evento: '',
+        leito: 1,
     };
 
     const [creation, setCreation] = useState(false);
@@ -132,6 +139,8 @@ const ListClients = () => {
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
+                                            fetchExcursions();
+                                            fetchGuideUsersBySearch();
                                             setEditClient(client);
                                         },
                                     },
@@ -139,6 +148,12 @@ const ListClients = () => {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
+                                            setEditClient(client);
+                                        },
+                                    },
+                                    {
+                                        label: 'Inativar',
+                                        onClick: () => {
                                             setEditClient(client);
                                         },
                                     },
@@ -229,6 +244,7 @@ const ListClients = () => {
                     icon={<AddIcon />}
                     onClick={() => {
                         fetchExcursions();
+                        fetchGuideUsersBySearch();
                         addDisclosure.onOpen();
                         setCreation(true);
                     }}
