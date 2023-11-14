@@ -11,9 +11,7 @@ export const listGuideUser = async (page: number, searchString = '') => {
 };
 
 export const listGuidesBySearch = async () => {
-    return axiosInstance.get<Pagination<GuideUser>>(
-        `/guia?&sort=id,desc`
-    );
+    return axiosInstance.get<Pagination<GuideUser>>(`/guia?&sort=id,desc`);
 };
 
 export const createGuideUser = async (GuideUser: GuideUser) => {
@@ -27,4 +25,3 @@ export const updateGuideUser = async (GuideUser: GuideUser, id: number) => {
 export const deleteGuideUser = async (id: number) => {
     return axiosInstance.delete<GuideUser>(`/guia/${id}`);
 };
-

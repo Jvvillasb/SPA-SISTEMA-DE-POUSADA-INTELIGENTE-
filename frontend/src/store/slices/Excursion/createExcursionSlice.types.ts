@@ -1,4 +1,4 @@
-import { Excursion } from "src/commons/types/Excursion";
+import { Excursion } from 'src/commons/types/Excursion';
 
 export interface ExcursionState {
     page: number;

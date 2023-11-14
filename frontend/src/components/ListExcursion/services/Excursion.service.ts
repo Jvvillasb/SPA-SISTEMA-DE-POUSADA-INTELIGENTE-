@@ -11,9 +11,7 @@ export const listExcursions = async (page: number, searchString = '') => {
 };
 
 export const listExcursionsBySearch = async () => {
-    return axiosInstance.get<Pagination<Excursion>>(
-        `/caravana?&sort=id,desc`
-    );
+    return axiosInstance.get<Pagination<Excursion>>(`/caravana?&sort=id,desc`);
 };
 
 export const createExcursions = async (Excursion: Excursion) => {

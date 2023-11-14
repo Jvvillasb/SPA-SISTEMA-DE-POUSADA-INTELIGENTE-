@@ -11,7 +11,10 @@ import {
 import { ExcursionStateType } from './createExcursionSlice.types';
 import { Excursion } from '../../../commons/types/Excursion';
 
-export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get) => ({
+export const createExcursionSlice: StateCreator<ExcursionStateType> = (
+    set,
+    get
+) => ({
     page: 0,
     last: false,
     first: true,
@@ -81,7 +84,5 @@ export const createExcursionSlice: StateCreator<ExcursionStateType> = (set, get)
     },
     setSearchString: (searchString) => {
         set({ searchString });
-    }
+    },
 });
-
-

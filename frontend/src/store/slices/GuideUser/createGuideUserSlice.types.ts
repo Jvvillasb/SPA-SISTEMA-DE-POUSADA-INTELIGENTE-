@@ -1,8 +1,8 @@
-import { GuideUser } from "src/commons/types/GuideUser";
+import { GuideUser } from 'src/commons/types/GuideUser';
 
 export type guideUserFilters = {
     excursionType: number;
-}
+};
 
 export interface GuideUserState {
     page: number;

@@ -3,4 +3,4 @@ export type Excursion = {
     cidade: string;
     guia: number;
     id: number;
-}
+};

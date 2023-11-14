@@ -185,8 +185,11 @@ const ListGuidesUsers = () => {
                                 formRef={formRef}
                             />
                         ) : (
-                            <EditGuideUserForm activeStep={activeStep}
-                            formRef={formRef} GuideUser={editGuideUser} />
+                            <EditGuideUserForm
+                                activeStep={activeStep}
+                                formRef={formRef}
+                                GuideUser={editGuideUser}
+                            />
                         )}
                     </StyledContentModal>
                 </Modal>

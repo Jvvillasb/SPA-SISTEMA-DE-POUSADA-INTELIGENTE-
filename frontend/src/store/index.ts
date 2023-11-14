@@ -7,7 +7,10 @@ import { ExcursionStateType } from './slices/Excursion/createExcursionSlice.type
 import { createGuideUserSlice } from './slices/GuideUser/createGuideUserSlice';
 import { GuideUserStateType } from './slices/GuideUser/createGuideUserSlice.types';
 
-interface StoreStateType extends ClientStateType, ExcursionStateType, GuideUserStateType { }
+interface StoreStateType
+    extends ClientStateType,
+        ExcursionStateType,
+        GuideUserStateType {}
 
 const useStore = create<StoreStateType>((...a) => ({
     ...createClientSlice(...a),

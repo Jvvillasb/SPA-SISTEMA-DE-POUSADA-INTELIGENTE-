@@ -11,7 +11,10 @@ import {
 import { GuideUserStateType } from './createGuideUserSlice.types';
 import { GuideUser } from '../../../commons/types/GuideUser';
 
-export const createGuideUserSlice: StateCreator<GuideUserStateType> = (set, get) => ({
+export const createGuideUserSlice: StateCreator<GuideUserStateType> = (
+    set,
+    get
+) => ({
     page: 0,
     last: false,
     first: true,
@@ -83,5 +86,3 @@ export const createGuideUserSlice: StateCreator<GuideUserStateType> = (set, get)
         });
     },
 });
-
-

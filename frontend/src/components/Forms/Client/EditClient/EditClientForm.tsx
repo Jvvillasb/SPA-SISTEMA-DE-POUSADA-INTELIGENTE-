@@ -30,7 +30,6 @@ const EditClientForm: React.FC<EditClientFormProps> = ({
 
     const { register, handleSubmit, ...rest } = useForm<Client>();
 
-
     const validateData = (data: Client) => {
         data.dataEntrada = formatDateToBR(data.dataEntrada);
         data.dataNascimento = formatDateToBR(data.dataNascimento);

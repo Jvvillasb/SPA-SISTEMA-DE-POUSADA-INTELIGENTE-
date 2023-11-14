@@ -19,7 +19,6 @@ const EditGerencialInfoRegister: React.FC<EditGerencialInfoRegisterProps> = ({
     register,
     GuideUser,
 }) => {
-
     const { excursions } = useStore((state) => ({
         excursions: state.excursions,
     }));
