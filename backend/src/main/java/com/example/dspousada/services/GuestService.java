@@ -20,9 +20,11 @@ import com.example.dspousada.dto.GuestDTO;
 import com.example.dspousada.entities.Caravana;
 import com.example.dspousada.entities.Guest;
 import com.example.dspousada.entities.Guia;
+import com.example.dspousada.entities.Leito;
 import com.example.dspousada.repositories.CaravanaRepository;
 import com.example.dspousada.repositories.GuestRepository;
 import com.example.dspousada.repositories.GuiaRepository;
+import com.example.dspousada.repositories.LeitoRepository;
 import com.example.dspousada.services.exception.DatabaseException;
 import com.example.dspousada.services.exception.ResourceNotFoundException;
 
@@ -37,6 +39,9 @@ public class GuestService {
 	
 	@Autowired
 	private CaravanaRepository caravanaRepository;
+	
+	@Autowired
+	private LeitoRepository leitoRepository;
 
 	@Transactional(readOnly = true)
 	public Page<GuestDTO> findAllPaged(String name, String documento, String dataEntrada1, String dataEntrada2,
@@ -76,13 +81,23 @@ public class GuestService {
 		String dataFormatada = dateFormat.format(dataAtual);
 		for (int i = 0; i < lista.size(); i++) {
 			repository.checkoutGuest(lista.get(i), dataFormatada);
+			repository.checkinLeitoInteger(1, lista.get(i));
+			leitoRepository.updateStatusDisponivel(lista.get(i));
 		}
+	}
+	
+	@Transactional
+	public void checkinLeito(Long idGuest, Long idLeito) {
+		repository.checkinLeito(idLeito, idGuest);
+		leitoRepository.checkinLeito(idGuest, idLeito);
+		leitoRepository.updateStatus(idLeito);
 	}
 
 	@Transactional
 	public GuestDTO insert(GuestDTO dto) {
 		Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
 		Guia guia = guiaRepository.getReferenceById(dto.getGuia());
+	    Leito leito = leitoRepository.getReferenceById(dto.getLeito());
 		Guest entity = new Guest();
 		entity.setNome(dto.getNome());
 		entity.setDocumento(dto.getDocumento());
@@ -100,6 +115,7 @@ public class GuestService {
 		entity.setNomeGuia(guia.getNome());
 		entity.setCaravana(caravana);
 		entity.setNomeCaravana(caravana.getNome());
+	    entity.setLeito(leito);
 		entity = repository.save(entity);
 		return new GuestDTO(entity);
 	}
@@ -109,6 +125,7 @@ public class GuestService {
 		try {
 			Caravana caravana = caravanaRepository.getReferenceById(dto.getCaravana());
 			Guia guia = guiaRepository.getReferenceById(dto.getGuia());
+	        Leito leito = leitoRepository.getReferenceById(dto.getLeito());
 			Guest entity = repository.getReferenceById(id);
 			entity.setNome(dto.getNome());
 			entity.setDocumento(dto.getDocumento());
@@ -126,6 +143,7 @@ public class GuestService {
 			entity.setNomeGuia(guia.getNome());
 			entity.setCaravana(caravana);
 			entity.setNomeCaravana(caravana.getNome());
+	        entity.setLeito(leito);
 			entity = repository.save(entity);
 			return new GuestDTO(entity);
 		} catch (EntityNotFoundException e) {

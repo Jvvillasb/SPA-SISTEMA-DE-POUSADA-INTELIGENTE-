@@ -9,8 +9,8 @@ import { GuideUserStateType } from './slices/GuideUser/createGuideUserSlice.type
 
 interface StoreStateType
     extends ClientStateType,
-        ExcursionStateType,
-        GuideUserStateType {}
+    ExcursionStateType,
+    GuideUserStateType { }
 
 const useStore = create<StoreStateType>((...a) => ({
     ...createClientSlice(...a),

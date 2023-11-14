@@ -56,6 +56,12 @@ public class GuestResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PostMapping(value = "/checkinLeito/{idGuest}/{idLeito}")
+	public ResponseEntity<Void> checkouinLeito(@PathVariable Long idGuest, @PathVariable Long idLeito) {
+		service.checkinLeito(idGuest, idLeito);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@PostMapping
 	public ResponseEntity<GuestDTO> insert(@RequestBody @Valid GuestDTO dto) {
 		GuestDTO newDto = service.insert(dto);

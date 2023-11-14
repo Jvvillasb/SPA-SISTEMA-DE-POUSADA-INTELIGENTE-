@@ -34,4 +34,12 @@ public interface GuestRepository extends JpaRepository<Guest, Long>{
 	@Query(nativeQuery = true, value = "UPDATE tb_guest SET data_saida = :data WHERE id = :id") 
 	public void checkoutGuest(Integer id, String data);
 	
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE tb_guest SET leito_id = :id WHERE id = :guestId ")
+	public void checkinLeito(Long id, Long guestId);
+	
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE tb_guest SET leito_id = :id WHERE id = :guestId ")
+	public void checkinLeitoInteger(int id, Integer guestId);
+	
 }

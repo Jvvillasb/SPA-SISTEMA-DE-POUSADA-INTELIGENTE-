@@ -28,12 +28,19 @@ public class GuestDTO implements Serializable{
 	private Long guia;
 	private String nomeGuia;
 	
+	private Long leito;
+	
+	private Integer numeroLeito;  
+	private Long idQuarto;       
+	private Integer numeroQuarto;
+	private String nomeQuarto;    
+	
 	public GuestDTO() {
 	}
 
 	public GuestDTO(Long id, String nome, String documento, String dataNascimento, String telefone, String genero,
 			String email, String cidade, String estado, String nacionalidade, String dataEntrada,
-			String dataSaida, String evento, Long caravana, String nomeCaravana, Long guia, String nomeGuia) {
+			String dataSaida, String evento, Long caravana, String nomeCaravana, Long guia, String nomeGuia, Long leito) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -52,6 +59,7 @@ public class GuestDTO implements Serializable{
 		this.nomeCaravana = nomeCaravana;
 		this.guia = guia;
 		this.nomeGuia = nomeGuia;
+		this.leito = leito;
 	}
 	
 	public GuestDTO(Guest guest) {
@@ -73,6 +81,15 @@ public class GuestDTO implements Serializable{
 		nomeCaravana = guest.getCaravana().getNome();
 		guia = guest.getGuia().getId();
 		nomeGuia = guest.getGuia().getNome();
+		leito = guest.getLeito().getId();
+		if(guest.getLeito() != null) {
+	        numeroLeito = guest.getLeito().getNumero();
+	        if(guest.getLeito().getQuarto() != null) {
+	            idQuarto = guest.getLeito().getQuarto().getId();
+	            numeroQuarto = guest.getLeito().getQuarto().getNumero();
+	            nomeQuarto = guest.getLeito().getQuarto().getNome();
+	        }
+	    }
 	}
 
 	public Long getId() {
@@ -210,5 +227,47 @@ public class GuestDTO implements Serializable{
 	public void setNomeGuia(String nomeGuia) {
 		this.nomeGuia = nomeGuia;
 	}
+	
+	public Long getLeito() {
+		return leito;
+	}
+	
+	public void setLeito(Long leito) {
+		this.leito = leito;
+	}
+
+	public Integer getNumeroLeito() {
+		return numeroLeito;
+	}
+
+	public void setNumeroLeito(Integer numeroLeito) {
+		this.numeroLeito = numeroLeito;
+	}
+
+	public Long getIdQuarto() {
+		return idQuarto;
+	}
+
+	public void setIdQuarto(Long idQuarto) {
+		this.idQuarto = idQuarto;
+	}
+
+	public Integer getNumeroQuarto() {
+		return numeroQuarto;
+	}
+
+	public void setNumeroQuarto(Integer numeroQuarto) {
+		this.numeroQuarto = numeroQuarto;
+	}
+
+	public String getNomeQuarto() {
+		return nomeQuarto;
+	}
+
+	public void setNomeQuarto(String nomeQuarto) {
+		this.nomeQuarto = nomeQuarto;
+	}
+	
+	
 
 }
