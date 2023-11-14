@@ -12,6 +12,5 @@ export const authenticatedRoutes: Array<RouteInfo> = [
 ];
 
 export const commonRoutes: Array<RouteInfo> = [
-    { path: '/register', title: 'Cadastro' },
     { path: '/login', title: 'Login' },
 ];

@@ -25,15 +25,21 @@ import { deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 
 const ListClients = () => {
-    const { page, clients, loading, fetchClient, fetchExcursions } = useStore(
-        (state) => ({
-            page: state.page,
-            clients: state.clients,
-            loading: state.loading,
-            fetchClient: state.fetchClients,
-            fetchExcursions: state.fetchExcursions,
-        })
-    );
+    const {
+        page,
+        clients,
+        loading,
+        fetchClient,
+        fetchExcursions,
+        fetchGuideUsersBySearch,
+    } = useStore((state) => ({
+        page: state.page,
+        clients: state.clients,
+        loading: state.loading,
+        fetchClient: state.fetchClients,
+        fetchExcursions: state.fetchExcursions,
+        fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+    }));
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
@@ -134,6 +140,7 @@ const ListClients = () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
                                             fetchExcursions();
+                                            fetchGuideUsersBySearch();
                                             setEditClient(client);
                                         },
                                     },
@@ -141,6 +148,12 @@ const ListClients = () => {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
+                                            setEditClient(client);
+                                        },
+                                    },
+                                    {
+                                        label: 'Inativar',
+                                        onClick: () => {
                                             setEditClient(client);
                                         },
                                     },
@@ -231,6 +244,7 @@ const ListClients = () => {
                     icon={<AddIcon />}
                     onClick={() => {
                         fetchExcursions();
+                        fetchGuideUsersBySearch();
                         addDisclosure.onOpen();
                         setCreation(true);
                     }}

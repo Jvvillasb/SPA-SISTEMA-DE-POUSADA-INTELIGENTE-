@@ -5,6 +5,7 @@ import {
     listGuideUser,
     updateGuideUser,
     deleteGuideUser,
+    listGuidesBySearch,
 } from '../../../components/ListGuideUsers/services/GuideUser.service';
 
 import { GuideUserStateType } from './createGuideUserSlice.types';
@@ -67,7 +68,20 @@ export const createGuideUserSlice: StateCreator<GuideUserStateType> = (set, get)
     },
     setSearchString: (searchString) => {
         set({ searchString });
-    }
+    },
+    fetchGuideUsersBySearch: async () => {
+        set({ loadingGuideUser: true });
+        const {
+            data: { first, last, content, totalPages },
+        } = await listGuidesBySearch();
+        set({
+            last,
+            first,
+            loadingGuideUser: false,
+            totalPages,
+            GuideUsers: content,
+        });
+    },
 });
 
 

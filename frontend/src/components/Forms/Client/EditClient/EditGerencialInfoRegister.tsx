@@ -19,9 +19,9 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
     register,
     client,
 }) => {
-
-    const { excursions } = useStore((state) => ({
+    const { excursions, guideUsers } = useStore((state) => ({
         excursions: state.excursions,
+        guideUsers: state.GuideUsers,
     }));
 
     return (
@@ -73,8 +73,11 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         })}
                         defaultValue={client.guia}
                     >
-                        <option value="2">Sim</option>
-                        <option value="1">Não</option>
+                        {guideUsers.map((guia) => (
+                            <option key={guia.id} value={guia.id}>
+                                {guia.nome}
+                            </option>
+                        ))}
                     </Select>
                 </Label>
             </Column>

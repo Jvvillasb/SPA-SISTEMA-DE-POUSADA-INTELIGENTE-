@@ -10,6 +10,12 @@ export const listGuideUser = async (page: number, searchString = '') => {
     );
 };
 
+export const listGuidesBySearch = async () => {
+    return axiosInstance.get<Pagination<GuideUser>>(
+        `/guia?&sort=id,desc`
+    );
+};
+
 export const createGuideUser = async (GuideUser: GuideUser) => {
     return axiosInstance.post<GuideUser>(`/guia`, GuideUser);
 };

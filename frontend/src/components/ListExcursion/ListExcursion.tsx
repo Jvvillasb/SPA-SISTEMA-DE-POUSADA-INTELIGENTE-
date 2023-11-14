@@ -23,14 +23,19 @@ import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionFor
 import IconButton from '../../commons/ui/IconButton/IconButton';
 
 const ListExcursion: React.FC = () => {
-    const { page, excursions, loadingExcursion, fetchExcursions } = useStore(
-        (state) => ({
-            page: state.page,
-            excursions: state.excursions,
-            loadingExcursion: state.loadingExcursion,
-            fetchExcursions: state.fetchExcursions,
-        })
-    );
+    const {
+        page,
+        excursions,
+        loadingExcursion,
+        fetchExcursions,
+        fetchGuideUsersBySearch,
+    } = useStore((state) => ({
+        page: state.page,
+        excursions: state.excursions,
+        loadingExcursion: state.loadingExcursion,
+        fetchExcursions: state.fetchExcursions,
+        fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+    }));
 
     const addDisclosure = useDisclosure();
 
@@ -97,6 +102,7 @@ const ListExcursion: React.FC = () => {
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
+                                            fetchGuideUsersBySearch();
                                             setEditExcursion(excursions);
                                         },
                                     },
@@ -195,6 +201,7 @@ const ListExcursion: React.FC = () => {
                     icon={<AddIcon />}
                     onClick={() => {
                         addDisclosure.onOpen();
+                        fetchGuideUsersBySearch();
                         setCreation(true);
                     }}
                 />

@@ -21,4 +21,5 @@ export interface GuideUserStateType extends GuideUserState {
     deleteGuideUser: (id: number) => void;
     setPage: (page: number) => void;
     setSearchString: (searchString: string) => void;
+    fetchGuideUsersBySearch: () => void;
 }
