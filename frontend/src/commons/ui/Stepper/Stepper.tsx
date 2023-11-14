@@ -2,13 +2,12 @@ import {
     Step,
     StepIndicator,
     StepSeparator,
-    StepTitle,
     Box,
     StepIcon,
     Text,
     StepStatus,
 } from '@chakra-ui/react';
-import { Stepper } from './Stepper.styles';
+import { Stepper, StepTitle } from './Stepper.styles';
 
 type StepData = {
     title: string;
@@ -24,7 +23,11 @@ const GenericStepper: React.FC<GenericStepperProps> = ({
     activeStep,
 }) => {
     return (
-        <Stepper index={activeStep} colorScheme="green">
+        <Stepper
+            index={activeStep}
+            colorScheme="green"
+            justifyContent={'center'}
+        >
             {steps.map((step, index) => (
                 <Step key={index}>
                     <StepIndicator>

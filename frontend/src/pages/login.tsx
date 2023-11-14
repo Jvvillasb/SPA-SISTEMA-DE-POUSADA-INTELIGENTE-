@@ -19,7 +19,7 @@ const Login = () => {
     useEffect(() => {
         const token = cookies.access_token;
         if (token) {
-            navigate('/list');
+            navigate('/usuarios');
         }
     }, [cookies, navigate]);
 

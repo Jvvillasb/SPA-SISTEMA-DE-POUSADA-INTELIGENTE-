@@ -1,65 +1,53 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
-import Actions from './components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
-import Filters from './components/Filters/Filters';
 import Loader from '../../commons/ui/Loader/Loader';
 import {
-    ClientsSection,
-    ListClientsContainer,
-    ListClientsContent,
-    EmptyStateSection,
+    ListExcursionContainer,
+    ListExcursionContent,
+    ExcursionSection,
     StyledContentModal,
-} from './ListClients.style';
-import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
-import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
+} from './ListExcursion.style';
+import Actions from '../ListClients/components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
-import CreateClientForm from '../Forms/CreateClient/Forms';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
-import EditClientForm from '../Forms/EditClient/EditClientForm';
-import { Client } from '../../commons/types/Client';
-import IconButton from '../../commons/ui/IconButton/IconButton';
-import { AddIcon } from '@chakra-ui/icons';
+import { Excursion } from '../../commons/types/Excursion';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { deleteClient } from './services/client.service';
+import { Tooltip, useDisclosure, useSteps } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import ExcursionForm from '../Forms/CreateExcursion/ExcursionForm';
+import Filters from '../ListExcursion/Components/Filters/Filters';
+import { deleteExcursion } from './services/Excursion.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
+import EditExcursionForm from '../Forms/EditExcursion/EditExcursionForm';
+import IconButton from '../../commons/ui/IconButton/IconButton';
 
-const ListClients = () => {
-    const { page, clients, loading, fetchClient, fetchExcursions } = useStore(
+const ListExcursion: React.FC = () => {
+    const { page, excursions, loadingExcursion, fetchExcursions } = useStore(
         (state) => ({
             page: state.page,
-            clients: state.clients,
-            loading: state.loading,
-            fetchClient: state.fetchClients,
+            excursions: state.excursions,
+            loadingExcursion: state.loadingExcursion,
             fetchExcursions: state.fetchExcursions,
         })
     );
+
     const addDisclosure = useDisclosure();
+
+    const { showCustomToast } = useCustomToast();
 
     const alertDisclosure = useDisclosure();
 
-    const defaultClient: Client = {
-        id: 0,
+    const defaultExcursion: Excursion = {
         nome: '',
-        email: '',
-        telefone: '',
         cidade: '',
-        estado: '',
-        caravana: 0,
-        nomeCaravana: '',
-        dataEntrada: '',
-        dataNascimento: '',
-        dataSaida: '',
-        documento: '',
-        genero: 'Masculino',
-        nacionalidade: '',
         guia: 0,
-        nomeGuia: '',
-        evento: '',
+        id: 0,
     };
 
     const [creation, setCreation] = useState(false);
-    const [editClient, setEditClient] = useState<Client>(defaultClient);
+    const [editExcursion, setEditExcursion] =
+        useState<Excursion>(defaultExcursion);
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -69,10 +57,7 @@ const ListClients = () => {
         }
     };
 
-    const steps = [
-        { title: 'Informação Pessoal' },
-        { title: 'Informações Geral' },
-    ];
+    const steps = [{ title: 'Informação Geral' }];
 
     const { activeStep, setActiveStep } = useSteps({
         index: 0,
@@ -80,73 +65,54 @@ const ListClients = () => {
     });
 
     const stepsTitles = creation
-        ? ['Registro de cliente', 'Registro de cliente']
-        : ['Editar cliente', 'Editar cliente'];
-    const stepsActions = ['Próximo', 'Concluir'];
-
-    const { showCustomToast } = useCustomToast();
+        ? ['Registro de Caravana']
+        : ['Editar Caravana'];
+    const stepsActions = ['Concluir'];
 
     useEffect(() => {
-        fetchClient();
+        fetchExcursions();
     }, [page]);
 
-    if (loading) {
+    if (loadingExcursion) {
         return (
-            <ListClientsContainer>
-                <Loader message="Carregando Clientes" />
-            </ListClientsContainer>
-        );
-    }
-
-    if (!clients.length) {
-        return (
-            <ListClientsContainer>
-                <EmptyStateSection>
-                    <Filters />
-                    <IllustratedState
-                        title="Nenhum cliente foi encontrado"
-                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
-                    />
-                </EmptyStateSection>
-            </ListClientsContainer>
+            <ListExcursionContainer>
+                <Loader message="Carregando Caravanas" />
+            </ListExcursionContainer>
         );
     }
 
     return (
-        <ListClientsContainer>
-            <ClientsSection>
+        <ListExcursionContainer>
+            <ExcursionSection>
                 <Filters />
-                <ListClientsContent>
-                    {clients.map((client) => (
-                        <li key={client.id}>
+                <ListExcursionContent>
+                    {excursions.map((excursions) => (
+                        <li key={excursions.id}>
                             <TemplateCard
-                                title={client.nome}
-                                subtitle={`${client.cidade} - ${client.estado}`}
-                                bodyItems={[
-                                    `Celular: ${client.telefone}`,
-                                    `Email: ${client.email}`,
-                                ]}
+                                title={excursions.nome}
+                                subtitle={`${excursions.cidade}`}
                                 actions={[
                                     {
                                         label: 'Editar',
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
-                                            setEditClient(client);
+                                            setEditExcursion(excursions);
                                         },
                                     },
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
-                                            setEditClient(client);
+                                            setEditExcursion(excursions);
                                         },
                                     },
                                 ]}
+                                bodyItems={[]}
                             ></TemplateCard>
                         </li>
                     ))}
-                </ListClientsContent>
+                </ListExcursionContent>
                 <Modal
                     isOpen={addDisclosure.isOpen}
                     onClose={() => {
@@ -175,52 +141,52 @@ const ListClients = () => {
                     <StyledContentModal>
                         <GenericStepper steps={steps} activeStep={activeStep} />
                         {creation ? (
-                            <CreateClientForm
+                            <ExcursionForm
                                 activeStep={activeStep}
                                 formRef={formRef}
                             />
                         ) : (
-                            <EditClientForm
+                            <EditExcursionForm
+                                Excursion={editExcursion}
                                 activeStep={activeStep}
                                 formRef={formRef}
-                                Client={editClient}
                             />
                         )}
                     </StyledContentModal>
                 </Modal>
                 <AlertDialog
-                    title="Excluir Cliente"
-                    description="Deseja realmente excluir este cliente?"
+                    title="Excluir Caravana"
+                    description="Deseja realmente excluir esta caravana?"
                     isOpen={alertDisclosure.isOpen}
                     onClose={alertDisclosure.onClose}
                     confirmButtonText="Excluir"
                     cancelButtonText="Cancelar"
                     onConfirm={() => {
                         alertDisclosure.onClose();
-                        deleteClient(editClient.id)
+                        deleteExcursion(editExcursion.id)
                             .then(() => {
                                 showCustomToast({
-                                    title: 'Cliente deletado',
+                                    title: 'Caravana deletada',
                                     description:
-                                        'O cliente foi deletado com sucesso.',
+                                        'A caravana foi deletada com sucesso.',
                                     status: 'success',
                                 });
 
-                                fetchClient();
+                                fetchExcursions();
                             })
                             .catch(() => {
                                 showCustomToast({
                                     title: 'Erro ao deletar',
                                     description:
-                                        'Ocorreu um erro ao tentar deletar o cliente.',
+                                        'Ocorreu um erro ao tentar deletar a caravana.',
                                     status: 'error',
                                 });
                             });
                     }}
                 />
-            </ClientsSection>
+            </ExcursionSection>
             <Actions />
-            <Tooltip hasArrow label="Adicionar Clientes">
+            <Tooltip hasArrow label="Adicionar Caravana">
                 <IconButton
                     variant="solid"
                     colorScheme="teal"
@@ -228,14 +194,13 @@ const ListClients = () => {
                     fontSize="20px"
                     icon={<AddIcon />}
                     onClick={() => {
-                        fetchExcursions();
                         addDisclosure.onOpen();
                         setCreation(true);
                     }}
                 />
             </Tooltip>
-        </ListClientsContainer>
+        </ListExcursionContainer>
     );
 };
 
-export default ListClients;
+export default ListExcursion;

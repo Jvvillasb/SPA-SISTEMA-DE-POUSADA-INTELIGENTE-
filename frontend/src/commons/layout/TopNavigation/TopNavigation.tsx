@@ -25,7 +25,7 @@ const TopNavigation = () => {
 
     return (
         <TopNavigationContainer>
-            <TopNavigationBrand to="/list">SPI</TopNavigationBrand>
+            <TopNavigationBrand to="/usuarios">SPI</TopNavigationBrand>
             <TopNavigationList>
                 {isAuthenticated ? (
                     <>

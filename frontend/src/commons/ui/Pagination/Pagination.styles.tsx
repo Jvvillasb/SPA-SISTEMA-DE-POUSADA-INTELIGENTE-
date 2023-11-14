@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
 export const StyledPagination = styled.div`
-    margin-left: auto;
+    padding-bottom: 80px;
+
     .pagination {
         display: flex;
         justify-content: center;
