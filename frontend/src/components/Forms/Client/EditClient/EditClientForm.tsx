@@ -33,7 +33,6 @@ const EditClientForm: React.FC<EditClientFormProps> = ({
     const validateData = (data: Client) => {
         data.dataEntrada = formatDateToBR(data.dataEntrada);
         data.dataNascimento = formatDateToBR(data.dataNascimento);
-        data.leito = 1;
     };
 
     const onSubmit = (data: Client) => {

@@ -6,7 +6,6 @@ import {
 } from './BottomNavigation.styles';
 
 import {
-    MdOutlineHome,
     MdPersonOutline,
     MdOutlineDirectionsBus,
     MdPeopleOutline,
@@ -17,11 +16,6 @@ const BottomNavigation = () => {
     return (
         <BottomNavigationContainer>
             <BottomNavigationList>
-                <BottomNavigationListItem>
-                    <BottomNavigationListLink to="/">
-                        <MdOutlineHome size="1.6rem" color="#798494" />
-                    </BottomNavigationListLink>
-                </BottomNavigationListItem>
                 <BottomNavigationListItem>
                     <BottomNavigationListLink to="/usuarios">
                         <MdPersonOutline size="1.6rem" color="#798494" />

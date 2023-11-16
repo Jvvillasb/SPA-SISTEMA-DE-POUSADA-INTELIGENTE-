@@ -4,7 +4,6 @@ interface RouteInfo {
 }
 
 export const authenticatedRoutes: Array<RouteInfo> = [
-    { path: '/usuarios', title: 'Home' },
     { path: '/usuarios', title: 'Usuários' },
     { path: '/caravanas', title: 'Caravanas' },
     { path: '/quartos', title: 'Quartos' },

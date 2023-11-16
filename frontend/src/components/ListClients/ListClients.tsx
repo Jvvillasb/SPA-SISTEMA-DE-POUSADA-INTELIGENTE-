@@ -78,7 +78,7 @@ const ListClients = () => {
 
     const steps = [
         { title: 'Informação Pessoal' },
-        { title: 'Informações Geral' },
+        { title: 'Informação Geral' },
     ];
 
     const { activeStep, setActiveStep } = useSteps({

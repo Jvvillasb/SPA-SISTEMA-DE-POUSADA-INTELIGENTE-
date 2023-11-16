@@ -8,6 +8,7 @@ import ListingExcursions from './pages/ListingExcursions';
 import PageNotFound from './pages/NotFound/NotFound';
 import Navigation from './commons/layout/Navigation/Navigation';
 import ListingGuideUsers from './pages/ListingGuideUsers';
+import ListingGuideRooms from './pages/ListingGuideRooms';
 
 const Routers = () => {
     const [cookies] = useCookies(['access_token']);
@@ -30,6 +31,10 @@ const Routers = () => {
                             element={<ListingExcursions />}
                         />
                         <Route path="/guia" element={<ListingGuideUsers />} />
+                        <Route
+                            path="/quartos"
+                            element={<ListingGuideRooms />}
+                        />
                         <Route path="/logout" element={<>asd</>} />
                         <Route path="*" element={<PageNotFound />} />
                     </>
