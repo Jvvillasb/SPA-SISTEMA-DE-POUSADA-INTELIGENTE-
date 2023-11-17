@@ -20,7 +20,11 @@ export const createGuideRooms = async (GuideRoom: GuideRoom) => {
 };
 
 export const updateGuideRooms = async (GuideRoom: GuideRoom, id: number) => {
-    return axiosInstance.put<GuideRoom>(`/quartos/${id}`, GuideRoom);
+    const response = await axiosInstance.put<GuideRoom>(
+        `/quartos/${id}`,
+        GuideRoom
+    );
+    return response.data;
 };
 
 export const deleteGuideRooms = async (id: number) => {

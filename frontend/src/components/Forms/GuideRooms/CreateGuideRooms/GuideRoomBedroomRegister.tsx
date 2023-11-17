@@ -1,6 +1,12 @@
-import { Column, Input, Select, TwoColumns } from './GuideRoomForm.style';
+import {
+    Column,
+    Input,
+    Select,
+    TwoColumns,
+    Table,
+} from './GuideRoomForm.style';
 import { Bedroom } from '../../../../commons/types/Bedroom';
-import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import Button from '../../../../commons/ui/Button/Button';
 import theme from '../../../../theme';
 import { useForm } from 'react-hook-form';

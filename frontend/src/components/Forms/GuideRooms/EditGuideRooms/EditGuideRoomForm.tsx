@@ -10,6 +10,7 @@ import {
 import { useForm } from 'react-hook-form';
 import useStore from '../../../../store/index';
 import EditGuideRoomInfoRegister from './EditGuideRoomInfoRegister';
+import EditGuideRoomBedroomRegister from './EditGuideRoomBedroomRegister';
 
 interface EditGuideRoomFormProps {
     activeStep: number;
@@ -20,6 +21,7 @@ interface EditGuideRoomFormProps {
 const EditGuideRoomForm: React.FC<EditGuideRoomFormProps> = ({
     formRef,
     GuideRoom,
+    activeStep,
 }) => {
     const { updateGuideRooms } = useStore((state) => ({
         updateGuideRooms: state.updateGuideRooms,
@@ -36,10 +38,17 @@ const EditGuideRoomForm: React.FC<EditGuideRoomFormProps> = ({
             <FormContent>
                 <TwoColumns>
                     <Column>
-                        <EditGuideRoomInfoRegister
-                            register={register}
-                            guideRoom={GuideRoom}
-                        />
+                        {activeStep === 0 && (
+                            <EditGuideRoomInfoRegister
+                                register={register}
+                                guideRoom={GuideRoom}
+                            />
+                        )}
+                        {activeStep === 1 && (
+                            <EditGuideRoomBedroomRegister
+                                guideRoom={GuideRoom}
+                            />
+                        )}
                     </Column>
                 </TwoColumns>
             </FormContent>

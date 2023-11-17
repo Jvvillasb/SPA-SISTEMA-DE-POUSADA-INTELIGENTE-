@@ -15,7 +15,8 @@ export const listBedroomsBySearch = async () => {
 };
 
 export const createBedrooms = async (Bedroom: Bedroom) => {
-    return axiosInstance.post<Bedroom>(`/leitos`, Bedroom);
+    const reponse = await axiosInstance.post<Bedroom>(`/leitos`, Bedroom);
+    return reponse.data;
 };
 
 export const updateBedrooms = async (Bedroom: Bedroom, id: number) => {
