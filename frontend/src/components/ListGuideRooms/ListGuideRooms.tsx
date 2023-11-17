@@ -1,81 +1,67 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
-import Actions from '../ListClients/components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
-import Filters from '../ListGuideUsers/Components/Filters/Filters';
 import Loader from '../../commons/ui/Loader/Loader';
 import {
-    ClientsSection,
-    ListClientsContainer,
-    ListClientsContent,
-    EmptyStateSection,
+    ListGuideRoomsContainer,
+    ListGuideRoomsContent,
+    GuideRoomsSection,
     StyledContentModal,
-} from '../ListClients/ListClients.style';
-import IllustratedState from './../../commons/ui/IllustratedState/IllustratedState';
-import { useDisclosure, useSteps, Tooltip } from '@chakra-ui/react';
+} from './ListGuideRooms.style';
+import Actions from '../ListClients/components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
-import { GuideUser } from '../../commons/types/GuideUser';
-import IconButton from '../../commons/ui/IconButton/IconButton';
-import { AddIcon } from '@chakra-ui/icons';
+import { GuideRoom } from '../../commons/types/GuideRoom';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { deleteGuideUser } from './services/GuideUser.service';
+import { Tooltip, useDisclosure, useSteps } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
-import GuideUserForm from '../Forms/GuideUsers/CreateGuideUsers/GuideUsersForm';
-import EditGuideUserForm from '../Forms/GuideUsers/EditGuideUsers/EditGuideUsersForm';
+import IconButton from '../../commons/ui/IconButton/IconButton';
+import { deleteGuideRooms } from './Services/GuideRoom.service';
+import GuideRoomForm from '../Forms/GuideRooms/CreateGuideRooms/GuideRoomForm';
+import EditGuideRoomForm from '../Forms/GuideRooms/EditGuideRooms/EditGuideRoomForm';
 
-const ListGuidesUsers = () => {
-    const {
-        page,
-        GuideUsers,
-        loadingGuideUser,
-        fetchGuideUser,
-        fetchExcursionsBySearch,
-    } = useStore((state) => ({
-        page: state.page,
-        GuideUsers: state.GuideUsers,
-        loadingGuideUser: state.loadingGuideUser,
-        fetchGuideUser: state.fetchGuideUser,
-        fetchExcursionsBySearch: state.fetchExcursionsBySearch,
-    }));
+const ListGuideRooms: React.FC = () => {
+    const { page, guideRooms, loadingGuideRoom, fetchGuideRooms } = useStore(
+        (state) => ({
+            page: state.page,
+            guideRooms: state.guideRoom,
+            loadingGuideRoom: state.loadingGuideRoom,
+            fetchGuideRooms: state.fetchGuideRooms,
+        })
+    );
+
     const addDisclosure = useDisclosure();
+
+    const { showCustomToast } = useCustomToast();
 
     const alertDisclosure = useDisclosure();
 
-    const defaultGuideUser: GuideUser = {
-        id: 0,
+    const guideRoomDefault: GuideRoom = {
+        numero: 0,
         nome: '',
-        email: '',
-        telefone: '',
-        cidade: '',
-        estado: '',
-        caravana: 0,
-        nomeCaravana: '',
-        dataEntrada: '',
-        dataNascimento: '',
-        dataSaida: '',
-        documento: '',
-        genero: 'Masculino',
-        nacionalidade: '',
-        evento: '',
-        leito: 1,
+        status: '0',
+        id: 0,
+        leitos: [],
     };
 
     const [creation, setCreation] = useState(false);
-    const [editGuideUser, setEditguideUser] =
-        useState<GuideUser>(defaultGuideUser);
+    const [editGuideRoom, setEditGuideRoom] =
+        useState<GuideRoom>(guideRoomDefault);
 
     const formRef = useRef<HTMLFormElement>(null);
 
     const submitForm = () => {
         if (formRef.current) {
             formRef.current.requestSubmit();
+            setActiveStep(0);
+            formRef.current?.reset();
         }
     };
 
     const steps = [
-        { title: 'Informação Pessoal' },
         { title: 'Informação Geral' },
+        { title: 'Informação do Leito' },
     ];
 
     const { activeStep, setActiveStep } = useSteps({
@@ -84,74 +70,53 @@ const ListGuidesUsers = () => {
     });
 
     const stepsTitles = creation
-        ? ['Registro de guia', 'Registro de guia']
-        : ['Editar guia', 'Editar guia'];
+        ? ['Registro de quarto', 'Registro de quarto']
+        : ['Editar quarto', 'Editar quarto'];
     const stepsActions = ['Próximo', 'Concluir'];
 
-    const { showCustomToast } = useCustomToast();
-
     useEffect(() => {
-        fetchGuideUser();
+        fetchGuideRooms();
     }, [page]);
 
-    if (loadingGuideUser) {
+    if (loadingGuideRoom) {
         return (
-            <ListClientsContainer>
-                <Loader message="Carregando Guias" />
-            </ListClientsContainer>
-        );
-    }
-
-    if (!GuideUsers.length) {
-        return (
-            <ListClientsContainer>
-                <EmptyStateSection>
-                    <Filters />
-                    <IllustratedState
-                        title="Nenhum guia foi encontrado"
-                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
-                    />
-                </EmptyStateSection>
-            </ListClientsContainer>
+            <ListGuideRoomsContainer>
+                <Loader message="Carregando Quartos" />
+            </ListGuideRoomsContainer>
         );
     }
 
     return (
-        <ListClientsContainer>
-            <ClientsSection>
-                <Filters />
-                <ListClientsContent>
-                    {GuideUsers.map((guideUser) => (
-                        <li key={guideUser.id}>
+        <ListGuideRoomsContainer>
+            <GuideRoomsSection>
+                <ListGuideRoomsContent>
+                    {guideRooms.map((guideRoom) => (
+                        <li key={guideRoom.id}>
                             <TemplateCard
-                                title={guideUser.nome}
-                                subtitle={`${guideUser.cidade} - ${guideUser.estado}`}
-                                bodyItems={[
-                                    `Celular: ${guideUser.telefone}`,
-                                    `Email: ${guideUser.email}`,
-                                ]}
+                                title={guideRoom.nome}
+                                subtitle={`${guideRoom.status}`}
                                 actions={[
                                     {
                                         label: 'Editar',
                                         onClick: () => {
                                             setCreation(false);
                                             addDisclosure.onOpen();
-                                            fetchExcursionsBySearch();
-                                            setEditguideUser(guideUser);
+                                            setEditGuideRoom(guideRoom);
                                         },
                                     },
                                     {
                                         label: 'Excluir',
                                         onClick: () => {
                                             alertDisclosure.onOpen();
-                                            setEditguideUser(guideUser);
+                                            setEditGuideRoom(guideRoom);
                                         },
                                     },
                                 ]}
+                                bodyItems={[]}
                             ></TemplateCard>
                         </li>
                     ))}
-                </ListClientsContent>
+                </ListGuideRoomsContent>
                 <Modal
                     isOpen={addDisclosure.isOpen}
                     onClose={() => {
@@ -180,52 +145,52 @@ const ListGuidesUsers = () => {
                     <StyledContentModal>
                         <GenericStepper steps={steps} activeStep={activeStep} />
                         {creation ? (
-                            <GuideUserForm
+                            <GuideRoomForm
                                 activeStep={activeStep}
                                 formRef={formRef}
                             />
                         ) : (
-                            <EditGuideUserForm
+                            <EditGuideRoomForm
+                                GuideRoom={editGuideRoom}
                                 activeStep={activeStep}
                                 formRef={formRef}
-                                GuideUser={editGuideUser}
                             />
                         )}
                     </StyledContentModal>
                 </Modal>
                 <AlertDialog
-                    title="Excluir Guia"
-                    description="Deseja realmente excluir este guia?"
+                    title="Excluir Quarto"
+                    description="Deseja realmente excluir este quarto?"
                     isOpen={alertDisclosure.isOpen}
                     onClose={alertDisclosure.onClose}
                     confirmButtonText="Excluir"
                     cancelButtonText="Cancelar"
                     onConfirm={() => {
                         alertDisclosure.onClose();
-                        deleteGuideUser(editGuideUser.id)
+                        deleteGuideRooms(editGuideRoom.id)
                             .then(() => {
                                 showCustomToast({
-                                    title: 'Guia deletado',
+                                    title: 'Quarto deletado',
                                     description:
-                                        'O guia foi deletado com sucesso.',
+                                        'O quarto foi deletado com sucesso.',
                                     status: 'success',
                                 });
 
-                                fetchGuideUser();
+                                fetchGuideRooms();
                             })
                             .catch(() => {
                                 showCustomToast({
                                     title: 'Erro ao deletar',
                                     description:
-                                        'Ocorreu um erro ao tentar deletar o guia.',
+                                        'Ocorreu um erro ao tentar deletar o quarto.',
                                     status: 'error',
                                 });
                             });
                     }}
                 />
-            </ClientsSection>
+            </GuideRoomsSection>
             <Actions />
-            <Tooltip hasArrow label="Adicionar Guia">
+            <Tooltip hasArrow label="Adicionar Quarto">
                 <IconButton
                     variant="solid"
                     colorScheme="teal"
@@ -233,14 +198,13 @@ const ListGuidesUsers = () => {
                     fontSize="20px"
                     icon={<AddIcon />}
                     onClick={() => {
-                        fetchExcursionsBySearch();
                         addDisclosure.onOpen();
                         setCreation(true);
                     }}
                 />
             </Tooltip>
-        </ListClientsContainer>
+        </ListGuideRoomsContainer>
     );
 };
 
-export default ListGuidesUsers;
+export default ListGuideRooms;

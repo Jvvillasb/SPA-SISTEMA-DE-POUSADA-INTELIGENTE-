@@ -16,7 +16,6 @@ const validateData = (data: Client) => {
     data.dataEntrada = formatDateToBR(data.dataEntrada);
     data.dataNascimento = formatDateToBR(data.dataNascimento);
     data.dataSaida = formatDateToBR(data.dataSaida);
-    data.leito = 1;
 };
 
 const CreateClientForm: React.FC<ClientFormProps> = ({
