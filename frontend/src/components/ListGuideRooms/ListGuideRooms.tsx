@@ -40,7 +40,7 @@ const ListGuideRooms: React.FC = () => {
     const guideRoomDefault: GuideRoom = {
         numero: 0,
         nome: '',
-        status: '0',
+        status: 'disponível',
         id: 0,
         leitos: [],
     };
@@ -86,6 +86,18 @@ const ListGuideRooms: React.FC = () => {
         );
     }
 
+    type StatusKey = 'disponivel' | 'ocupado' | 'interditado';
+
+    const defineStatusColor = (status: StatusKey): string => {
+        const statusColor: { [key in StatusKey]: string } = {
+            disponivel: 'green',
+            ocupado: 'red',
+            interditado: 'yellow',
+        };
+
+        return statusColor[status];
+    };
+
     return (
         <ListGuideRoomsContainer>
             <GuideRoomsSection>
@@ -113,6 +125,9 @@ const ListGuideRooms: React.FC = () => {
                                     },
                                 ]}
                                 bodyItems={[]}
+                                statusColor={defineStatusColor(
+                                    guideRoom.status as StatusKey
+                                )}
                             ></TemplateCard>
                         </li>
                     ))}
