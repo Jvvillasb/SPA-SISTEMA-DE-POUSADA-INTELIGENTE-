@@ -26,3 +26,7 @@ export const updateClient = async (client: Client, id: number) => {
 export const deleteClient = async (id: number) => {
     return axiosInstance.delete<Client>(`/guest/${id}`);
 };
+
+export const checkinClient = async (clientId: number, bedroomId: number) => {
+    return axiosInstance.post(`/guest/checkinLeito/${clientId}/${bedroomId}`);
+};

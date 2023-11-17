@@ -16,6 +16,8 @@ interface TemplateCardProps {
     subtitle: string;
     bodyItems: string[];
     actions?: Array<TemplateCardMenuAction>;
+    statusColor?: string;
+    iconCard?: React.ReactElement;
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({
@@ -23,19 +25,22 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     subtitle,
     bodyItems,
     actions = [],
+    statusColor,
+    iconCard,
 }) => {
     return (
         <TemplateCardContainer hasActions={!!actions.length}>
             {actions.length ? <TemplateCardMenu actions={actions} /> : null}
             <Flex alignItems="center" gap="4">
-                <TemplateCardAvatar />
+                {iconCard && <TemplateCardAvatar icon={iconCard} />}
+                {!iconCard && <TemplateCardAvatar />}
                 <Box>
                     <TemplateCardTitle noOfLines={1} size="md">
                         {title}
                     </TemplateCardTitle>
                     <Badge
                         variant="outline"
-                        colorScheme="green"
+                        colorScheme={statusColor || 'green'}
                         noOfLines={1}
                         w={'fit-content'}
                     >

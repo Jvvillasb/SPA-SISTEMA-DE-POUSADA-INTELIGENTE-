@@ -21,6 +21,7 @@ import { deleteExcursion } from './services/Excursion.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionForm';
 import IconButton from '../../commons/ui/IconButton/IconButton';
+import { MdOutlineDirectionsBus } from 'react-icons/md';
 
 const ListExcursion: React.FC = () => {
     const {
@@ -115,6 +116,11 @@ const ListExcursion: React.FC = () => {
                                     },
                                 ]}
                                 bodyItems={[]}
+                                iconCard={
+                                    <MdOutlineDirectionsBus
+                                        fontSize={'4.5rem'}
+                                    />
+                                }
                             ></TemplateCard>
                         </li>
                     ))}
