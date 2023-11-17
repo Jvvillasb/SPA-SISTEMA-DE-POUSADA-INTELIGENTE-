@@ -20,6 +20,7 @@ import IconButton from '../../commons/ui/IconButton/IconButton';
 import { deleteGuideRooms } from './Services/GuideRoom.service';
 import GuideRoomForm from '../Forms/GuideRooms/CreateGuideRooms/GuideRoomForm';
 import EditGuideRoomForm from '../Forms/GuideRooms/EditGuideRooms/EditGuideRoomForm';
+import { MdBedroomParent } from 'react-icons/md';
 
 const ListGuideRooms: React.FC = () => {
     const { page, guideRooms, loadingGuideRoom, fetchGuideRooms } = useStore(
@@ -128,6 +129,9 @@ const ListGuideRooms: React.FC = () => {
                                 statusColor={defineStatusColor(
                                     guideRoom.status as StatusKey
                                 )}
+                                iconCard={
+                                    <MdBedroomParent fontSize={'4.5rem'} />
+                                }
                             ></TemplateCard>
                         </li>
                     ))}

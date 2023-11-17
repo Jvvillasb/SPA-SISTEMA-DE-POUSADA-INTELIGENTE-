@@ -30,6 +30,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({
 
     const onSubmit = (data: Client) => {
         validateData(data);
+        data.leito = 1;
         createClient(data);
     };
 

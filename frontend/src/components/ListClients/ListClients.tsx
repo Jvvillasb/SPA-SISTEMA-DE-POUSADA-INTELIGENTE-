@@ -23,6 +23,7 @@ import { AddIcon } from '@chakra-ui/icons';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
 import { deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
+import CheckInBedroom from './components/CheckInBedroom/CheckInBedroom';
 
 const ListClients = () => {
     const {
@@ -43,6 +44,8 @@ const ListClients = () => {
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
+
+    const checkinDisclosure = useDisclosure();
 
     const defaultClient: Client = {
         id: 0,
@@ -157,6 +160,13 @@ const ListClients = () => {
                                             setEditClient(client);
                                         },
                                     },
+                                    {
+                                        label: 'Check-in',
+                                        onClick: () => {
+                                            checkinDisclosure.onOpen();
+                                            setEditClient(client);
+                                        },
+                                    },
                                 ]}
                             ></TemplateCard>
                         </li>
@@ -233,6 +243,28 @@ const ListClients = () => {
                             });
                     }}
                 />
+                <Modal
+                    isOpen={checkinDisclosure.isOpen}
+                    onClose={() => {
+                        checkinDisclosure.onClose();
+                    }}
+                    title={'Check-in'}
+                    onSave={() => {
+                        submitForm();
+                        checkinDisclosure.onClose();
+                    }}
+                    avoidCloseOnBack={false}
+                    size="5xl"
+                    saveLabel={'Salvar'}
+                >
+                    <StyledContentModal>
+                        <GenericStepper
+                            steps={[{ title: 'Check-in' }]}
+                            activeStep={activeStep}
+                        />
+                        <CheckInBedroom client={editClient} formRef={formRef} />
+                    </StyledContentModal>
+                </Modal>
             </ClientsSection>
             <Actions />
             <Tooltip hasArrow label="Adicionar Clientes">
