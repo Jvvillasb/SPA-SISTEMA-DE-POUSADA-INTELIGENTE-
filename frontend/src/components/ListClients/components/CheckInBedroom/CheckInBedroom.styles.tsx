@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import theme from '../../../../theme';
 import InputMask from 'react-input-mask';
-import { Input as chakraInput } from '@chakra-ui/react';
+import { Input as chakraInput, Table as chakraTable } from '@chakra-ui/react';
 
 const BaseInputsStyle = `
 padding: 0.5rem;
@@ -81,5 +81,13 @@ export const Label = styled.label`
     font-weight: bold;
     span {
         margin-bottom: 0.5rem;
+    }
+`;
+
+export const Table = styled(chakraTable)`
+    @media (max-width: 500px) {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
     }
 `;
