@@ -42,6 +42,7 @@ const ListGuideRooms: React.FC = () => {
         nome: '',
         status: '0',
         id: 0,
+        leitos: [],
     };
 
     const [creation, setCreation] = useState(false);
@@ -53,6 +54,8 @@ const ListGuideRooms: React.FC = () => {
     const submitForm = () => {
         if (formRef.current) {
             formRef.current.requestSubmit();
+            setActiveStep(0);
+            formRef.current?.reset();
         }
     };
 

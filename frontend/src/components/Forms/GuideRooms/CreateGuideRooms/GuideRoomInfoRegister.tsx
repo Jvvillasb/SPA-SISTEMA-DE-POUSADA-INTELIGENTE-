@@ -31,7 +31,7 @@ const GuideRoomInfoRegister: React.FC<GuideRoomInfoRegisterProps> = ({
                     <span>Nome do quarto:</span>
                     <Input
                         {...register('nome', {
-                            required: 'Nome é obrigatória',
+                            required: 'Nome é obrigatório',
                         })}
                         placeholder="Nome do quarto"
                     />

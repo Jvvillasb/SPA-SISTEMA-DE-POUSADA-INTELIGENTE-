@@ -22,6 +22,8 @@ const GuideRoomForm: React.FC<GuideRoomFormProps> = ({
     const { register, handleSubmit, ...rest } = useForm<GuideRoom>();
 
     const onSubmit = (data: GuideRoom) => {
+        activeStep = 0;
+        formRef.current?.reset();
         createGuideRooms(data);
     };
 

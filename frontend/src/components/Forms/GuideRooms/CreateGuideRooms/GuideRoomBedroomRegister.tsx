@@ -43,7 +43,10 @@ const GuideRoomBedroomRegister: React.FC<
     return (
         <TwoColumns>
             <Column>
-                <Input {...register('numero')} placeholder="Insira o número" />
+                <Input
+                    {...register('numero')}
+                    placeholder="Insira o número do leito"
+                />
                 <Select
                     {...register('status')}
                     placeholder="Selecione o status"
