@@ -65,15 +65,15 @@ const EditGuideRoomBedroomRegister: React.FC<
                     prev.filter((bed) => bed.id !== bedRoomId)
                 );
                 showCustomToast({
-                    title: 'Quarto Deletado',
-                    description: 'O quarto foi deletado com sucesso.',
+                    title: 'Leito Deletado',
+                    description: 'O Leito foi deletado com sucesso.',
                     status: 'success',
                 });
             })
             .catch(() => {
                 showCustomToast({
                     title: 'Erro ao deletar',
-                    description: 'Ocorreu um erro ao tentar deletar o quarto.',
+                    description: 'Ocorreu um erro ao tentar deletar o Leito.',
                     status: 'error',
                 });
             });

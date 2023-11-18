@@ -1,7 +1,15 @@
 import styled from '@emotion/styled';
 import theme from '../../../../theme';
 import InputMask from 'react-input-mask';
-import { Input as chakraInput, Table as chakraTable } from '@chakra-ui/react';
+import {
+    Input as chakraInput,
+    Table as chakraTable,
+    Tr as chakraTr,
+    Thead as chakraThead,
+    Th as chakraTh,
+    Td as chakraTd,
+    Tbody as chakraTbody,
+} from '@chakra-ui/react';
 
 const BaseInputsStyle = `
 padding: 0.5rem;
@@ -85,9 +93,36 @@ export const Label = styled.label`
 `;
 
 export const Table = styled(chakraTable)`
-    @media (max-width: 500px) {
-        display: flex;
-        flex-direction: column;
-        overflow: auto;
-    }
+    width: 100%;
+    table-layout: fixed;
+`;
+
+export const Thead = styled(chakraThead)`
+    width: 100%;
+    display: table-header-group;
+`;
+
+export const Tr = styled(chakraTr)`
+    display: table-row;
+`;
+
+export const Th = styled(chakraTh)`
+    display: table-cell;
+    width: 33.33%;
+`;
+
+export const Td = styled(chakraTd)`
+    display: table-cell;
+    width: 33.33%;
+`;
+
+export const Tbody = styled(chakraTbody)`
+    display: table-row-group;
+    max-height: 300px;
+    overflow-y: auto;
+`;
+
+export const ScrollableTableContainer = styled.div`
+    max-height: 330px;
+    overflow-y: auto;
 `;
