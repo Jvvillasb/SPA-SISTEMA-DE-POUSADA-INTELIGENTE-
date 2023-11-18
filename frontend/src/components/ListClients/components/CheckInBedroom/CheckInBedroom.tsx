@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Client } from '../../../../commons/types/Client';
-import { Bedroom } from '../../../../commons/types/Bedroom';
 import { GuideRoom } from '../../../../commons/types/GuideRoom';
+import { Bedroom } from '../../../../commons/types/Bedroom';
 import useStore from '../../../../store/index';
 import {
     Column,
@@ -25,9 +25,9 @@ interface CheckInBedroomProps {
 
 const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
     const [availableBeds, setAvailableBeds] = useState<Bedroom[]>([]);
-    const { register, handleSubmit, watch } = useForm<{
-        selectedRoom: string;
+    const { register, handleSubmit, watch, setValue } = useForm<{
         selectedBed: number;
+        selectedRoom: string;
     }>();
     const { fetchGuideRooms, guideRooms, loadingGuideRooms } = useStore(
         (state) => ({
@@ -38,7 +38,6 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
     );
 
     const { showCustomToast } = useCustomToast();
-
     const selectedRoomId = watch('selectedRoom');
 
     useEffect(() => {
@@ -46,11 +45,16 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
     }, [fetchGuideRooms]);
 
     useEffect(() => {
-        const selectedRoom = guideRooms.find(
-            (room) => room.id.toString() === selectedRoomId
-        );
-        setAvailableBeds(selectedRoom?.leitos || []);
-    }, [selectedRoomId, guideRooms]);
+        const roomId = parseInt(selectedRoomId, 10);
+        const selectedRoom = guideRooms.find((room) => room.id === roomId);
+
+        if (selectedRoom) {
+            setAvailableBeds(selectedRoom.leitos);
+            if (selectedRoom.leitos.length > 0) {
+                setValue('selectedBed', selectedRoom.leitos[0].id);
+            }
+        }
+    }, [selectedRoomId, guideRooms, setValue]);
 
     const onSubmit = (data: { selectedBed: number }) => {
         console.log(data);
@@ -91,7 +95,7 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
                                     </option>
                                 ))}
                             </Select>
-                            {availableBeds.length > 0 && (
+                            {availableBeds.length >= 1 && (
                                 <>
                                     <Label>Selecione o leito:</Label>
                                     <Select {...register('selectedBed')}>
@@ -104,18 +108,18 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
                                     </Select>
                                 </>
                             )}
-                            {availableBeds.length === 0 && (
-                                <EmptyStateSection>
-                                    <IllustratedState
-                                        title="Não existe nenhum leito ainda!"
-                                        subtitle="Verifique na aba de quartos a criação de leitos para esse quarto específico."
-                                    />
-                                </EmptyStateSection>
-                            )}
                         </Column>
                     </TwoColumns>
                 )}
                 {loadingGuideRooms && <Loader message="Carregando Leitos" />}
+                {availableBeds.length === 0 && !loadingGuideRooms && (
+                    <EmptyStateSection>
+                        <IllustratedState
+                            title="Não existe nenhum leito ainda!"
+                            subtitle="Verifique na aba de quartos a criação de leitos para esse quarto específico."
+                        />
+                    </EmptyStateSection>
+                )}
             </FormContent>
         </FormCheckin>
     );

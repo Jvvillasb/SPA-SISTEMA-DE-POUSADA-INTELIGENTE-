@@ -4,9 +4,14 @@ import {
     Select,
     TwoColumns,
     Table,
+    Tr,
+    Thead,
+    Th,
+    Td,
+    Tbody,
+    ScrollableTableContainer,
 } from './GuideRoomForm.style';
 import { Bedroom } from '../../../../commons/types/Bedroom';
-import { Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import Button from '../../../../commons/ui/Button/Button';
 import theme from '../../../../theme';
 import { useForm } from 'react-hook-form';
@@ -61,33 +66,35 @@ const GuideRoomBedroomRegister: React.FC<
                 >
                     Adicionar
                 </Button>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th w={'33%'}>Número</Th>
-                            <Th w={'33%'}>Status</Th>
-                            <Th w={'33%'}>Ação</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {bedroomsByCreationGuideRooms.map((room, index) => (
-                            <Tr key={index}>
-                                <Td>{room.numero}</Td>
-                                <Td>{room.status}</Td>
-                                <Td>
-                                    <Button
-                                        colorScheme="red"
-                                        onClick={() =>
-                                            handleRemoveButtonClick(index)
-                                        }
-                                    >
-                                        Remover
-                                    </Button>
-                                </Td>
+                <ScrollableTableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th>Número</Th>
+                                <Th>Status</Th>
+                                <Th>Ação</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
+                        </Thead>
+                        <Tbody>
+                            {bedroomsByCreationGuideRooms.map((room, index) => (
+                                <Tr key={index}>
+                                    <Td>{room.numero}</Td>
+                                    <Td>{room.status}</Td>
+                                    <Td>
+                                        <Button
+                                            colorScheme="red"
+                                            onClick={() =>
+                                                handleRemoveButtonClick(index)
+                                            }
+                                        >
+                                            Remover
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </ScrollableTableContainer>
             </Column>
         </TwoColumns>
     );
