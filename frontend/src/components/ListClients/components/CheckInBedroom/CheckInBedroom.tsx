@@ -53,7 +53,6 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
     }, [selectedRoomId, guideRooms]);
 
     const onSubmit = (data: { selectedBed: number }) => {
-        console.log(data);
         checkinClient(client.id, data.selectedBed)
             .then(() => {
                 showCustomToast({

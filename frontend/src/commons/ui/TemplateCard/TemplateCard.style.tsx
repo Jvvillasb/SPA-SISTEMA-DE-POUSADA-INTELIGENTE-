@@ -5,6 +5,7 @@ import {
     MenuButton as ChakraMenuButton,
     Avatar as ChakraAvatar,
     Heading as ChakraHeading,
+    Checkbox,
 } from '@chakra-ui/react';
 
 import styled from '@emotion/styled';
@@ -52,4 +53,10 @@ export const TemplateCardBodyText = styled(ChakraText)`
 export const TemplateCardTitle = styled(ChakraHeading)`
     color: #81868f;
     margin-bottom: 4px;
+`;
+
+export const TemplateCardCheckbox = styled(Checkbox)`
+    position: absolute;
+    top: 16px;
+    left: 24px;
 `;
