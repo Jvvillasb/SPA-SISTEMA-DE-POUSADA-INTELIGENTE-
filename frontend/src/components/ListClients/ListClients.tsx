@@ -111,7 +111,6 @@ const ListClients = () => {
         });
     };
 
-    console.log(selectedIds);
     useEffect(() => {
         fetchClient();
     }, [page]);
