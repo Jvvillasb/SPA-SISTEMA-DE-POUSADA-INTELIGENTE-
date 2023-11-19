@@ -83,6 +83,7 @@ public class GuestService {
 			repository.checkoutGuest(lista.get(i), dataFormatada);
 			repository.checkinLeitoInteger(1, lista.get(i));
 			leitoRepository.updateStatusDisponivel(lista.get(i));
+			leitoRepository.updateGuestIdToNull(lista.get(i));
 		}
 	}
 	

@@ -24,6 +24,10 @@ public interface LeitoRepository extends JpaRepository<Leito, Long>{
 	@Query(nativeQuery = true, value = "UPDATE tb_leito SET status = 'disponível' WHERE guest_id = :id")
 	public void updateStatusDisponivel(Integer id);
 	
+	@Modifying
+	@Query(nativeQuery = true, value = "UPDATE tb_leito SET guest_id = NULL WHERE guest_id = :id")
+	public void updateGuestIdToNull(Integer id);
+	
 	@Query(nativeQuery = true, value = "SELECT * FROM tb_leito WHERE id != 1")
 	Page<Leito> findAllWithout1(Pageable pageable);
 
