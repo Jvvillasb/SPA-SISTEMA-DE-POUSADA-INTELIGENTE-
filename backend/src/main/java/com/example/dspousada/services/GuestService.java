@@ -60,7 +60,7 @@ public class GuestService {
 				list = repository.findGuestDataSaidaPaged(dataSaida1, dataSaida2, pageable);
 			}
 		} else if (!ativo.isEmpty()) {
-			list = repository.findGuestAtivos(pageable);
+			list = repository.findGuestAtivos(name, documento, caravana, pageable);
 		} else {
 			list = repository.findGuestPaged(name, documento, caravana, pageable);
 		}

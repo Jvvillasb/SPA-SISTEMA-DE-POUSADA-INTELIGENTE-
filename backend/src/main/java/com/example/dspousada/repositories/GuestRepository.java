@@ -27,8 +27,8 @@ public interface GuestRepository extends JpaRepository<Guest, Long>{
 	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest WHERE DATA_SAIDA = :dataEntrada2")
 	Page<Guest> findGuestDataSaidaEqualPaged(String dataEntrada2, Pageable pageable);
 	
-	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest WHERE DATA_SAIDA IS NULL")
-	Page<Guest> findGuestAtivos(Pageable pageable);
+	@Query(nativeQuery = true, value = "SELECT * FROM tb_guest i WHERE (LOWER(i.nome) LIKE LOWER(CONCAT('%',:name,'%'))) AND (LOWER(i.documento) LIKE LOWER(CONCAT('%',:documento,'%'))) AND i.caravana_id = :caravana AND DATA_SAIDA IS NULL")
+	Page<Guest> findGuestAtivos(String name, String documento, Long caravana, Pageable pageable);
 	
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE tb_guest SET data_saida = :data WHERE id = :id") 
