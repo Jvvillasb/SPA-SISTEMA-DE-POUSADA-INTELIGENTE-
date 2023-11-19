@@ -69,22 +69,6 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                         ))}
                     </Select>
                 </Label>
-
-                {/* <Label>
-                    <span>Leito:</span>
-                    <Select
-                        {...register('leito', {
-                            required: 'Este campo é obrigatório',
-                        })}
-                        defaultValue={1}
-                    >
-                        {leito.map((leito) => (
-                            <option key={leito.id} value={leito.id}>
-                                {leito.nome}
-                            </option>
-                        ))}
-                    </Select>
-                </Label> */}
             </Column>
         </TwoColumns>
     );
