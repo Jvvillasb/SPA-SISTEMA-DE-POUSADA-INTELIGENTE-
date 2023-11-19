@@ -8,8 +8,14 @@ import {
     Select,
     TwoColumns,
     Table,
+    Tr,
+    Thead,
+    Th,
+    Td,
+    Tbody,
+    ScrollableTableContainer,
 } from '../CreateGuideRooms/GuideRoomForm.style';
-import { Thead, Tbody, Tr, Th, Td, useDisclosure } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import Button from '../../../../commons/ui/Button/Button';
 import theme from '../../../../theme';
 import {
@@ -100,34 +106,36 @@ const EditGuideRoomBedroomRegister: React.FC<
                 >
                     Adicionar
                 </Button>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th w={'33%'}>Número</Th>
-                            <Th w={'33%'}>Status</Th>
-                            <Th w={'33%'}>Ação</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {localLeitos.map((bedRoom, index) => (
-                            <Tr key={index}>
-                                <Td>{bedRoom.numero}</Td>
-                                <Td>{bedRoom.status}</Td>
-                                <Td>
-                                    <Button
-                                        colorScheme="red"
-                                        onClick={() => {
-                                            setEditBedroom(bedRoom);
-                                            alertDisclosure.onOpen();
-                                        }}
-                                    >
-                                        Remover
-                                    </Button>
-                                </Td>
+                <ScrollableTableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th w={'33%'}>Número</Th>
+                                <Th w={'33%'}>Status</Th>
+                                <Th w={'33%'}>Ação</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
+                        </Thead>
+                        <Tbody>
+                            {localLeitos.map((bedRoom, index) => (
+                                <Tr key={index}>
+                                    <Td>{bedRoom.numero}</Td>
+                                    <Td>{bedRoom.status}</Td>
+                                    <Td>
+                                        <Button
+                                            colorScheme="red"
+                                            onClick={() => {
+                                                setEditBedroom(bedRoom);
+                                                alertDisclosure.onOpen();
+                                            }}
+                                        >
+                                            Remover
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </ScrollableTableContainer>
             </Column>
             <AlertDialog
                 title="Excluir Quarto"

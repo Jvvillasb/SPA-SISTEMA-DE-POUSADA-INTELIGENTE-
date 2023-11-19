@@ -39,6 +39,7 @@ const EditGuideUserForm: React.FC<EditGuideUserFormProps> = ({
     const onSubmit = (data: GuideUser) => {
         validateData(data);
         updateGuideUser(data, GuideUser.id);
+        formRef.current?.reset();
     };
 
     return (

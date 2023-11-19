@@ -3,4 +3,4 @@ export type Bedroom = {
     quarto: number;
     status: string;
     id: number;
-}
+};

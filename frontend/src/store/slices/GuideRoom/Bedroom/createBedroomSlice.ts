@@ -80,5 +80,5 @@ export const createBedroomSlice: StateCreator<BedroomStateType> = (
             console.error('Erro ao deletar o leito: ', error);
             set({ loadingBedroom: false });
         }
-    }
+    },
 });

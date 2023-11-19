@@ -31,4 +31,5 @@ export const checkinClient = async (clientId: number, bedroomId: number) => {
     return axiosInstance.post(`/guest/checkinLeito/${clientId}/${bedroomId}`);
 };
 
-export const checkoutClient = async (clientsIds: number[]) => axiosInstance.post(`/guest/checkout`, clientsIds);
+export const checkoutClient = async (clientsIds: number[]) =>
+    axiosInstance.post(`/guest/checkout`, clientsIds);
