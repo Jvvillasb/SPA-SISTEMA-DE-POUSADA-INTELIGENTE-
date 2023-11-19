@@ -32,6 +32,7 @@ const GuideUserForm: React.FC<GuideUsersFormProps> = ({
         validateData(data);
         data.leito = 1;
         createGuideUser(data);
+        formRef.current?.reset();
     };
 
     return (
