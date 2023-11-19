@@ -24,6 +24,8 @@ import {
 } from '../../../../components/ListGuideRooms/Bedrooms/Services/Bedroom.service';
 import AlertDialog from '../../../../commons/ui/AlertDialog/AlertDialog';
 import useCustomToast from '../../../../commons/hooks/useCustomToast/useCustomToast';
+import useStore from '../../../../store/index';
+import Loader from '../../../../commons/ui/Loader/Loader';
 
 interface EditGuideRoomBedroomRegisterProps {
     guideRoom: GuideRoom;
@@ -36,6 +38,10 @@ const EditGuideRoomBedroomRegister: React.FC<
     const { showCustomToast } = useCustomToast();
     const alertDisclosure = useDisclosure();
     const [localLeitos, setLocalLeitos] = useState<Bedroom[]>([]);
+    const { fetchGuideRooms, loadingGuideRooms } = useStore((state) => ({
+        fetchGuideRooms: state.fetchGuideRooms,
+        loadingGuideRooms: state.loadingGuideRoom,
+    }));
 
     useEffect(() => {
         setLocalLeitos(guideRoom.leitos);
@@ -52,6 +58,7 @@ const EditGuideRoomBedroomRegister: React.FC<
                     description: 'O quarto foi adicionado com sucesso.',
                     status: 'success',
                 });
+                fetchGuideRooms();
                 reset();
             })
             .catch(() => {
@@ -87,6 +94,16 @@ const EditGuideRoomBedroomRegister: React.FC<
     };
 
     const [editBedroom, setEditBedroom] = useState<Bedroom | null>(null);
+
+    if (loadingGuideRooms) {
+        return (
+            <TwoColumns>
+                <Column>
+                    <Loader message="Carregando leitos..." />
+                </Column>
+            </TwoColumns>
+        );
+    }
 
     return (
         <TwoColumns>

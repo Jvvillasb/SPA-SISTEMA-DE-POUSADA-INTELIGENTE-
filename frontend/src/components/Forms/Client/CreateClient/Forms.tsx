@@ -32,6 +32,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({
         validateData(data);
         data.leito = 1;
         createClient(data);
+        formRef.current?.reset();
     };
 
     return (
