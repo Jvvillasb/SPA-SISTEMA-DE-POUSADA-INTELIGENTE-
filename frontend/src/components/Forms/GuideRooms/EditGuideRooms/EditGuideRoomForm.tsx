@@ -31,6 +31,7 @@ const EditGuideRoomForm: React.FC<EditGuideRoomFormProps> = ({
 
     const onSubmit = (data: GuideRoom) => {
         updateGuideRooms(data, GuideRoom.id);
+        formRef.current?.reset();
     };
 
     return (
