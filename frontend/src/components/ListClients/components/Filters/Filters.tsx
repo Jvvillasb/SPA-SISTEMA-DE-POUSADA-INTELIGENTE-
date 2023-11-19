@@ -3,9 +3,18 @@ import { useDebounce } from '../../../../commons/hooks/useDebounce/useDebounce';
 import useStore from '../../../../store/index';
 import { FlexContainer, Select, StyledInput, Option } from './Filters.styles';
 import theme from '../../../../theme';
-import { Tooltip } from '@chakra-ui/react';
+import { Box, Tooltip } from '@chakra-ui/react';
+import { Button } from '../../../../commons/ui/Button/Button.styles';
 
-const Filters: React.FC = () => {
+interface FiltersProps {
+    actionButton?: () => void;
+    actionButtonDisabled?: boolean;
+}
+
+const Filters: React.FC<FiltersProps> = ({
+    actionButton,
+    actionButtonDisabled,
+}) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const {
@@ -75,27 +84,40 @@ const Filters: React.FC = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise usuários"
             />
-            <Tooltip hasArrow label="Filtrar por caravana">
-                <Select
-                    rootProps={{ style: { width: 'fit-content' } }}
-                    onChange={handleChange}
-                    value={filters.excursionType}
-                    onFocus={handleDropdownFocus}
-                    onBlur={handleDropdownBlur}
-                    focusBorderColor={theme.colors.customGreen}
-                >
-                    {excursions.length === 0 && (
-                        <Option value="1" disabled>
-                            {getPlaceholderFilter()}
-                        </Option>
-                    )}
-                    {excursions.map((excursion) => (
-                        <Option key={excursion.id} value={excursion.id}>
-                            {excursion.nome}
-                        </Option>
-                    ))}
-                </Select>
-            </Tooltip>
+            <Box display={'flex'} gap={'1rem'}>
+                {actionButton && (
+                    <Button
+                        colorScheme={theme.colors.customGreen}
+                        textColor={'white'}
+                        onClick={actionButton}
+                        _hover={{ filter: 'brightness(80%)' }}
+                        isDisabled={actionButtonDisabled}
+                    >
+                        Fazer Checkout
+                    </Button>
+                )}
+                <Tooltip hasArrow label="Filtrar por caravana">
+                    <Select
+                        rootProps={{ style: { width: 'fit-content' } }}
+                        onChange={handleChange}
+                        value={filters.excursionType}
+                        onFocus={handleDropdownFocus}
+                        onBlur={handleDropdownBlur}
+                        focusBorderColor={theme.colors.customGreen}
+                    >
+                        {excursions.length === 0 && (
+                            <Option value="1" disabled>
+                                {getPlaceholderFilter()}
+                            </Option>
+                        )}
+                        {excursions.map((excursion) => (
+                            <Option key={excursion.id} value={excursion.id}>
+                                {excursion.nome}
+                            </Option>
+                        ))}
+                    </Select>
+                </Tooltip>
+            </Box>
         </FlexContainer>
     );
 };

@@ -21,7 +21,7 @@ import { Client } from '../../commons/types/Client';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { AddIcon } from '@chakra-ui/icons';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { deleteClient } from './services/client.service';
+import { checkoutClient, deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import CheckInBedroom from './components/CheckInBedroom/CheckInBedroom';
 
@@ -46,6 +46,8 @@ const ListClients = () => {
     const alertDisclosure = useDisclosure();
 
     const checkinDisclosure = useDisclosure();
+
+    const checkoutDisclosure = useDisclosure();
 
     const defaultClient: Client = {
         id: 0,
@@ -95,7 +97,21 @@ const ListClients = () => {
     const stepsActions = ['Próximo', 'Concluir'];
 
     const { showCustomToast } = useCustomToast();
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
+    const handleCheckboxChange = (id: number, isChecked: boolean) => {
+        setSelectedIds((currentIds) => {
+            if (isChecked) {
+                return currentIds.includes(id)
+                    ? currentIds
+                    : [...currentIds, id];
+            } else {
+                return currentIds.filter((storedId) => storedId !== id);
+            }
+        });
+    };
+
+    console.log(selectedIds);
     useEffect(() => {
         fetchClient();
     }, [page]);
@@ -125,11 +141,17 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters />
+                <Filters
+                    actionButton={() => {
+                        checkoutDisclosure.onOpen();
+                    }}
+                    actionButtonDisabled={selectedIds.length === 0}
+                />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
                             <TemplateCard
+                                id={client.id}
                                 title={client.nome}
                                 subtitle={`${client.cidade} - ${client.estado}`}
                                 bodyItems={[
@@ -168,6 +190,9 @@ const ListClients = () => {
                                         },
                                     },
                                 ]}
+                                showCheckboxes={true}
+                                onCheckboxChange={handleCheckboxChange}
+                                selectedIds={selectedIds}
                             ></TemplateCard>
                         </li>
                     ))}
@@ -265,6 +290,36 @@ const ListClients = () => {
                         <CheckInBedroom client={editClient} formRef={formRef} />
                     </StyledContentModal>
                 </Modal>
+                <AlertDialog
+                    title="Checkout"
+                    description="Deseja realmente Fazer checkout desses hóspedes?"
+                    isOpen={checkoutDisclosure.isOpen}
+                    onClose={checkoutDisclosure.onClose}
+                    confirmButtonText="Fazer checkout"
+                    cancelButtonText="Cancelar"
+                    onConfirm={() => {
+                        checkoutDisclosure.onClose();
+                        checkoutClient(selectedIds)
+                            .then(() => {
+                                showCustomToast({
+                                    title: 'Checkout feito com sucesso!',
+                                    description:
+                                        'O checkout finalizou sem problemas.',
+                                    status: 'success',
+                                });
+
+                                fetchClient();
+                            })
+                            .catch(() => {
+                                showCustomToast({
+                                    title: 'Erro ao fazer checkout',
+                                    description:
+                                        'Ocorreu um erro ao tentar fazer o checkout do hóspede.',
+                                    status: 'error',
+                                });
+                            });
+                    }}
+                />
             </ClientsSection>
             <Actions />
             <Tooltip hasArrow label="Adicionar Clientes">
