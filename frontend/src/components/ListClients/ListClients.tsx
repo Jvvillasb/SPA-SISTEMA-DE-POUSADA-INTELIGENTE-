@@ -176,12 +176,6 @@ const ListClients = () => {
                                         },
                                     },
                                     {
-                                        label: 'Inativar',
-                                        onClick: () => {
-                                            setEditClient(client);
-                                        },
-                                    },
-                                    {
                                         label: 'Check-in',
                                         onClick: () => {
                                             checkinDisclosure.onOpen();
