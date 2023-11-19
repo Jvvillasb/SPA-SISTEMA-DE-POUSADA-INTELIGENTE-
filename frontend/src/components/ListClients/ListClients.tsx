@@ -68,6 +68,8 @@ const ListClients = () => {
         nomeGuia: '',
         evento: '',
         leito: 1,
+        numeroLeito: 1,
+        nomeQuarto: '',
     };
 
     const [creation, setCreation] = useState(false);
@@ -156,6 +158,8 @@ const ListClients = () => {
                                 bodyItems={[
                                     `Celular: ${client.telefone}`,
                                     `Email: ${client.email}`,
+                                    `Quarto: ${client.nomeQuarto}`,
+                                    `Numero do Leito: ${client.numeroLeito}`
                                 ]}
                                 actions={[
                                     {
@@ -300,8 +304,8 @@ const ListClients = () => {
                                         'O checkout finalizou sem problemas.',
                                     status: 'success',
                                 });
-
                                 fetchClient();
+                                setSelectedIds([]);
                             })
                             .catch(() => {
                                 showCustomToast({
