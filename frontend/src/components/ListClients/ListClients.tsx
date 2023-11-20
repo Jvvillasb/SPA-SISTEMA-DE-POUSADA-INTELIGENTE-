@@ -164,9 +164,9 @@ const ListClients = () => {
                                     `Email: ${client.email}`,
                                     `Quarto: ${client.nomeQuarto}`,
                                     `Numero do Leito: ${
-                                        client.numeroLeito === 1
-                                            ? 'Sem Leito'
-                                            : client.numeroLeito
+                                        client.leito !== 1
+                                            ? client.numeroLeito
+                                            : 'Sem leito'
                                     } `,
                                 ]}
                                 actions={[
@@ -199,6 +199,8 @@ const ListClients = () => {
                                 onCheckboxChange={handleCheckboxChange}
                                 selectedIds={selectedIds}
                                 statusColor={getStatusColor(client)}
+                                isDisabled={client.dataSaida !== null}
+                                disableText="Inativo"
                             ></TemplateCard>
                         </li>
                     ))}

@@ -6,6 +6,7 @@ import {
     TemplateCardBodyText,
     TemplateCardContainer,
     TemplateCardCheckbox,
+    DisableText,
 } from './TemplateCard.style';
 
 import TemplateCardMenu from '../TemplateCardMenu/TemplateCardMenu';
@@ -22,6 +23,8 @@ interface TemplateCardProps {
     iconCard?: React.ReactElement;
     showCheckboxes?: boolean;
     selectedIds?: number[];
+    isDisabled?: boolean;
+    disableText?: string;
     onCheckboxChange?: (id: number, checked: boolean) => void;
 }
 
@@ -36,17 +39,29 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     selectedIds,
     onCheckboxChange,
     id,
+    isDisabled,
+    disableText,
 }) => {
+    const cardStyle: React.CSSProperties = {
+        filter: isDisabled ? 'brightness(90%)' : 'none',
+        pointerEvents: isDisabled ? 'none' : 'auto',
+    };
+
     return (
-        <TemplateCardContainer hasActions={!!actions.length}>
+        <TemplateCardContainer hasActions={!!actions.length} style={cardStyle}>
             <Flex>
-                {actions.length ? <TemplateCardMenu actions={actions} /> : null}
+                {actions.length && !isDisabled ? (
+                    <TemplateCardMenu actions={actions} />
+                ) : (
+                    <DisableText>{disableText}</DisableText>
+                )}
                 {showCheckboxes && onCheckboxChange && id && (
                     <TemplateCardCheckbox
                         isChecked={selectedIds?.includes(id)}
                         onChange={(e) => onCheckboxChange(id, e.target.checked)}
                         size={'lg'}
                         colorScheme="green"
+                        isDisabled={isDisabled}
                     />
                 )}
             </Flex>

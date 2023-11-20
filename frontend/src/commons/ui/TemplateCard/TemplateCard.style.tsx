@@ -60,3 +60,13 @@ export const TemplateCardCheckbox = styled(Checkbox)`
     top: 16px;
     left: 24px;
 `;
+
+export const DisableText = styled(ChakraText)`
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    color: #81868f;
+    border: 1px solid #81868f;
+    border-radius: 8px;
+    padding: 2px 8px;
+`;

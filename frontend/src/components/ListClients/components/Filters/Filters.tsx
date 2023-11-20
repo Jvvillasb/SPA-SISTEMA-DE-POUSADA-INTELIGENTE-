@@ -100,7 +100,24 @@ const Filters: React.FC<FiltersProps> = ({
                     onKeyDown={handleKeyDown}
                     placeholder="Pesquise usuários"
                 />
-                <Container display={'flex'} gap={'1rem'} alignItems={'center'} flexDirection={'column'}>
+                <Container
+                    display={'flex'}
+                    gap={'1rem'}
+                    alignItems={'center'}
+                    flexDirection={'column'}
+                >
+                    {actionButton && (
+                        <Button
+                            colorScheme={theme.colors.customGreen}
+                            textColor={'white'}
+                            onClick={actionButton}
+                            _hover={{ filter: 'brightness(80%)' }}
+                            isDisabled={actionButtonDisabled}
+                            alignSelf={'normal'}
+                        >
+                            Fazer Checkout
+                        </Button>
+                    )}
                     <Box display={'flex'} gap={'1rem'} alignItems={'center'}>
                         <Text>Todos</Text>
                         <Switch
@@ -110,19 +127,6 @@ const Filters: React.FC<FiltersProps> = ({
                             isChecked={filters.ativo?.length !== 0}
                         />
                         <Text>Ativos</Text>
-                    </Box>
-                    <Box display={'flex'} gap={'1rem'} alignItems={'center'}>
-                        {actionButton && (
-                            <Button
-                                colorScheme={theme.colors.customGreen}
-                                textColor={'white'}
-                                onClick={actionButton}
-                                _hover={{ filter: 'brightness(80%)' }}
-                                isDisabled={actionButtonDisabled}
-                            >
-                                Fazer Checkout
-                            </Button>
-                        )}
                         <Tooltip hasArrow label="Filtrar por caravana">
                             <Select
                                 rootProps={{ style: { width: 'fit-content' } }}
