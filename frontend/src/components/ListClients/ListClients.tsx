@@ -113,6 +113,10 @@ const ListClients = () => {
         });
     };
 
+    const getStatusColor = (client: Client) => {
+        return client.nomeGuia === client.nome ? 'blue' : 'green';
+    };
+
     useEffect(() => {
         fetchClient();
     }, [page]);
@@ -159,7 +163,11 @@ const ListClients = () => {
                                     `Celular: ${client.telefone}`,
                                     `Email: ${client.email}`,
                                     `Quarto: ${client.nomeQuarto}`,
-                                    `Numero do Leito: ${client.numeroLeito}`
+                                    `Numero do Leito: ${
+                                        client.numeroLeito === 1
+                                            ? 'Sem Leito'
+                                            : client.numeroLeito
+                                    } `,
                                 ]}
                                 actions={[
                                     {
@@ -190,6 +198,7 @@ const ListClients = () => {
                                 showCheckboxes={true}
                                 onCheckboxChange={handleCheckboxChange}
                                 selectedIds={selectedIds}
+                                statusColor={getStatusColor(client)}
                             ></TemplateCard>
                         </li>
                     ))}

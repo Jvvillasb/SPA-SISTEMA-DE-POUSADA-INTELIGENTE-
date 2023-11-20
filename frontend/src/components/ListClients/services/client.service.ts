@@ -11,7 +11,7 @@ export const listClients = async (
     filters: clientFilters
 ) => {
     return axiosInstance.get<Pagination<Client>>(
-        `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}&caravana=${filters.excursionType}&sort=id,desc`
+        `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}&caravana=${filters.excursionType}&sort=id,desc&ativo=${filters.ativo}`
     );
 };
 

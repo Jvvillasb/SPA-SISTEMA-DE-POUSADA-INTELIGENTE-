@@ -59,6 +59,7 @@ const ListGuidesUsers = () => {
         nacionalidade: '',
         evento: '',
         leito: 1,
+        guia: '',
     };
 
     const [creation, setCreation] = useState(false);

@@ -65,21 +65,23 @@ const EditGerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                     </Select>
                 </Label>
 
-                <Label>
-                    <span>Guia:</span>
-                    <Select
-                        {...register('guia', {
-                            required: 'Este campo é obrigatório',
-                        })}
-                        defaultValue={client.guia}
-                    >
-                        {guideUsers.map((guia) => (
-                            <option key={guia.id} value={guia.id}>
-                                {guia.nome}
-                            </option>
-                        ))}
-                    </Select>
-                </Label>
+                {client.nomeGuia !== client.nome && (
+                    <Label>
+                        <span>Guia:</span>
+                        <Select
+                            {...register('guia', {
+                                required: 'Este campo é obrigatório',
+                            })}
+                            defaultValue={client.guia}
+                        >
+                            {guideUsers.map((guia) => (
+                                <option key={guia.id} value={guia.id}>
+                                    {guia.nome}
+                                </option>
+                            ))}
+                        </Select>
+                    </Label>
+                )}
             </Column>
         </TwoColumns>
     );
