@@ -98,7 +98,7 @@ const Filters: React.FC<FiltersProps> = ({
                     value={searchString}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
-                    placeholder="Pesquise usuários"
+                    placeholder="Pesquise Hóspedes"
                 />
                 <Container
                     display={'flex'}
@@ -164,7 +164,7 @@ const Filters: React.FC<FiltersProps> = ({
                 value={searchString}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Pesquise usuários"
+                placeholder="Pesquise Hóspedes"
             />
             <Box display={'flex'} gap={'1rem'} alignItems={'center'}>
                 <Text>Todos</Text>

@@ -157,7 +157,11 @@ const ListClients = () => {
                         <li key={client.id}>
                             <TemplateCard
                                 id={client.id}
-                                title={client.nome}
+                                title={
+                                    client.nome === client.nomeGuia
+                                        ? 'guia: ' + client.nome
+                                        : client.nome
+                                }
                                 subtitle={`${client.cidade} - ${client.estado}`}
                                 bodyItems={[
                                     `Celular: ${client.telefone}`,

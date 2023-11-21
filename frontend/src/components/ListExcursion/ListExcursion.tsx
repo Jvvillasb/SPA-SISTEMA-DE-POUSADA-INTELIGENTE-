@@ -110,34 +110,36 @@ const ListExcursion: React.FC = () => {
                 <ListExcursionContent>
                     {excursions.map((excursions) => (
                         <li key={excursions.id}>
-                            <TemplateCard
-                                title={excursions.nome}
-                                subtitle={`${excursions.cidade}`}
-                                actions={[
-                                    {
-                                        label: 'Editar',
-                                        onClick: () => {
-                                            setCreation(false);
-                                            addDisclosure.onOpen();
-                                            fetchGuideUsersBySearch();
-                                            setEditExcursion(excursions);
+                            {excursions.id !== 1 && (
+                                <TemplateCard
+                                    title={excursions.nome}
+                                    subtitle={`${excursions.cidade}`}
+                                    actions={[
+                                        {
+                                            label: 'Editar',
+                                            onClick: () => {
+                                                setCreation(false);
+                                                addDisclosure.onOpen();
+                                                fetchGuideUsersBySearch();
+                                                setEditExcursion(excursions);
+                                            },
                                         },
-                                    },
-                                    {
-                                        label: 'Excluir',
-                                        onClick: () => {
-                                            alertDisclosure.onOpen();
-                                            setEditExcursion(excursions);
+                                        {
+                                            label: 'Excluir',
+                                            onClick: () => {
+                                                alertDisclosure.onOpen();
+                                                setEditExcursion(excursions);
+                                            },
                                         },
-                                    },
-                                ]}
-                                bodyItems={[]}
-                                iconCard={
-                                    <MdOutlineDirectionsBus
-                                        fontSize={'4.5rem'}
-                                    />
-                                }
-                            ></TemplateCard>
+                                    ]}
+                                    bodyItems={[]}
+                                    iconCard={
+                                        <MdOutlineDirectionsBus
+                                            fontSize={'4.5rem'}
+                                        />
+                                    }
+                                ></TemplateCard>
+                            )}
                         </li>
                     ))}
                 </ListExcursionContent>
