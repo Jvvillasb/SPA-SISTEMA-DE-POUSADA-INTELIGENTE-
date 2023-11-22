@@ -35,15 +35,6 @@ const GerencialInfoRegister: React.FC<GerencialInfoRegisterProps> = ({
                 </Label>
 
                 <Label>
-                    <span>Data de Saída:</span>
-                    <Input
-                        {...register('dataSaida')}
-                        placeholder="Data de Saída"
-                        type="date"
-                    />
-                </Label>
-
-                <Label>
                     <span>Evento:</span>
                     <Input
                         {...register('evento', {

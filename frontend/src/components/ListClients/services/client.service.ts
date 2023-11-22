@@ -11,7 +11,7 @@ export const listClients = async (
     filters: clientFilters
 ) => {
     return axiosInstance.get<Pagination<Client>>(
-        `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}&caravana=${filters.excursionType}&sort=id,desc`
+        `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=${searchString}&caravana=${filters.excursionType}&sort=id,desc&ativo=${filters.ativo}`
     );
 };
 
@@ -30,3 +30,6 @@ export const deleteClient = async (id: number) => {
 export const checkinClient = async (clientId: number, bedroomId: number) => {
     return axiosInstance.post(`/guest/checkinLeito/${clientId}/${bedroomId}`);
 };
+
+export const checkoutClient = async (clientsIds: number[]) =>
+    axiosInstance.post(`/guest/checkout`, clientsIds);

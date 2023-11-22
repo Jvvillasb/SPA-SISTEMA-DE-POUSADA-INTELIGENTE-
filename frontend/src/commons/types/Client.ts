@@ -17,4 +17,6 @@ export type Client = {
     nomeGuia: string;
     evento: string;
     leito: number;
+    numeroLeito: number;
+    nomeQuarto: string;
 };

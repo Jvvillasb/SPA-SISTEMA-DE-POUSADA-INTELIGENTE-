@@ -21,7 +21,7 @@ import { Client } from '../../commons/types/Client';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { AddIcon } from '@chakra-ui/icons';
 import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
-import { deleteClient } from './services/client.service';
+import { checkoutClient, deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import CheckInBedroom from './components/CheckInBedroom/CheckInBedroom';
 
@@ -47,6 +47,8 @@ const ListClients = () => {
 
     const checkinDisclosure = useDisclosure();
 
+    const checkoutDisclosure = useDisclosure();
+
     const defaultClient: Client = {
         id: 0,
         nome: '',
@@ -66,6 +68,8 @@ const ListClients = () => {
         nomeGuia: '',
         evento: '',
         leito: 1,
+        numeroLeito: 1,
+        nomeQuarto: '',
     };
 
     const [creation, setCreation] = useState(false);
@@ -95,6 +99,23 @@ const ListClients = () => {
     const stepsActions = ['Próximo', 'Concluir'];
 
     const { showCustomToast } = useCustomToast();
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
+    const handleCheckboxChange = (id: number, isChecked: boolean) => {
+        setSelectedIds((currentIds) => {
+            if (isChecked) {
+                return currentIds.includes(id)
+                    ? currentIds
+                    : [...currentIds, id];
+            } else {
+                return currentIds.filter((storedId) => storedId !== id);
+            }
+        });
+    };
+
+    const getStatusColor = (client: Client) => {
+        return client.nomeGuia === client.nome ? 'blue' : 'green';
+    };
 
     useEffect(() => {
         fetchClient();
@@ -125,16 +146,32 @@ const ListClients = () => {
     return (
         <ListClientsContainer>
             <ClientsSection>
-                <Filters />
+                <Filters
+                    actionButton={() => {
+                        checkoutDisclosure.onOpen();
+                    }}
+                    actionButtonDisabled={selectedIds.length === 0}
+                />
                 <ListClientsContent>
                     {clients.map((client) => (
                         <li key={client.id}>
                             <TemplateCard
-                                title={client.nome}
+                                id={client.id}
+                                title={
+                                    client.nome === client.nomeGuia
+                                        ? 'guia: ' + client.nome
+                                        : client.nome
+                                }
                                 subtitle={`${client.cidade} - ${client.estado}`}
                                 bodyItems={[
                                     `Celular: ${client.telefone}`,
                                     `Email: ${client.email}`,
+                                    `Quarto: ${client.nomeQuarto}`,
+                                    `Numero do Leito: ${
+                                        client.leito !== 1
+                                            ? client.numeroLeito
+                                            : 'Sem leito'
+                                    } `,
                                 ]}
                                 actions={[
                                     {
@@ -155,12 +192,6 @@ const ListClients = () => {
                                         },
                                     },
                                     {
-                                        label: 'Inativar',
-                                        onClick: () => {
-                                            setEditClient(client);
-                                        },
-                                    },
-                                    {
                                         label: 'Check-in',
                                         onClick: () => {
                                             checkinDisclosure.onOpen();
@@ -168,6 +199,12 @@ const ListClients = () => {
                                         },
                                     },
                                 ]}
+                                showCheckboxes={true}
+                                onCheckboxChange={handleCheckboxChange}
+                                selectedIds={selectedIds}
+                                statusColor={getStatusColor(client)}
+                                isDisabled={client.dataSaida !== null}
+                                disableText="Inativo"
                             ></TemplateCard>
                         </li>
                     ))}
@@ -265,6 +302,36 @@ const ListClients = () => {
                         <CheckInBedroom client={editClient} formRef={formRef} />
                     </StyledContentModal>
                 </Modal>
+                <AlertDialog
+                    title="Checkout"
+                    description="Deseja realmente Fazer checkout desses hóspedes?"
+                    isOpen={checkoutDisclosure.isOpen}
+                    onClose={checkoutDisclosure.onClose}
+                    confirmButtonText="Fazer checkout"
+                    cancelButtonText="Cancelar"
+                    onConfirm={() => {
+                        checkoutDisclosure.onClose();
+                        checkoutClient(selectedIds)
+                            .then(() => {
+                                showCustomToast({
+                                    title: 'Checkout feito com sucesso!',
+                                    description:
+                                        'O checkout finalizou sem problemas.',
+                                    status: 'success',
+                                });
+                                fetchClient();
+                                setSelectedIds([]);
+                            })
+                            .catch(() => {
+                                showCustomToast({
+                                    title: 'Erro ao fazer checkout',
+                                    description:
+                                        'Ocorreu um erro ao tentar fazer o checkout do hóspede.',
+                                    status: 'error',
+                                });
+                            });
+                    }}
+                />
             </ClientsSection>
             <Actions />
             <Tooltip hasArrow label="Adicionar Clientes">

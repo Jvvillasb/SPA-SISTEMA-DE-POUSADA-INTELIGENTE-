@@ -19,6 +19,7 @@ export const createClientSlice: StateCreator<ClientStateType> = (set, get) => ({
     searchString: '',
     filters: {
         excursionType: 1,
+        ativo: 'true',
     },
     setPage: (page) => {
         set({ page });

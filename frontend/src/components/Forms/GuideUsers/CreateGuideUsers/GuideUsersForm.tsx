@@ -16,7 +16,6 @@ interface GuideUsersFormProps {
 const validateData = (data: GuideUser) => {
     data.dataEntrada = formatDateToBR(data.dataEntrada);
     data.dataNascimento = formatDateToBR(data.dataNascimento);
-    data.dataSaida = formatDateToBR(data.dataSaida);
 };
 
 const GuideUserForm: React.FC<GuideUsersFormProps> = ({
@@ -31,7 +30,9 @@ const GuideUserForm: React.FC<GuideUsersFormProps> = ({
 
     const onSubmit = (data: GuideUser) => {
         validateData(data);
+        data.leito = 1;
         createGuideUser(data);
+        formRef.current?.reset();
     };
 
     return (

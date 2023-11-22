@@ -15,4 +15,5 @@ export type GuideUser = {
     telefone: string;
     evento: string;
     leito: number;
+    guia: string;
 };

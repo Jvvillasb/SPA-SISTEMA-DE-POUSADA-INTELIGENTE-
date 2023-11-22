@@ -59,6 +59,7 @@ const ListGuidesUsers = () => {
         nacionalidade: '',
         evento: '',
         leito: 1,
+        guia: '',
     };
 
     const [creation, setCreation] = useState(false);
@@ -123,32 +124,34 @@ const ListGuidesUsers = () => {
                 <ListClientsContent>
                     {GuideUsers.map((guideUser) => (
                         <li key={guideUser.id}>
-                            <TemplateCard
-                                title={guideUser.nome}
-                                subtitle={`${guideUser.cidade} - ${guideUser.estado}`}
-                                bodyItems={[
-                                    `Celular: ${guideUser.telefone}`,
-                                    `Email: ${guideUser.email}`,
-                                ]}
-                                actions={[
-                                    {
-                                        label: 'Editar',
-                                        onClick: () => {
-                                            setCreation(false);
-                                            addDisclosure.onOpen();
-                                            fetchExcursionsBySearch();
-                                            setEditguideUser(guideUser);
+                            {guideUser.id !== 1 && (
+                                <TemplateCard
+                                    title={guideUser.nome}
+                                    subtitle={`${guideUser.cidade} - ${guideUser.estado}`}
+                                    bodyItems={[
+                                        `Celular: ${guideUser.telefone}`,
+                                        `Email: ${guideUser.email}`,
+                                    ]}
+                                    actions={[
+                                        {
+                                            label: 'Editar',
+                                            onClick: () => {
+                                                setCreation(false);
+                                                addDisclosure.onOpen();
+                                                fetchExcursionsBySearch();
+                                                setEditguideUser(guideUser);
+                                            },
                                         },
-                                    },
-                                    {
-                                        label: 'Excluir',
-                                        onClick: () => {
-                                            alertDisclosure.onOpen();
-                                            setEditguideUser(guideUser);
+                                        {
+                                            label: 'Excluir',
+                                            onClick: () => {
+                                                alertDisclosure.onOpen();
+                                                setEditguideUser(guideUser);
+                                            },
                                         },
-                                    },
-                                ]}
-                            ></TemplateCard>
+                                    ]}
+                                ></TemplateCard>
+                            )}
                         </li>
                     ))}
                 </ListClientsContent>

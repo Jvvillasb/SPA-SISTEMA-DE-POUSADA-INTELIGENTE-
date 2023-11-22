@@ -7,6 +7,7 @@ import {
     ListGuideRoomsContent,
     GuideRoomsSection,
     StyledContentModal,
+    EmptyStateSection,
 } from './ListGuideRooms.style';
 import Actions from '../ListClients/components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
@@ -21,6 +22,7 @@ import { deleteGuideRooms } from './Services/GuideRoom.service';
 import GuideRoomForm from '../Forms/GuideRooms/CreateGuideRooms/GuideRoomForm';
 import EditGuideRoomForm from '../Forms/GuideRooms/EditGuideRooms/EditGuideRoomForm';
 import { MdBedroomParent } from 'react-icons/md';
+import IllustratedState from '../../commons/ui/IllustratedState/IllustratedState';
 
 const ListGuideRooms: React.FC = () => {
     const { page, guideRooms, loadingGuideRoom, fetchGuideRooms } = useStore(
@@ -83,6 +85,19 @@ const ListGuideRooms: React.FC = () => {
         return (
             <ListGuideRoomsContainer>
                 <Loader message="Carregando Quartos" />
+            </ListGuideRoomsContainer>
+        );
+    }
+
+    if (!guideRooms.length) {
+        return (
+            <ListGuideRoomsContainer>
+                <EmptyStateSection>
+                    <IllustratedState
+                        title="Nenhuma Caravana foi encontrada"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
             </ListGuideRoomsContainer>
         );
     }

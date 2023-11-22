@@ -33,12 +33,13 @@ const EditGuideUserForm: React.FC<EditGuideUserFormProps> = ({
     const validateData = (data: GuideUser) => {
         data.dataEntrada = formatDateToBR(data.dataEntrada);
         data.dataNascimento = formatDateToBR(data.dataNascimento);
-        data.dataSaida = formatDateToBR(data.dataSaida);
     };
 
     const onSubmit = (data: GuideUser) => {
         validateData(data);
+        data.leito = GuideUser.leito;
         updateGuideUser(data, GuideUser.id);
+        formRef.current?.reset();
     };
 
     return (

@@ -7,6 +7,7 @@ import {
     ListExcursionContent,
     ExcursionSection,
     StyledContentModal,
+    EmptyStateSection,
 } from './ListExcursion.style';
 import Actions from '../ListClients/components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
@@ -22,6 +23,7 @@ import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionForm';
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { MdOutlineDirectionsBus } from 'react-icons/md';
+import IllustratedState from '../../commons/ui/IllustratedState/IllustratedState';
 
 const ListExcursion: React.FC = () => {
     const {
@@ -87,6 +89,20 @@ const ListExcursion: React.FC = () => {
         );
     }
 
+    if (!excursions.length) {
+        return (
+            <ListExcursionContainer>
+                <EmptyStateSection>
+                    <Filters />
+                    <IllustratedState
+                        title="Nenhuma Caravana foi encontrada"
+                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                    />
+                </EmptyStateSection>
+            </ListExcursionContainer>
+        );
+    }
+
     return (
         <ListExcursionContainer>
             <ExcursionSection>
@@ -94,34 +110,36 @@ const ListExcursion: React.FC = () => {
                 <ListExcursionContent>
                     {excursions.map((excursions) => (
                         <li key={excursions.id}>
-                            <TemplateCard
-                                title={excursions.nome}
-                                subtitle={`${excursions.cidade}`}
-                                actions={[
-                                    {
-                                        label: 'Editar',
-                                        onClick: () => {
-                                            setCreation(false);
-                                            addDisclosure.onOpen();
-                                            fetchGuideUsersBySearch();
-                                            setEditExcursion(excursions);
+                            {excursions.id !== 1 && (
+                                <TemplateCard
+                                    title={excursions.nome}
+                                    subtitle={`${excursions.cidade}`}
+                                    actions={[
+                                        {
+                                            label: 'Editar',
+                                            onClick: () => {
+                                                setCreation(false);
+                                                addDisclosure.onOpen();
+                                                fetchGuideUsersBySearch();
+                                                setEditExcursion(excursions);
+                                            },
                                         },
-                                    },
-                                    {
-                                        label: 'Excluir',
-                                        onClick: () => {
-                                            alertDisclosure.onOpen();
-                                            setEditExcursion(excursions);
+                                        {
+                                            label: 'Excluir',
+                                            onClick: () => {
+                                                alertDisclosure.onOpen();
+                                                setEditExcursion(excursions);
+                                            },
                                         },
-                                    },
-                                ]}
-                                bodyItems={[]}
-                                iconCard={
-                                    <MdOutlineDirectionsBus
-                                        fontSize={'4.5rem'}
-                                    />
-                                }
-                            ></TemplateCard>
+                                    ]}
+                                    bodyItems={[]}
+                                    iconCard={
+                                        <MdOutlineDirectionsBus
+                                            fontSize={'4.5rem'}
+                                        />
+                                    }
+                                ></TemplateCard>
+                            )}
                         </li>
                     ))}
                 </ListExcursionContent>

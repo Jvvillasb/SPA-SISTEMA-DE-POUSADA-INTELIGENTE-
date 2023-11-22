@@ -19,6 +19,7 @@ const ExcursionForm: React.FC<ExcursionFormProps> = ({ formRef }) => {
 
     const onSubmit = (data: Excursion) => {
         createExcursions(data);
+        formRef.current?.reset();
     };
 
     return (

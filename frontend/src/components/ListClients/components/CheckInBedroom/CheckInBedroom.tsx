@@ -29,13 +29,13 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
         selectedBed: number;
         selectedRoom: string;
     }>();
-    const { fetchGuideRooms, guideRooms, loadingGuideRooms } = useStore(
-        (state) => ({
+    const { fetchGuideRooms, guideRooms, loadingGuideRooms, fetchClients } =
+        useStore((state) => ({
             fetchGuideRooms: state.fetchGuideRoomsBySearch,
             guideRooms: state.guideRoom as GuideRoom[],
             loadingGuideRooms: state.loadingGuideRoom,
-        })
-    );
+            fetchClients: state.fetchClients,
+        }));
 
     const { showCustomToast } = useCustomToast();
     const selectedRoomId = watch('selectedRoom');
@@ -57,7 +57,6 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
     }, [selectedRoomId, guideRooms, setValue]);
 
     const onSubmit = (data: { selectedBed: number }) => {
-        console.log(data);
         checkinClient(client.id, data.selectedBed)
             .then(() => {
                 showCustomToast({
@@ -65,6 +64,7 @@ const CheckInBedroom: React.FC<CheckInBedroomProps> = ({ client, formRef }) => {
                     description: 'O Check-in foi realizado com sucesso.',
                     status: 'success',
                 });
+                fetchClients();
             })
             .catch(() => {
                 showCustomToast({

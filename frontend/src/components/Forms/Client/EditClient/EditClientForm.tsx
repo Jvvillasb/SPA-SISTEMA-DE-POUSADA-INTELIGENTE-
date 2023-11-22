@@ -37,7 +37,9 @@ const EditClientForm: React.FC<EditClientFormProps> = ({
 
     const onSubmit = (data: Client) => {
         validateData(data);
+        data.leito = Client.leito;
         updateClient(data, Client.id);
+        formRef.current?.reset();
     };
 
     return (

@@ -1,4 +1,4 @@
-import { Bedroom } from "./Bedroom";
+import { Bedroom } from './Bedroom';
 
 export type GuideRoom = {
     numero: number;
@@ -6,4 +6,4 @@ export type GuideRoom = {
     status: string;
     id: number;
     leitos: Bedroom[];
-}
+};

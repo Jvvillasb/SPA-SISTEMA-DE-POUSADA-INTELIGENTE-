@@ -60,23 +60,36 @@ export const createGuideRoomsSlice: StateCreator<GuideRoomsStateType> = (
             const createdGuideRoom = await createGuideRooms(GuideRoom);
             const newId = createdGuideRoom.id;
 
-            const updatedBedrooms = get().bedroomsByCreationGuideRooms.map((bedroom) => ({
-                ...bedroom,
-                "quarto": newId,
-            }));
+            const updatedBedrooms = get().bedroomsByCreationGuideRooms.map(
+                (bedroom) => ({
+                    ...bedroom,
+                    quarto: newId,
+                })
+            );
 
-
-            await Promise.all(updatedBedrooms.map((bedroom) => createBedrooms(bedroom)));
+            await Promise.all(
+                updatedBedrooms.map((bedroom) => createBedrooms(bedroom))
+            );
             get().fetchGuideRooms();
         } catch (error) {
             console.error('erro ao criar a excursão: ', error);
             set({ loadingGuideRoom: false });
         }
     },
-    addBedroomsByCreationGuideRooms: (bedroomsByCreationGuideRooms: Bedroom) => set((state) => ({ bedroomsByCreationGuideRooms: [...state.bedroomsByCreationGuideRooms, bedroomsByCreationGuideRooms] })),
-    removeBedroomsByCreationGuideRooms: (index: number) => set((state) => ({
-        bedroomsByCreationGuideRooms: state.bedroomsByCreationGuideRooms.filter((_, i) => i !== index),
-    })),
+    addBedroomsByCreationGuideRooms: (bedroomsByCreationGuideRooms: Bedroom) =>
+        set((state) => ({
+            bedroomsByCreationGuideRooms: [
+                ...state.bedroomsByCreationGuideRooms,
+                bedroomsByCreationGuideRooms,
+            ],
+        })),
+    removeBedroomsByCreationGuideRooms: (index: number) =>
+        set((state) => ({
+            bedroomsByCreationGuideRooms:
+                state.bedroomsByCreationGuideRooms.filter(
+                    (_, i) => i !== index
+                ),
+        })),
     updateGuideRooms: async (GuideRoom: GuideRoom, id: number) => {
         set({ loadingGuideRoom: true });
         try {
@@ -96,5 +109,5 @@ export const createGuideRoomsSlice: StateCreator<GuideRoomsStateType> = (
             console.error('Erro ao deletar a excursão: ', error);
             set({ loadingGuideRoom: false });
         }
-    }
+    },
 });

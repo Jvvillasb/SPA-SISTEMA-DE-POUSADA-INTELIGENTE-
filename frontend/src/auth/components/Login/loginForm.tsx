@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     FormControl,
@@ -12,6 +12,7 @@ import axios from 'axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import img from '../../../assets/spa.png';
+import Loader from '../../../commons/ui/Loader/Loader';
 
 interface CookieOptions {
     path?: string;
@@ -35,6 +36,7 @@ const LoginForm = ({ setCookie }: Props) => {
     const username = import.meta.env.VITE_USERNAME_BASIC_AUTH;
     const senha = import.meta.env.VITE_PASSWORD_BASIC_AUTH;
     const basicAuth = 'Basic ' + btoa(username + ':' + senha);
+    const [loadingLogin, setLoadingLogin] = useState(Boolean);
 
     const params = new URLSearchParams({
         username: email,
@@ -44,6 +46,7 @@ const LoginForm = ({ setCookie }: Props) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setLoadingLogin(true);
         axios
             .post('https://spi-prod.herokuapp.com/oauth/token', params, {
                 headers: {
@@ -56,6 +59,7 @@ const LoginForm = ({ setCookie }: Props) => {
                     path: '/',
                     maxAge: response.data.expires_in,
                 });
+                setLoadingLogin(false);
                 navigate('/usuarios');
             })
             .catch((error: AxiosError) => {
@@ -82,6 +86,10 @@ const LoginForm = ({ setCookie }: Props) => {
         setError(false);
         setErrorMessage('');
     };
+
+    if (loadingLogin) {
+        return <Loader message="Fazendo login..."></Loader>;
+    }
 
     return (
         <FormControl className={styles.loginContainer} isInvalid={error}>

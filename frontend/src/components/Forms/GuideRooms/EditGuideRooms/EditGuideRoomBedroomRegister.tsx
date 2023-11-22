@@ -8,8 +8,14 @@ import {
     Select,
     TwoColumns,
     Table,
+    Tr,
+    Thead,
+    Th,
+    Td,
+    Tbody,
+    ScrollableTableContainer,
 } from '../CreateGuideRooms/GuideRoomForm.style';
-import { Thead, Tbody, Tr, Th, Td, useDisclosure } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import Button from '../../../../commons/ui/Button/Button';
 import theme from '../../../../theme';
 import {
@@ -18,6 +24,8 @@ import {
 } from '../../../../components/ListGuideRooms/Bedrooms/Services/Bedroom.service';
 import AlertDialog from '../../../../commons/ui/AlertDialog/AlertDialog';
 import useCustomToast from '../../../../commons/hooks/useCustomToast/useCustomToast';
+import useStore from '../../../../store/index';
+import Loader from '../../../../commons/ui/Loader/Loader';
 
 interface EditGuideRoomBedroomRegisterProps {
     guideRoom: GuideRoom;
@@ -30,6 +38,10 @@ const EditGuideRoomBedroomRegister: React.FC<
     const { showCustomToast } = useCustomToast();
     const alertDisclosure = useDisclosure();
     const [localLeitos, setLocalLeitos] = useState<Bedroom[]>([]);
+    const { fetchGuideRooms, loadingGuideRooms } = useStore((state) => ({
+        fetchGuideRooms: state.fetchGuideRooms,
+        loadingGuideRooms: state.loadingGuideRoom,
+    }));
 
     useEffect(() => {
         setLocalLeitos(guideRoom.leitos);
@@ -46,6 +58,7 @@ const EditGuideRoomBedroomRegister: React.FC<
                     description: 'O quarto foi adicionado com sucesso.',
                     status: 'success',
                 });
+                fetchGuideRooms();
                 reset();
             })
             .catch(() => {
@@ -82,6 +95,16 @@ const EditGuideRoomBedroomRegister: React.FC<
 
     const [editBedroom, setEditBedroom] = useState<Bedroom | null>(null);
 
+    if (loadingGuideRooms) {
+        return (
+            <TwoColumns>
+                <Column>
+                    <Loader message="Carregando leitos..." />
+                </Column>
+            </TwoColumns>
+        );
+    }
+
     return (
         <TwoColumns>
             <Column>
@@ -100,34 +123,36 @@ const EditGuideRoomBedroomRegister: React.FC<
                 >
                     Adicionar
                 </Button>
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th w={'33%'}>Número</Th>
-                            <Th w={'33%'}>Status</Th>
-                            <Th w={'33%'}>Ação</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {localLeitos.map((bedRoom, index) => (
-                            <Tr key={index}>
-                                <Td>{bedRoom.numero}</Td>
-                                <Td>{bedRoom.status}</Td>
-                                <Td>
-                                    <Button
-                                        colorScheme="red"
-                                        onClick={() => {
-                                            setEditBedroom(bedRoom);
-                                            alertDisclosure.onOpen();
-                                        }}
-                                    >
-                                        Remover
-                                    </Button>
-                                </Td>
+                <ScrollableTableContainer>
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th w={'33%'}>Número</Th>
+                                <Th w={'33%'}>Status</Th>
+                                <Th w={'33%'}>Ação</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
+                        </Thead>
+                        <Tbody>
+                            {localLeitos.map((bedRoom, index) => (
+                                <Tr key={index}>
+                                    <Td>{bedRoom.numero}</Td>
+                                    <Td>{bedRoom.status}</Td>
+                                    <Td>
+                                        <Button
+                                            colorScheme="red"
+                                            onClick={() => {
+                                                setEditBedroom(bedRoom);
+                                                alertDisclosure.onOpen();
+                                            }}
+                                        >
+                                            Remover
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </ScrollableTableContainer>
             </Column>
             <AlertDialog
                 title="Excluir Quarto"

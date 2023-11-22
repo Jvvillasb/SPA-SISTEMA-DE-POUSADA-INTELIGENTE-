@@ -2,6 +2,7 @@ import { Client } from 'src/commons/types/Client';
 
 export type clientFilters = {
     excursionType: number;
+    ativo?: string;
 };
 
 export interface ClientState {
