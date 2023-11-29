@@ -5,7 +5,7 @@ import { Client } from '../../../../commons/types/Client';
 
 describe('ClientListItem', () => {
     const mockClient: Client = {
-        caravana: true,
+        caravana: 1,
         cidade: 'São Paulo',
         dataEntrada: '2021-08-01',
         dataNascimento: '1990-01-01',
@@ -18,6 +18,13 @@ describe('ClientListItem', () => {
         nacionalidade: 'Brasileiro',
         nome: 'John Doe',
         telefone: '(11) 99999-9999',
+        nomeCaravana: 'Caravana 1',
+        nomeGuia: 'Guia 1',
+        nomeQuarto: 'Quarto 1',
+        evento: 'Evento 1',
+        guia: 1,
+        leito: 1,
+        numeroLeito: 1,
     };
 
     beforeEach(() => {
