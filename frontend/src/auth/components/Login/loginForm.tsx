@@ -60,7 +60,7 @@ const LoginForm = ({ setCookie }: Props) => {
                     maxAge: response.data.expires_in,
                 });
                 setLoadingLogin(false);
-                navigate('/usuarios');
+                navigate('/home');
             })
             .catch((error: AxiosError) => {
                 if (error.response && error.response.status === 400) {
