@@ -95,7 +95,7 @@ const ListGuideRooms: React.FC = () => {
                 <EmptyStateSection>
                     <IllustratedState
                         title="Nenhuma Caravana foi encontrada"
-                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                        subtitle="Crie algum quarto. Tente novamente."
                     />
                 </EmptyStateSection>
             </ListGuideRoomsContainer>

@@ -110,7 +110,7 @@ const ListGuidesUsers = () => {
                     <Filters />
                     <IllustratedState
                         title="Nenhum guia foi encontrado"
-                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                        subtitle="Verifique os valores de busca. Tente novamente."
                     />
                 </EmptyStateSection>
             </ListClientsContainer>

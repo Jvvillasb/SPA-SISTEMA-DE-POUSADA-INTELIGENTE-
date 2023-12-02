@@ -3,10 +3,10 @@
     max-width: 32rem;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column-reverse;
+    justify-content: center;
     margin: 0 auto;
     padding: 24px;
+    height: calc(100vh - 80px);
 
     .formLogin {
         display: flex;

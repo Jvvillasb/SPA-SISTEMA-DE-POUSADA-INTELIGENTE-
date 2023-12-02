@@ -11,7 +11,6 @@ import styles from './LoginForm.module.scss';
 import axios from 'axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import img from '../../../assets/spa.png';
 import Loader from '../../../commons/ui/Loader/Loader';
 
 interface CookieOptions {
@@ -102,12 +101,14 @@ const LoginForm = ({ setCookie }: Props) => {
                             type="email"
                             value={email}
                             onChange={handleEmailChange}
+                            required={true}
                         />
                         <Input
                             placeholder="Senha"
                             type="password"
                             value={password}
                             onChange={handlePasswordChange}
+                            required={true}
                         />
                         {error && (
                             <FormErrorMessage>{errorMessage}</FormErrorMessage>
@@ -123,7 +124,6 @@ const LoginForm = ({ setCookie }: Props) => {
                     </Button>
                 </Stack>
             </form>
-            <img src={img} />
         </FormControl>
     );
 };

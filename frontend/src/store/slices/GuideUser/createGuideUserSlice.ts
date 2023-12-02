@@ -21,16 +21,16 @@ export const createGuideUserSlice: StateCreator<GuideUserStateType> = (
     GuideUsers: [],
     loadingGuideUser: false,
     totalPages: 0,
-    searchString: '',
+    searchStringGuideUser: '',
     setPage: (page) => {
         set({ page });
     },
     fetchGuideUser: async () => {
         set({ loadingGuideUser: true });
-        const { page, searchString } = get();
+        const { page, searchStringGuideUser } = get();
         const {
             data: { first, last, content, totalPages },
-        } = await listGuideUser(page, searchString);
+        } = await listGuideUser(page, searchStringGuideUser);
         set({
             last,
             first,
@@ -69,8 +69,8 @@ export const createGuideUserSlice: StateCreator<GuideUserStateType> = (
             set({ loadingGuideUser: false });
         }
     },
-    setSearchString: (searchString) => {
-        set({ searchString });
+    setsearchStringGuideUser: (searchStringGuideUser) => {
+        set({ searchStringGuideUser });
     },
     fetchGuideUsersBySearch: async () => {
         set({ loadingGuideUser: true });

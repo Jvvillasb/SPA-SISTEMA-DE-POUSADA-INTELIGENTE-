@@ -3,43 +3,30 @@ import { UseDeviceProps } from './useDevice.types';
 import { breakpoints } from '../../constants/breakpoints';
 
 const useDevice = (): UseDeviceProps => {
-    const [deviceInfo, setDeviceInfo] = useState<UseDeviceProps>({
-        isPhone: false,
-        isTable: false,
-        isDesktop: false,
-    });
+    const getDeviceInfo = () => {
+        const windowWidth = window.innerWidth;
+        return {
+            isPhone: windowWidth < breakpoints.sm,
+            isTable:
+                windowWidth >= breakpoints.sm && windowWidth < breakpoints.md,
+            isDesktop: windowWidth > breakpoints.md,
+        };
+    };
+
+    const [deviceInfo, setDeviceInfo] = useState<UseDeviceProps>(getDeviceInfo);
 
     const handleResize = useCallback(() => {
-        const windowWidth = window.innerWidth;
-
-        let isPhone = false;
-        let isTable = false;
-        let isDesktop = false;
-
-        if (windowWidth < breakpoints.sm) {
-            isPhone = true;
-        }
-        if (windowWidth >= breakpoints.sm && windowWidth < breakpoints.md) {
-            isTable = true;
-        }
-        if (windowWidth > breakpoints.md) {
-            isDesktop = true;
-        }
-
-        setDeviceInfo({
-            isPhone,
-            isTable,
-            isDesktop,
-        });
+        setDeviceInfo(getDeviceInfo());
     }, []);
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize, false);
+        window.addEventListener('resize', handleResize);
+        handleResize();
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [handleResize]);
 
     return deviceInfo;
 };

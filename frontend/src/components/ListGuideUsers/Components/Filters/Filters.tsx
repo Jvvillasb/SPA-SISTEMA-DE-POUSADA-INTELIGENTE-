@@ -6,20 +6,19 @@ import {
 } from '../../../ListClients/components/Filters/Filters.styles';
 
 const Filters: React.FC = () => {
-    const { setSearchString, searchString, fetchGuideUser } = useStore(
-        (state) => ({
-            setSearchString: state.setSearchString,
-            searchString: state.searchString,
+    const { setsearchStringGuideUser, searchStringGuideUser, fetchGuideUser } =
+        useStore((state) => ({
+            setsearchStringGuideUser: state.setsearchStringGuideUser,
+            searchStringGuideUser: state.searchStringGuideUser,
             fetchGuideUser: state.fetchGuideUser,
             fetchExcursions: state.fetchExcursions,
             setFilters: state.setFilters,
             filters: state.filters,
             excursions: state.excursions,
-        })
-    );
+        }));
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchString(e.target.value);
+        setsearchStringGuideUser(e.target.value);
         debouncedHandleInputChange();
     };
 
@@ -36,7 +35,7 @@ const Filters: React.FC = () => {
         <FlexContainer>
             <StyledInput
                 type="text"
-                value={searchString}
+                value={searchStringGuideUser}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise Guias"

@@ -96,7 +96,7 @@ const ListExcursion: React.FC = () => {
                     <Filters />
                     <IllustratedState
                         title="Nenhuma Caravana foi encontrada"
-                        subtitle="Verifique os valores de busca e filtro. Tente novamente."
+                        subtitle="Verifique os valores de busca. Tente novamente."
                     />
                 </EmptyStateSection>
             </ListExcursionContainer>

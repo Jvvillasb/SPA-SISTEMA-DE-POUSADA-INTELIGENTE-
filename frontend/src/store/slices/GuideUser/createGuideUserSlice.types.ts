@@ -11,7 +11,7 @@ export interface GuideUserState {
     loadingGuideUser: boolean;
     GuideUsers: GuideUser[];
     totalPages: number;
-    searchString: string;
+    searchStringGuideUser: string;
 }
 
 export interface GuideUserStateType extends GuideUserState {
@@ -20,6 +20,6 @@ export interface GuideUserStateType extends GuideUserState {
     updateGuideUser: (GuideUser: GuideUser, id: number) => void;
     deleteGuideUser: (id: number) => void;
     setPage: (page: number) => void;
-    setSearchString: (searchString: string) => void;
+    setsearchStringGuideUser: (searchStringGuideUser: string) => void;
     fetchGuideUsersBySearch: () => void;
 }
