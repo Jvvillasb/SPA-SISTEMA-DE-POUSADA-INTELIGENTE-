@@ -12,7 +12,7 @@ export interface ClientState {
     loading: boolean;
     clients: Client[];
     totalPages: number;
-    searchString: string;
+    searchStringClient: string;
     filters: clientFilters;
 }
 
@@ -22,6 +22,6 @@ export interface ClientStateType extends ClientState {
     updateClient: (client: Client, id: number) => void;
     deleteClient: (id: number) => void;
     setPage: (page: number) => void;
-    setSearchString: (searchString: string) => void;
+    setsearchStringClient: (searchStringClient: string) => void;
     setFilters: (filters: clientFilters) => void;
 }

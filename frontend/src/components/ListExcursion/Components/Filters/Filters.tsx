@@ -6,16 +6,15 @@ import {
 } from '../../../ListClients/components/Filters/Filters.styles';
 
 const Filters: React.FC = () => {
-    const { setSearchString, searchString, fetchExcursion } = useStore(
-        (state) => ({
-            setSearchString: state.setSearchString,
-            searchString: state.searchString,
+    const { setsearchStringExcursion, searchStringExcursion, fetchExcursion } =
+        useStore((state) => ({
+            setsearchStringExcursion: state.setsearchStringExcursion,
+            searchStringExcursion: state.searchStringExcursion,
             fetchExcursion: state.fetchExcursions,
-        })
-    );
+        }));
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchString(e.target.value);
+        setsearchStringExcursion(e.target.value);
         debouncedHandleInputChange();
     };
 
@@ -32,7 +31,7 @@ const Filters: React.FC = () => {
         <FlexContainer>
             <StyledInput
                 type="text"
-                value={searchString}
+                value={searchStringExcursion}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise Caravanas"

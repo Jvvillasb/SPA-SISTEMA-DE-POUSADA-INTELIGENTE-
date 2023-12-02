@@ -16,4 +16,5 @@ export interface BedroomStateType extends BedroomState {
     updateBedrooms: (Bedroom: Bedroom, id: number) => void;
     deleteBedrooms: (id: number) => void;
     setPage: (page: number) => void;
+    resetBedroomState: () => void;
 }

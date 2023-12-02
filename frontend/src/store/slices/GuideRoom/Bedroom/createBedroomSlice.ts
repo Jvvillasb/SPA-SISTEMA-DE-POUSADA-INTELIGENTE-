@@ -81,4 +81,14 @@ export const createBedroomSlice: StateCreator<BedroomStateType> = (
             set({ loadingBedroom: false });
         }
     },
+    resetBedroomState: () => {
+        set({
+            page: 0,
+            last: false,
+            first: true,
+            bedrooms: [],
+            loadingBedroom: false,
+            totalPages: 0,
+        });
+    },
 });

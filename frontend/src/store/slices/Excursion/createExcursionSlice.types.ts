@@ -7,7 +7,7 @@ export interface ExcursionState {
     loadingExcursion: boolean;
     excursions: Excursion[];
     totalPages: number;
-    searchString: string;
+    searchStringExcursion: string;
 }
 
 export interface ExcursionStateType extends ExcursionState {
@@ -17,5 +17,5 @@ export interface ExcursionStateType extends ExcursionState {
     updateExcursion: (excursion: Excursion, id: number) => void;
     deleteExcursion: (id: number) => void;
     setPage: (page: number) => void;
-    setSearchString: (searchString: string) => void;
+    setsearchStringExcursion: (searchStringExcursion: string) => void;
 }

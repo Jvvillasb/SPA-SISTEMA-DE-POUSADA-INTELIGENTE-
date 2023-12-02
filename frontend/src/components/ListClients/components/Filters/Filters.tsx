@@ -21,16 +21,16 @@ const Filters: React.FC<FiltersProps> = ({
     const { isPhone } = useDevice();
 
     const {
-        setSearchString,
-        searchString,
+        setSearchStringClient,
+        SearchStringClient,
         fetchClients,
         setFilters,
         filters,
         excursions,
         fetchExcursionsBySearch,
     } = useStore((state) => ({
-        setSearchString: state.setSearchString,
-        searchString: state.searchString,
+        setSearchStringClient: state.setsearchStringClient,
+        SearchStringClient: state.searchStringClient,
         fetchClients: state.fetchClients,
         fetchExcursionsBySearch: state.fetchExcursionsBySearch,
         setFilters: state.setFilters,
@@ -45,7 +45,7 @@ const Filters: React.FC<FiltersProps> = ({
     }, [isDropdownOpen, excursions.length, fetchExcursionsBySearch]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchString(e.target.value);
+        setSearchStringClient(e.target.value);
         debouncedHandleInputChange();
     };
 
@@ -95,7 +95,7 @@ const Filters: React.FC<FiltersProps> = ({
             <FlexContainer>
                 <StyledInput
                     type="text"
-                    value={searchString}
+                    value={SearchStringClient}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Pesquise Hóspedes"
@@ -161,7 +161,7 @@ const Filters: React.FC<FiltersProps> = ({
         <FlexContainer>
             <StyledInput
                 type="text"
-                value={searchString}
+                value={SearchStringClient}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Pesquise Hóspedes"

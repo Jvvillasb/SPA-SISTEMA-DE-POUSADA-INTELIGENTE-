@@ -41,6 +41,7 @@ const ListClients = () => {
         fetchExcursions: state.fetchExcursions,
         fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
     }));
+
     const addDisclosure = useDisclosure();
 
     const alertDisclosure = useDisclosure();
