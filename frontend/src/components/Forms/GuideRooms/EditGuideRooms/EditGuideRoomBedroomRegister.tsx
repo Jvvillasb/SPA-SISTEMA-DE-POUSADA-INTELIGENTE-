@@ -24,7 +24,6 @@ import {
 } from '../../../../components/ListGuideRooms/Bedrooms/Services/Bedroom.service';
 import AlertDialog from '../../../../commons/ui/AlertDialog/AlertDialog';
 import useCustomToast from '../../../../commons/hooks/useCustomToast/useCustomToast';
-import useStore from '../../../../store/index';
 import Loader from '../../../../commons/ui/Loader/Loader';
 
 interface EditGuideRoomBedroomRegisterProps {
@@ -38,10 +37,8 @@ const EditGuideRoomBedroomRegister: React.FC<
     const { showCustomToast } = useCustomToast();
     const alertDisclosure = useDisclosure();
     const [localLeitos, setLocalLeitos] = useState<Bedroom[]>([]);
-    const { fetchGuideRooms, loadingGuideRooms } = useStore((state) => ({
-        fetchGuideRooms: state.fetchGuideRooms,
-        loadingGuideRooms: state.loadingGuideRoom,
-    }));
+
+    const [loadingBedrooms, setLoadingBedrooms] = useState<boolean>(false);
 
     useEffect(() => {
         setLocalLeitos(guideRoom.leitos);
@@ -51,21 +48,21 @@ const EditGuideRoomBedroomRegister: React.FC<
         const newRoom = getValues();
         newRoom.quarto = guideRoom.id;
         setLocalLeitos((prev) => [...prev, newRoom]);
+        setLoadingBedrooms(true);
         createBedrooms(newRoom)
             .then(() => {
                 showCustomToast({
-                    title: 'Quarto Adicionado',
-                    description: 'O quarto foi adicionado com sucesso.',
+                    title: 'Leito Adicionado',
+                    description: 'O Leito foi adicionado com sucesso.',
                     status: 'success',
                 });
-                fetchGuideRooms();
+                setLoadingBedrooms(false);
                 reset();
             })
             .catch(() => {
                 showCustomToast({
                     title: 'Erro ao adicionar',
-                    description:
-                        'Ocorreu um erro ao tentar adicionar o quarto.',
+                    description: 'Ocorreu um erro ao tentar adicionar o Leito.',
                     status: 'error',
                 });
             });
@@ -95,7 +92,7 @@ const EditGuideRoomBedroomRegister: React.FC<
 
     const [editBedroom, setEditBedroom] = useState<Bedroom | null>(null);
 
-    if (loadingGuideRooms) {
+    if (loadingBedrooms) {
         return (
             <TwoColumns>
                 <Column>

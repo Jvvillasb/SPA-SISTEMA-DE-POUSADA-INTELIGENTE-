@@ -9,6 +9,7 @@ import PageNotFound from './pages/NotFound/NotFound';
 import Navigation from './commons/layout/Navigation/Navigation';
 import ListingGuideUsers from './pages/ListingGuideUsers';
 import ListingGuideRooms from './pages/ListingGuideRooms';
+import HomePage from './pages/HomePage/HomePage';
 
 const Routers = () => {
     const [cookies] = useCookies(['access_token']);
@@ -25,7 +26,8 @@ const Routers = () => {
                 {isAuthenticated && (
                     <>
                         <Route path="/usuarios" element={<ListingClients />} />
-                        <Route path="/" element={<ListingClients />} />
+                        <Route path="/home" element={<HomePage />} />
+                        <Route path="/" element={<HomePage />} />
                         <Route
                             path="/caravanas"
                             element={<ListingExcursions />}

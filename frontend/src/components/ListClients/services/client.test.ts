@@ -6,6 +6,12 @@ jest.mock('./../../../axiosConfig');
 const mockedAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
 
 describe('listClients', () => {
+
+    const filters = {
+        excursionType: 1,
+        ativo: 'true',
+    };
+
     it('should return a list of clients', async () => {
         const page = 1;
         const response = {
@@ -14,8 +20,9 @@ describe('listClients', () => {
                 content: [],
             },
         };
+
         mockedAxiosInstance.get.mockResolvedValue(response);
-        const result = await listClients(page);
+        const result = await listClients(page, '', filters);
         expect(axiosInstance.get).toHaveBeenCalledWith(
             `/guest?size=4&page=${page}`
         );
@@ -27,6 +34,6 @@ describe('listClients', () => {
         const error = new Error('Error');
         mockedAxiosInstance.get.mockRejectedValue(error);
 
-        await expect(listClients(page)).rejects.toThrow(error);
+        await expect(listClients(page, '', filters)).rejects.toThrow(error);
     });
 });
