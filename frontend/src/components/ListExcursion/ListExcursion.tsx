@@ -9,7 +9,7 @@ import {
     StyledContentModal,
     EmptyStateSection,
 } from './ListExcursion.style';
-import Actions from '../ListClients/components/Actions/Actions';
+import Actions from '../ListExcursion/Components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
 import { Excursion } from '../../commons/types/Excursion';
@@ -24,20 +24,25 @@ import EditExcursionForm from '../Forms/Excursion/EditExcursion/EditExcursionFor
 import IconButton from '../../commons/ui/IconButton/IconButton';
 import { MdOutlineDirectionsBus } from 'react-icons/md';
 import IllustratedState from '../../commons/ui/IllustratedState/IllustratedState';
+import useDevice from '../../commons/hooks/useDevice/useDevice';
 
 const ListExcursion: React.FC = () => {
+    const { isPhone } = useDevice();
+
     const {
         page,
         excursions,
         loadingExcursion,
         fetchExcursions,
         fetchGuideUsersBySearch,
+        totalPages,
     } = useStore((state) => ({
-        page: state.page,
+        page: state.pageExcursion,
         excursions: state.excursions,
         loadingExcursion: state.loadingExcursion,
         fetchExcursions: state.fetchExcursions,
         fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+        totalPages: state.totalPages,
     }));
 
     const addDisclosure = useDisclosure();
@@ -215,7 +220,7 @@ const ListExcursion: React.FC = () => {
                     }}
                 />
             </ExcursionSection>
-            <Actions />
+            {(isPhone || totalPages > 1) && <Actions />}
             <Tooltip hasArrow label="Adicionar Caravana">
                 <IconButton
                     variant="solid"

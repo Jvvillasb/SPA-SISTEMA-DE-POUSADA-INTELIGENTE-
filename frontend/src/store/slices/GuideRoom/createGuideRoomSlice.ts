@@ -17,22 +17,22 @@ export const createGuideRoomsSlice: StateCreator<GuideRoomsStateType> = (
     set,
     get
 ) => ({
-    page: 0,
+    pageGuideRoom: 0,
     last: false,
     first: true,
     guideRoom: [],
     bedroomsByCreationGuideRooms: [],
     loadingGuideRoom: false,
     totalPages: 0,
-    setPage: (page) => {
-        set({ page });
+    setPageGuideRoom: (pageGuideRoom) => {
+        set({ pageGuideRoom });
     },
     fetchGuideRooms: async () => {
         set({ loadingGuideRoom: true });
-        const { page } = get();
+        const { pageGuideRoom } = get();
         const {
             data: { first, last, content, totalPages },
-        } = await listGuideRooms(page);
+        } = await listGuideRooms(pageGuideRoom);
         set({
             last,
             first,
