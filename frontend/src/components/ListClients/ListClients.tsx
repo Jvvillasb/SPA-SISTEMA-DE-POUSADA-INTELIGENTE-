@@ -24,8 +24,11 @@ import AlertDialog from '../../commons/ui/AlertDialog/AlertDialog';
 import { checkoutClient, deleteClient } from './services/client.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import CheckInBedroom from './components/CheckInBedroom/CheckInBedroom';
+import useDevice from '../../commons/hooks/useDevice/useDevice';
 
 const ListClients = () => {
+    const { isPhone } = useDevice();
+
     const {
         page,
         clients,
@@ -33,6 +36,7 @@ const ListClients = () => {
         fetchClient,
         fetchExcursions,
         fetchGuideUsersBySearch,
+        totalPages,
     } = useStore((state) => ({
         page: state.page,
         clients: state.clients,
@@ -40,6 +44,7 @@ const ListClients = () => {
         fetchClient: state.fetchClients,
         fetchExcursions: state.fetchExcursions,
         fetchGuideUsersBySearch: state.fetchGuideUsersBySearch,
+        totalPages: state.totalPages,
     }));
 
     const addDisclosure = useDisclosure();
@@ -334,7 +339,7 @@ const ListClients = () => {
                     }}
                 />
             </ClientsSection>
-            <Actions />
+            {(isPhone || totalPages > 1) && <Actions />}
             <Tooltip hasArrow label="Adicionar Clientes">
                 <IconButton
                     variant="solid"

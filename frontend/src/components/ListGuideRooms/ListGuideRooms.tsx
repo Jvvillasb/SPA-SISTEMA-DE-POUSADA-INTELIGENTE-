@@ -9,7 +9,7 @@ import {
     StyledContentModal,
     EmptyStateSection,
 } from './ListGuideRooms.style';
-import Actions from '../ListClients/components/Actions/Actions';
+import Actions from '../ListGuideRooms/Components/Actions/Actions';
 import Modal from '../../commons/ui/Modal/Modal';
 import GenericStepper from '../../commons/ui/Stepper/Stepper';
 import { GuideRoom } from '../../commons/types/GuideRoom';
@@ -23,16 +23,19 @@ import GuideRoomForm from '../Forms/GuideRooms/CreateGuideRooms/GuideRoomForm';
 import EditGuideRoomForm from '../Forms/GuideRooms/EditGuideRooms/EditGuideRoomForm';
 import { MdBedroomParent } from 'react-icons/md';
 import IllustratedState from '../../commons/ui/IllustratedState/IllustratedState';
+import useDevice from '../../commons/hooks/useDevice/useDevice';
 
 const ListGuideRooms: React.FC = () => {
-    const { page, guideRooms, loadingGuideRoom, fetchGuideRooms } = useStore(
-        (state) => ({
-            page: state.page,
+    const { isPhone } = useDevice();
+
+    const { page, guideRooms, loadingGuideRoom, fetchGuideRooms, totalPages } =
+        useStore((state) => ({
+            page: state.pageGuideRoom,
             guideRooms: state.guideRoom,
             loadingGuideRoom: state.loadingGuideRoom,
             fetchGuideRooms: state.fetchGuideRooms,
-        })
-    );
+            totalPages: state.totalPages,
+        }));
 
     const addDisclosure = useDisclosure();
 
@@ -223,7 +226,7 @@ const ListGuideRooms: React.FC = () => {
                     }}
                 />
             </GuideRoomsSection>
-            <Actions />
+            {(isPhone || totalPages > 1) && <Actions />}
             <Tooltip hasArrow label="Adicionar Quarto">
                 <IconButton
                     variant="solid"

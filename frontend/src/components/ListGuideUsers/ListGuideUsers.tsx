@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import useStore from './../../store/index';
-import Actions from '../ListClients/components/Actions/Actions';
+import Actions from '../ListGuideUsers/Components/Actions/Actions';
 import TemplateCard from '../../commons/ui/TemplateCard/TemplateCard';
 import Filters from '../ListGuideUsers/Components/Filters/Filters';
 import Loader from '../../commons/ui/Loader/Loader';
@@ -23,20 +23,25 @@ import { deleteGuideUser } from './services/GuideUser.service';
 import useCustomToast from '../../commons/hooks/useCustomToast/useCustomToast';
 import GuideUserForm from '../Forms/GuideUsers/CreateGuideUsers/GuideUsersForm';
 import EditGuideUserForm from '../Forms/GuideUsers/EditGuideUsers/EditGuideUsersForm';
+import useDevice from '../../commons/hooks/useDevice/useDevice';
 
 const ListGuidesUsers = () => {
+    const { isPhone } = useDevice();
+
     const {
         page,
         GuideUsers,
         loadingGuideUser,
         fetchGuideUser,
         fetchExcursionsBySearch,
+        totalPages,
     } = useStore((state) => ({
-        page: state.page,
+        page: state.pageGuideUser,
         GuideUsers: state.GuideUsers,
         loadingGuideUser: state.loadingGuideUser,
         fetchGuideUser: state.fetchGuideUser,
         fetchExcursionsBySearch: state.fetchExcursionsBySearch,
+        totalPages: state.totalPages,
     }));
     const addDisclosure = useDisclosure();
 
@@ -227,7 +232,7 @@ const ListGuidesUsers = () => {
                     }}
                 />
             </ClientsSection>
-            <Actions />
+            {(isPhone || totalPages > 1) && <Actions />}
             <Tooltip hasArrow label="Adicionar Guia">
                 <IconButton
                     variant="solid"

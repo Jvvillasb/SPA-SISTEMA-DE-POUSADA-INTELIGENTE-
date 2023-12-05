@@ -2,7 +2,7 @@ import { GuideRoom } from '../../../commons/types/GuideRoom';
 import { Bedroom } from '../../../commons/types/Bedroom';
 
 export interface GuideRoomState {
-    page: number;
+    pageGuideRoom: number;
     last: boolean;
     first: boolean;
     loadingGuideRoom: boolean;
@@ -19,5 +19,5 @@ export interface GuideRoomsStateType extends GuideRoomState {
     removeBedroomsByCreationGuideRooms: (index: number) => void;
     updateGuideRooms: (GuideRoom: GuideRoom, id: number) => void;
     deleteGuideRooms: (id: number) => void;
-    setPage: (page: number) => void;
+    setPageGuideRoom: (page: number) => void;
 }

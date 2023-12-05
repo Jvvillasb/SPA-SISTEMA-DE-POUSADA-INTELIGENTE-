@@ -5,7 +5,7 @@ export type guideUserFilters = {
 };
 
 export interface GuideUserState {
-    page: number;
+    pageGuideUser: number;
     last: boolean;
     first: boolean;
     loadingGuideUser: boolean;
@@ -19,7 +19,7 @@ export interface GuideUserStateType extends GuideUserState {
     createGuideUser: (GuideUser: GuideUser) => void;
     updateGuideUser: (GuideUser: GuideUser, id: number) => void;
     deleteGuideUser: (id: number) => void;
-    setPage: (page: number) => void;
+    setPageGuideUser: (page: number) => void;
     setsearchStringGuideUser: (searchStringGuideUser: string) => void;
     fetchGuideUsersBySearch: () => void;
 }

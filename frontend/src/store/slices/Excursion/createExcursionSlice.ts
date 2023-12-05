@@ -15,22 +15,22 @@ export const createExcursionSlice: StateCreator<ExcursionStateType> = (
     set,
     get
 ) => ({
-    page: 0,
+    pageExcursion: 0,
     last: false,
     first: true,
     excursions: [],
     loadingExcursion: false,
     totalPages: 0,
     searchStringExcursion: '',
-    setPage: (page) => {
-        set({ page });
+    setPageExcursion: (pageExcursion) => {
+        set({ pageExcursion });
     },
     fetchExcursions: async () => {
         set({ loadingExcursion: true });
-        const { page, searchStringExcursion } = get();
+        const { pageExcursion, searchStringExcursion } = get();
         const {
             data: { first, last, content, totalPages },
-        } = await listExcursions(page, searchStringExcursion);
+        } = await listExcursions(pageExcursion, searchStringExcursion);
         set({
             last,
             first,
