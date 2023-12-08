@@ -44,7 +44,7 @@ const HomePage = () => {
                                 bg: 'green.500',
                             }}
                             onClick={() => {
-                                navigate('/usuarios');
+                                navigate('/hospedes');
                             }}
                         >
                             Ir para Listagem de Hóspedes

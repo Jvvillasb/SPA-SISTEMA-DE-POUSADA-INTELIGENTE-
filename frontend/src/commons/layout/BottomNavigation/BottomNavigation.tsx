@@ -23,7 +23,7 @@ const BottomNavigation = () => {
                     </BottomNavigationListLink>
                 </BottomNavigationListItem>
                 <BottomNavigationListItem>
-                    <BottomNavigationListLink to="/usuarios">
+                    <BottomNavigationListLink to="/hospedes">
                         <MdPersonOutline size="1.6rem" color="#798494" />
                     </BottomNavigationListLink>
                 </BottomNavigationListItem>

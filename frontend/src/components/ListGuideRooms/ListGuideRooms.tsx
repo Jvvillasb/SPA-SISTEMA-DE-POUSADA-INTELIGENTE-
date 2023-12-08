@@ -101,6 +101,60 @@ const ListGuideRooms: React.FC = () => {
                         subtitle="Crie algum quarto. Tente novamente."
                     />
                 </EmptyStateSection>
+                <Tooltip hasArrow label="Adicionar Quarto">
+                    <IconButton
+                        variant="solid"
+                        colorScheme="teal"
+                        aria-label="Done"
+                        fontSize="20px"
+                        icon={<AddIcon />}
+                        onClick={() => {
+                            addDisclosure.onOpen();
+                            setCreation(true);
+                        }}
+                    />
+                </Tooltip>
+                <Modal
+                    isOpen={addDisclosure.isOpen}
+                    onClose={() => {
+                        setActiveStep(0);
+                        addDisclosure.onClose();
+                    }}
+                    title={stepsTitles[activeStep]}
+                    onSave={() => {
+                        if (activeStep < stepsTitles.length - 1) {
+                            setActiveStep((prev) => prev + 1);
+                        } else {
+                            submitForm();
+                            addDisclosure.onClose();
+                        }
+                    }}
+                    onBack={() => {
+                        if (activeStep > 0) {
+                            setActiveStep((prev) => prev - 1);
+                        }
+                    }}
+                    avoidCloseOnBack={false}
+                    size="5xl"
+                    saveLabel={stepsActions[activeStep]}
+                    activeStep={activeStep}
+                >
+                    <StyledContentModal>
+                        <GenericStepper steps={steps} activeStep={activeStep} />
+                        {creation ? (
+                            <GuideRoomForm
+                                activeStep={activeStep}
+                                formRef={formRef}
+                            />
+                        ) : (
+                            <EditGuideRoomForm
+                                GuideRoom={editGuideRoom}
+                                activeStep={activeStep}
+                                formRef={formRef}
+                            />
+                        )}
+                    </StyledContentModal>
+                </Modal>
             </ListGuideRoomsContainer>
         );
     }

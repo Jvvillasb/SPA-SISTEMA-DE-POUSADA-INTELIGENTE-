@@ -6,7 +6,6 @@ jest.mock('./../../../axiosConfig');
 const mockedAxiosInstance = axiosInstance as jest.Mocked<typeof axiosInstance>;
 
 describe('listClients', () => {
-
     const filters = {
         excursionType: 1,
         ativo: 'true',

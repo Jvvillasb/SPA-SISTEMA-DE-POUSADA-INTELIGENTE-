@@ -108,7 +108,7 @@ const ListGuidesUsers = () => {
         );
     }
 
-    if (!GuideUsers.length) {
+    if (!GuideUsers.length || GuideUsers.length === 1) {
         return (
             <ListClientsContainer>
                 <EmptyStateSection>
@@ -117,6 +117,64 @@ const ListGuidesUsers = () => {
                         title="Nenhum guia foi encontrado"
                         subtitle="Verifique os valores de busca. Tente novamente."
                     />
+                    <Tooltip hasArrow label="Adicionar Guia">
+                        <IconButton
+                            variant="solid"
+                            colorScheme="teal"
+                            aria-label="Done"
+                            fontSize="20px"
+                            icon={<AddIcon />}
+                            onClick={() => {
+                                fetchExcursionsBySearch();
+                                addDisclosure.onOpen();
+                                setCreation(true);
+                            }}
+                        />
+                    </Tooltip>
+                    <Modal
+                        isOpen={addDisclosure.isOpen}
+                        onClose={() => {
+                            setActiveStep(0);
+                            addDisclosure.onClose();
+                        }}
+                        title={stepsTitles[activeStep]}
+                        onSave={() => {
+                            if (activeStep < stepsTitles.length - 1) {
+                                setActiveStep((prev) => prev + 1);
+                            } else {
+                                submitForm();
+                                addDisclosure.onClose();
+                            }
+                        }}
+                        onBack={() => {
+                            if (activeStep > 0) {
+                                setActiveStep((prev) => prev - 1);
+                            }
+                        }}
+                        avoidCloseOnBack={false}
+                        size="5xl"
+                        saveLabel={stepsActions[activeStep]}
+                        activeStep={activeStep}
+                    >
+                        <StyledContentModal>
+                            <GenericStepper
+                                steps={steps}
+                                activeStep={activeStep}
+                            />
+                            {creation ? (
+                                <GuideUserForm
+                                    activeStep={activeStep}
+                                    formRef={formRef}
+                                />
+                            ) : (
+                                <EditGuideUserForm
+                                    activeStep={activeStep}
+                                    formRef={formRef}
+                                    GuideUser={editGuideUser}
+                                />
+                            )}
+                        </StyledContentModal>
+                    </Modal>
                 </EmptyStateSection>
             </ListClientsContainer>
         );

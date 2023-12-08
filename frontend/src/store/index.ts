@@ -13,10 +13,10 @@ import { BedroomStateType } from './slices/GuideRoom/Bedroom/createBedroomSlice.
 
 interface StoreStateType
     extends ClientStateType,
-    ExcursionStateType,
-    GuideUserStateType,
-    GuideRoomsStateType,
-    BedroomStateType { }
+        ExcursionStateType,
+        GuideUserStateType,
+        GuideRoomsStateType,
+        BedroomStateType {}
 
 const useStore = create<StoreStateType>((...a) => ({
     ...createClientSlice(...a),

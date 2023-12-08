@@ -94,7 +94,7 @@ const ListExcursion: React.FC = () => {
         );
     }
 
-    if (!excursions.length) {
+    if (!excursions.length || excursions.length === 1) {
         return (
             <ListExcursionContainer>
                 <EmptyStateSection>
@@ -104,6 +104,61 @@ const ListExcursion: React.FC = () => {
                         subtitle="Verifique os valores de busca. Tente novamente."
                     />
                 </EmptyStateSection>
+                <Modal
+                    isOpen={addDisclosure.isOpen}
+                    onClose={() => {
+                        setActiveStep(0);
+                        addDisclosure.onClose();
+                    }}
+                    title={stepsTitles[activeStep]}
+                    onSave={() => {
+                        if (activeStep < stepsTitles.length - 1) {
+                            setActiveStep((prev) => prev + 1);
+                        } else {
+                            submitForm();
+                            addDisclosure.onClose();
+                        }
+                    }}
+                    onBack={() => {
+                        if (activeStep > 0) {
+                            setActiveStep((prev) => prev - 1);
+                        }
+                    }}
+                    avoidCloseOnBack={false}
+                    size="5xl"
+                    saveLabel={stepsActions[activeStep]}
+                    activeStep={activeStep}
+                >
+                    <StyledContentModal>
+                        <GenericStepper steps={steps} activeStep={activeStep} />
+                        {creation ? (
+                            <ExcursionForm
+                                activeStep={activeStep}
+                                formRef={formRef}
+                            />
+                        ) : (
+                            <EditExcursionForm
+                                Excursion={editExcursion}
+                                activeStep={activeStep}
+                                formRef={formRef}
+                            />
+                        )}
+                    </StyledContentModal>
+                </Modal>
+                <Tooltip hasArrow label="Adicionar Caravana">
+                    <IconButton
+                        variant="solid"
+                        colorScheme="teal"
+                        aria-label="Done"
+                        fontSize="20px"
+                        icon={<AddIcon />}
+                        onClick={() => {
+                            addDisclosure.onOpen();
+                            fetchGuideUsersBySearch();
+                            setCreation(true);
+                        }}
+                    />
+                </Tooltip>
             </ListExcursionContainer>
         );
     }

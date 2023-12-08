@@ -25,7 +25,7 @@ const Routers = () => {
                 )}
                 {isAuthenticated && (
                     <>
-                        <Route path="/usuarios" element={<ListingClients />} />
+                        <Route path="/hospedes" element={<ListingClients />} />
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/" element={<HomePage />} />
                         <Route
