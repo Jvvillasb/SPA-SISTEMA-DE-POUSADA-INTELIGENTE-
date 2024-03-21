@@ -51,7 +51,6 @@ const LoginForm = ({ setCookie }: Props) => {
                 headers: {
                     Authorization: basicAuth,
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'Access-Control-Allow-Origin': 'http://localhost:5173',
                 },
             })
             .then((response: AxiosResponse) => {
