@@ -61,9 +61,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfig = new CorsConfiguration();
-		corsConfig.addAllowedOrigin("https://sistemadeapousadainteligente.netlify.app",
-        "http://localhost:3000",
-        "http://localhost:5173 ");
+		corsConfig.setAllowedOrigins(Arrays.asList(
+			"https://sistemadeapousadainteligente.netlify.app",
+			"http://localhost:3000",
+			"http://localhost:5173"
+		));
 		corsConfig.addAllowedMethod("*");
 		corsConfig.addAllowedHeader("*");
 		corsConfig.setAllowCredentials(true);
