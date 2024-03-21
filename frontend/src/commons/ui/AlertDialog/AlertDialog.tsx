@@ -6,7 +6,7 @@ import {
     AlertDialogContent,
     AlertDialogOverlay,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button } from '../Button/Button.styles';
 import theme from '../../../theme';
 
@@ -29,7 +29,7 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
     cancelButtonText,
     onConfirm,
 }) => {
-    const cancelRef = React.useRef(null);
+    const cancelRef = useRef<HTMLButtonElement>(null);
 
     return (
         <ChakraAlertDialog
@@ -54,7 +54,12 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
                         >
                             {cancelButtonText}
                         </Button>
-                        <Button colorScheme="red" onClick={onConfirm} ml={3}>
+                        <Button
+                            colorScheme="red"
+                            onClick={onConfirm}
+                            ml={3}
+                            data-testid="confirmButton"
+                        >
                             {confirmButtonText}
                         </Button>
                     </AlertDialogFooter>

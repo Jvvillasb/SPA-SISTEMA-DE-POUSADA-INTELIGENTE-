@@ -1,5 +1,5 @@
 import { Box, Heading, Container, Text, Button, Stack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import theme from '../../theme';
 
 const HomePage = () => {

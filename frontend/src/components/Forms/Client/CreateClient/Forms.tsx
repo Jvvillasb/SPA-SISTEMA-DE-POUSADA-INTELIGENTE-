@@ -9,7 +9,7 @@ import { formatDateToBR } from '../../../../commons/utils/FormatDate';
 import useStore from '../../../../store/index';
 interface ClientFormProps {
     activeStep: number;
-    formRef: React.RefObject<HTMLFormElement>;
+    formRef?: React.RefObject<HTMLFormElement>;
 }
 
 const validateData = (data: Client) => {
@@ -31,7 +31,10 @@ const CreateClientForm: React.FC<ClientFormProps> = ({
         validateData(data);
         data.leito = 1;
         createClient(data);
-        formRef.current?.reset();
+
+        if (formRef) {
+            formRef.current?.reset();
+        }
     };
 
     return (

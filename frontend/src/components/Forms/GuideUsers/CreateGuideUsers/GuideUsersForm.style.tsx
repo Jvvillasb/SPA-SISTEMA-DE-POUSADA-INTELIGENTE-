@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import theme from '../../../../theme';
-import InputMask from 'react-input-mask';
+import MaskedInput from 'react-text-mask';
 import { Input as chakraInput } from '@chakra-ui/react';
 
 const BaseInputsStyle = `
@@ -57,7 +57,7 @@ export const Input = styled(chakraInput)`
     ${BaseInputsStyle};
 `;
 
-export const InputMaskStyled = styled(InputMask)`
+export const InputMaskStyled = styled(MaskedInput)`
     ${BaseInputsStyle};
 `;
 

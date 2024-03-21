@@ -52,10 +52,7 @@ const GuideRoomBedroomRegister: React.FC<
                     {...register('numero')}
                     placeholder="Insira o número do leito"
                 />
-                <Select
-                    {...register('status')}
-                    placeholder="Selecione o status"
-                >
+                <Select {...register('status')}>
                     <option value="disponivel">Disponível</option>
                     <option value="ocupado">Ocupado</option>
                     <option value="interditado">Interditado</option>

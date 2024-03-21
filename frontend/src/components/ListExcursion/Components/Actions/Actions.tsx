@@ -2,22 +2,22 @@ import Pagination from '../../../../commons/ui/Pagination/Pagination';
 import useStore from '../../../../store/index';
 
 const Actions: React.FC = () => {
-    const [pageExcursion, setPageExcursion, totalPages] = useStore((state) => [
-        state.pageExcursion,
-        state.setPageExcursion,
-        state.totalPages,
-    ]);
+    const { page, setPage, totalPages } = useStore((state) => ({
+        page: state.page,
+        setPage: state.setPage,
+        totalPages: state.totalPages,
+    }));
 
     const handlePageChange = (selectedPage: { selected: number }) => {
         const { selected } = selectedPage;
-        setPageExcursion(selected);
+        setPage(selected);
     };
 
     return (
         <Pagination
             pageCount={totalPages}
             onPageChange={handlePageChange}
-            initialPage={pageExcursion}
+            initialPage={page}
         />
     );
 };

@@ -19,11 +19,12 @@ describe('listClients', () => {
                 content: [],
             },
         };
+        const DEFAULT_PAGE_SIZE = 12;
 
         mockedAxiosInstance.get.mockResolvedValue(response);
         const result = await listClients(page, '', filters);
         expect(axiosInstance.get).toHaveBeenCalledWith(
-            `/guest?size=4&page=${page}`
+            `/guest?size=${DEFAULT_PAGE_SIZE}&page=${page}&name=&caravana=${filters.excursionType}&sort=id,desc&ativo=${filters.ativo}`
         );
         expect(result).toEqual(response);
     });

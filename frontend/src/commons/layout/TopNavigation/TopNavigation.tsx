@@ -1,5 +1,5 @@
 import { useCookies } from 'react-cookie';
-
+import { useNavigate } from 'react-router-dom';
 import {
     TopNavigationContainer,
     TopNavigationBrand,
@@ -15,12 +15,14 @@ import {
 
 const TopNavigation = () => {
     const [cookies, , removeCookie] = useCookies(['access_token']);
+    const navigate = useNavigate();
 
     const isAuthenticated = !!cookies.access_token;
 
     const handleLogout = () => {
         removeCookie('access_token');
-        window.location.href = '/login';
+        navigate('/login');
+        console.log(window.location.pathname);
     };
 
     return (
@@ -50,7 +52,7 @@ const TopNavigation = () => {
                 )}
             </TopNavigationList>
             {isAuthenticated ? (
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} data-testid="logout-button">
                     <MdLogout size="24px" color="#798494" />
                 </button>
             ) : null}

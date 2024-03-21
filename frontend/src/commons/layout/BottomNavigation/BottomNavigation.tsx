@@ -15,7 +15,7 @@ import {
 
 const BottomNavigation = () => {
     return (
-        <BottomNavigationContainer>
+        <BottomNavigationContainer data-testid="Bottom-Navigation">
             <BottomNavigationList>
                 <BottomNavigationListItem>
                     <BottomNavigationListLink to="/home">

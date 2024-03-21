@@ -25,7 +25,21 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                 <Label>
                     <span>RG:</span>
                     <InputMaskStyled
-                        mask="99.999.999-*"
+                        mask={[
+                            /\d/,
+                            /\d/,
+                            '.',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '.',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\w/,
+                        ]}
+                        guide={true}
                         {...register('documento')}
                         placeholder="Documento"
                         type="text"
@@ -44,7 +58,25 @@ const PersonalInfoRegister: React.FC<PersonalInfoProps> = ({ register }) => {
                 <Label>
                     <span>Telefone:</span>
                     <InputMaskStyled
-                        mask="(99) 99999-9999"
+                        mask={[
+                            '(',
+                            /[1-9]/,
+                            /\d/,
+                            ')',
+                            ' ',
+                            /\d/,
+                            ' ',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                        ]}
+                        guide={false}
                         {...register('telefone', {
                             required: 'Telefone é obrigatório',
                         })}

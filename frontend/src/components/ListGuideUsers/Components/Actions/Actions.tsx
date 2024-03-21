@@ -2,11 +2,11 @@ import Pagination from '../../../../commons/ui/Pagination/Pagination';
 import useStore from '../../../../store/index';
 
 const Actions: React.FC = () => {
-    const [page, setPage, totalPages] = useStore((state) => [
-        state.pageGuideUser,
-        state.setPageGuideUser,
-        state.totalPages,
-    ]);
+    const { page, setPage, totalPages } = useStore((state) => ({
+        page: state.page,
+        setPage: state.setPage,
+        totalPages: state.totalPages,
+    }));
 
     const handlePageChange = (selectedPage: { selected: number }) => {
         const { selected } = selectedPage;

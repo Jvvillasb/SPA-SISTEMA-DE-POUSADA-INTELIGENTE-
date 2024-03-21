@@ -35,11 +35,23 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                 <Label>
                     <span>RG:</span>
                     <InputMaskStyled
-                        mask="99.999.999-*"
-                        {...register('documento', {
-                            required: 'RG é obrigatório',
-                        })}
-                        value={client.documento}
+                        mask={[
+                            /\d/,
+                            /\d/,
+                            '.',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '.',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                        ]}
+                        guide={false}
+                        {...register('documento')}
+                        placeholder="Documento"
                         type="text"
                     />
                 </Label>
@@ -58,11 +70,29 @@ const EditPersonalInfoRegister: React.FC<EditPersonalInfoProps> = ({
                 <Label>
                     <span>Telefone:</span>
                     <InputMaskStyled
-                        mask="(99) 99999-9999"
+                        mask={[
+                            '(',
+                            /[1-9]/,
+                            /\d/,
+                            ')',
+                            ' ',
+                            /\d/,
+                            ' ',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            '-',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                        ]}
+                        guide={false}
                         {...register('telefone', {
                             required: 'Telefone é obrigatório',
                         })}
-                        defaultValue={client.telefone}
+                        placeholder="Telefone"
                         type="text"
                     />
                 </Label>
