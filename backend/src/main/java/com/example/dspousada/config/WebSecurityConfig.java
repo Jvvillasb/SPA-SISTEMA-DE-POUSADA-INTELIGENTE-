@@ -21,6 +21,9 @@ public class WebSecurityConfig {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 	
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 	    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
@@ -29,6 +32,16 @@ public class WebSecurityConfig {
 	@Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+	@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .cors().configurationSource(corsConfigurationSource).and()
+            .authorizeRequests()
+            .antMatchers("/**").permitAll()
+            .and()
+            .csrf().disable();
     }
 	
 }
